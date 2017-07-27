@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.Insets?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!-- <?import sample.AddInvoiceController?> -->
+
+<?import fxmltableview.*?>
+<?import javafx.scene.control.TextField?>
+
+<GridPane alignment="center" hgap="10.0" prefHeight="675.0" prefWidth="1259.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<padding>
+		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+	</padding>
+
+	<padding>
+		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+	</padding>
+	<children>
+		<TableView id="table" fx:id="tableView" prefHeight="188.0" prefWidth="509.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+			<columns>
+				<TableColumn fx:id="table_item_name" prefWidth="100" text="Item Name">
+					<cellValueFactory>
+						<PropertyValueFactory property="table_item_name" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn fx:id="table_item_id" prefWidth="100" text="Item ID">
+					<cellValueFactory>
+						<PropertyValueFactory property="table_item_id" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn fx:id="table_quantity" prefWidth="200" text="Quantity">
+					<cellValueFactory>
+						<PropertyValueFactory property="table_quantity" />
+					</cellValueFactory>
+				</TableColumn>
+				<TableColumn fx:id="table_price" prefWidth="200" text="Gross Price (Q*P)">
+					<cellValueFactory>
+						<PropertyValueFactory property="table_price" />
+					</cellValueFactory>
+				</TableColumn>
+            <TableColumn fx:id="table_price1" prefWidth="113.0" text="GST (%age)">
+               <cellValueFactory>
+                  <PropertyValueFactory property="table_price" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="table_price11" prefWidth="156.0" text="Total(GP+GST)">
+               <cellValueFactory>
+                  <PropertyValueFactory property="table_price" />
+               </cellValueFactory>
+            </TableColumn>
+			</columns>
+			<items>
+				<FXCollections fx:factory="observableArrayList">
+					
+				</FXCollections>
+			</items>
+		</TableView>
+		<HBox alignment="BOTTOM_LEFT" spacing="10" GridPane.rowIndex="4">
+			<children>
+            <ComboBox id="itemListO" fx:id="itemListO" prefWidth="150.0" promptText="Item Name" />
+				<TextField fx:id="item_id" prefWidth="90" promptText="Item Id" />
+				<ComboBox id="quantity" fx:id="quantity" prefWidth="150" promptText="Quantity" />
+				<TextField fx:id="price" prefWidth="150" promptText="Price" />
+				<TextField fx:id="gst" prefWidth="150" promptText="GST %" />
+				<Button onAction="#handleOnClickAddItem" text="Add Item" />
+				<Button onAction="#handleOnClickDeleteInvoice" text="Delete Item" />
+				<Button alignment="BOTTOM_RIGHT" onAction="#handleOnClickAddInvoice" text="Add Invoice" />
+			</children>
+		</HBox>
+		<AnchorPane prefHeight="365.0" prefWidth="1209.0">
+			<children>
+				<ComboBox id="party_name" fx:id="party_name" layoutX="41.0" layoutY="31.0" prefHeight="37.0" prefWidth="290.0" promptText="Party Name">
+					<items>
+						<FXCollections fx:factory="observableArrayList">
+						</FXCollections>
+					</items>
+				</ComboBox>
+				<TextArea id="party_address" fx:id="party_address" layoutX="657.0" layoutY="31.0" prefHeight="54.0" prefWidth="508.0" />
+      
+      		<Label layoutX="831.0" layoutY="163.0" style="-fx-font: NORMAL 20 Tahoma;" text="Invoice Date:" />
+            <TextArea id="party_address" fx:id="party_address1" layoutX="657.0" layoutY="97.0" prefHeight="54.0" prefWidth="508.0" />
+            <DatePicker id="invoice_date" fx:id="invoice_date" layoutX="964.0" layoutY="162.0" />
+            <Label layoutX="544.0" layoutY="42.0" prefHeight="44.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Address1:" />
+            <Label layoutX="544.0" layoutY="107.0" prefHeight="37.0" prefWidth="115.0" style="-fx-font: NORMAL 20 Tahoma;" text="Address2:" />
+            <Label layoutX="816.0" layoutY="197.0" style="-fx-font: NORMAL 20 Tahoma;" text="Dispatch Date:" />
+            <DatePicker id="dispatch_date" fx:id="dispatch_date" layoutX="965.0" layoutY="197.0" />
+            <Button layoutX="41.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="115.0" text="Back To Home" />
+				<!-- <TextField fx:id="welcomeText" text="home" layoutX="114.0"
+					layoutY="22.0" prefHeight="25.0" prefWidth="258.0" /> -->
+			</children>
+		</AnchorPane>
+      <AnchorPane prefHeight="7.0" prefWidth="1209.0" GridPane.rowIndex="3">
+         <children>
+            <Label layoutX="907.0" layoutY="5.0" style="-fx-font: NORMAL 20 Tahoma;" text="Total :" />
+            <TextField layoutX="978.0" layoutY="3.0" prefHeight="25.0" prefWidth="185.0" />
+         </children>
+      </AnchorPane>
+	</children>
+	<columnConstraints>
+		<ColumnConstraints />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+	</rowConstraints>
+
+</GridPane>

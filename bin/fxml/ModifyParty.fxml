@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+
+<!-- <?import sample.AddPartyController?> -->
+
+<GridPane alignment="TOP_LEFT" hgap="10.0" prefHeight="599.0" prefWidth="689.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<padding>
+		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+	</padding>
+   <children>
+   	<Text fx:id="welcomeText" text="home" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+   	<Label text="Party Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+   	<TextField fx:id="party_name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   	<Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+   	<TextField fx:id="address" prefHeight="86.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   	<Label text="State:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+   	<TextField fx:id="state" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+   	<Label text="GSTin:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+   	<TextField fx:id="gstin" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+   	<Label text="Tin Number:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+   	<TextField fx:id="tin_no" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+   	<Label text="Transport:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+   	<TextField fx:id="transport" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />	
+   	<Label text="Phone 1:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+   	<TextField fx:id="phone1" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+   	<Label text="Phone 2:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+   	<TextField fx:id="phone2" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+   	<Label text="Email 1:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+   	<TextField fx:id="email1" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+   	<Label text="Email 2:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+   	<TextField fx:id="email2" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="10" />	
+   	<Label text="Party ID:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+   	<TextField fx:id="party_id" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="11" />	
+   	<Label text="Address 2:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+   	<TextField fx:id="address1" prefHeight="86.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+   		
+   	<HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
+      <children>
+      		<Button onAction="#handleUpdateParty" text="Update Party" />
+      </children>
+   	</HBox>
+      <Button mnemonicParsing="false" onAction="#handleBackToHome" text="Back To Home" />
+   </children>
+	<padding>
+		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+	</padding>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
