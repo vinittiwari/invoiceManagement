@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -38,16 +39,17 @@ public class AddInvoiceController {
 	private Parent parent;
 	private Scene scene;
 	private Stage stage;
-	
-	String singleItemPrice;
+	String currentgst = null;
 	// @FXML
 	// private Text welcomeText;
+	int isSelectedFreeItem = 0;
+	String singleItemPrice;
 	@FXML
 	private ComboBox itemListO, quantity, party_name;
 	String selectedParty_id;
 	private HomeController homeController;
 	@FXML
-	private javafx.scene.control.TextField item_name,item_id, price;
+	private javafx.scene.control.TextField item_id, price,gst,item_total,invoice_total;	
 	@FXML
 	private TextArea party_address,party_address1;
 	private ObservableList<InvoiceEntry> data = FXCollections.observableArrayList();
@@ -72,6 +74,12 @@ public class AddInvoiceController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		gst.setEditable(false);
+		item_total.setEditable(false);
+		price.setEditable(false);
+		item_id.setEditable(false);
+		item_total.setEditable(false);
+		invoice_total.setEditable(false); 
 		Connection c;
 		int rowcount = 0;
 		try {
@@ -103,19 +111,25 @@ public class AddInvoiceController {
 		}
 
 		quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if(newValue != null){
 				int IntnewValue = Integer.parseInt(newValue);
 				int IntsingleItemPrice = Integer.parseInt(singleItemPrice);
 				price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
-			}
+				float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue);
+				//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+				item_total.setText(String.valueOf(quantity_item_picetotal));
+				}}
 		});
+		
+	
 
 		itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				System.out.println("Value is: " + newValue);
+				if(newValue != null){
 				try {
 					Connection c1;
 					c1 = DBConnectFlogger.connect();
@@ -131,6 +145,7 @@ public class AddInvoiceController {
 						if (rs.first()) {
 							current = rs.getString("item_id");
 							currentprice = rs.getString("price");
+							currentgst = rs.getString("rate");
 						}
 					}
 					for (int i = 1; i <= 100; i++) {
@@ -144,11 +159,15 @@ public class AddInvoiceController {
 					price.setText(currentprice);
 					quantity.getItems().addAll(observableListOfQuantity);
 					quantity.getSelectionModel().selectFirst();
+					float item_picetotal =(Integer.parseInt(currentprice) * (Float.parseFloat(currentgst)/100)) + Integer.parseInt(currentprice);
+					System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+					item_total.setText(String.valueOf(item_picetotal));
+ 					gst.setText(currentgst + "%");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+				}}
 		});
 
 		Connection c3;
@@ -243,12 +262,43 @@ public class AddInvoiceController {
 		word.setTable_item_name(itemListO.getItems().get(itemListO.getSelectionModel().getSelectedIndex()).toString());
 		word.setTable_quantity(quantity.getItems().get(quantity.getSelectionModel().getSelectedIndex()).toString());
 		word.setTable_price(price.getText());
+		word.setTable_gst(gst.getText());
+		word.setTable_total(item_total.getText());
 		data.add(word);
 		tableView.setItems(data);
-		itemListO.getSelectionModel().clearSelection();
 		item_id.clear();
-		item_name.clear();
+		price.clear();
+		gst.clear();
+		item_total.clear();
+		itemListO.getSelectionModel().clearSelection();
 		quantity.getSelectionModel().clearSelection();
+		
+		//ObservableList subentries = FXCollections.observableArrayList();
+		List<Float> item_priceTotal = new ArrayList<>();
+        long count = tableView.getColumns().stream().count();
+        for (int i = 0; i < tableView.getItems().size(); i++) {
+            //for (int j = 0; j < count; j++) {
+            	String entry = "" + getTableColumnByName(tableView,"Total(GP+GST)").getCellData(i);
+            	System.out.println(entry);
+            	item_priceTotal.add(Float.parseFloat(entry));
+            	invoice_total.setText(String.valueOf(sum(item_priceTotal)));
+            //}
+        }
+	}
+	
+	public float sum(List<Float> list) {
+	     float sum = 0; 
+
+	     for (float i : list)
+	         sum = sum + i;
+
+	     return sum;
+	}
+	
+	private <T> TableColumn<T, ?> getTableColumnByName(TableView<T> tableView, String name) {
+	    for (TableColumn<T, ?> col : tableView.getColumns())
+	        if (col.getText().equals(name)) return col ;
+	    return null ;
 	}
 
 	@FXML
@@ -312,6 +362,23 @@ public class AddInvoiceController {
         homeController.redirectHome(stage, "");
 	}
 	
-	
+	@FXML
+	protected void OnfreeItemClick(ActionEvent event) throws SQLException {
+		InvoiceEntry word = new InvoiceEntry();
+		word.setTable_item_id(item_id.getText());
+		word.setTable_item_name(itemListO.getItems().get(itemListO.getSelectionModel().getSelectedIndex()).toString());
+		word.setTable_quantity(quantity.getItems().get(quantity.getSelectionModel().getSelectedIndex()).toString());
+		word.setTable_price(String.valueOf(0));
+		word.setTable_gst(String.valueOf(0));
+		word.setTable_total(String.valueOf(0));
+		data.add(word);
+		tableView.setItems(data);
+		item_id.clear();
+		price.clear();
+		gst.clear();
+		item_total.clear();
+		itemListO.getSelectionModel().clearSelection();
+		quantity.getSelectionModel().clearSelection();
+	}
 
 }

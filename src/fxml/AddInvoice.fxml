@@ -46,14 +46,14 @@
 						<PropertyValueFactory property="table_price" />
 					</cellValueFactory>
 				</TableColumn>
-            <TableColumn fx:id="table_price1" prefWidth="113.0" text="GST (%age)">
+            <TableColumn fx:id="table_gst" prefWidth="113.0" text="GST (%age)">
                <cellValueFactory>
-                  <PropertyValueFactory property="table_price" />
+                  <PropertyValueFactory property="table_gst" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="table_price11" prefWidth="156.0" text="Total(GP+GST)">
+            <TableColumn fx:id="table_total" prefWidth="156.0" text="Total(GP+GST)">
                <cellValueFactory>
-                  <PropertyValueFactory property="table_price" />
+                  <PropertyValueFactory property="table_total" />
                </cellValueFactory>
             </TableColumn>
 			</columns>
@@ -69,8 +69,10 @@
 				<TextField fx:id="item_id" prefWidth="90" promptText="Item Id" />
 				<ComboBox id="quantity" fx:id="quantity" prefWidth="150" promptText="Quantity" />
 				<TextField fx:id="price" prefWidth="150" promptText="Price" />
-				<TextField fx:id="gst" prefWidth="150" promptText="GST %" />
+				<TextField fx:id="gst" prefHeight="25.0" prefWidth="74.0" promptText="GST %" />
+            <TextField fx:id="item_total" prefHeight="25.0" prefWidth="116.0" promptText="Item Total" />
 				<Button onAction="#handleOnClickAddItem" text="Add Item" />
+            <Button fx:id="free_item_check" onAction="#OnfreeItemClick" text="Free Item" />
 				<Button onAction="#handleOnClickDeleteInvoice" text="Delete Item" />
 				<Button alignment="BOTTOM_RIGHT" onAction="#handleOnClickAddInvoice" text="Add Invoice" />
 			</children>
@@ -100,7 +102,7 @@
       <AnchorPane prefHeight="41.0" prefWidth="1209.0" GridPane.rowIndex="3">
          <children>
             <Label layoutX="907.0" layoutY="5.0" style="-fx-font: NORMAL 20 Tahoma;" text="Total :" />
-            <TextField layoutX="978.0" layoutY="3.0" prefHeight="25.0" prefWidth="185.0" />
+            <TextField fx:id="invoice_total" layoutX="978.0" layoutY="3.0" prefHeight="25.0" prefWidth="185.0" />
          </children>
       </AnchorPane>
 	</children>
