@@ -44,12 +44,13 @@ public class AddInvoiceController {
 	// private Text welcomeText;
 	int isSelectedFreeItem = 0;
 	String singleItemPrice;
+	String party_state;
 	@FXML
 	private ComboBox itemListO, quantity, party_name;
 	String selectedParty_id;
 	private HomeController homeController;
 	@FXML
-	private javafx.scene.control.TextField item_id, price,gst,item_total,invoice_total;	
+	private javafx.scene.control.TextField item_id, price,gst,item_total,invoice_total,party_state_slt;	
 	@FXML
 	private TextArea party_address,party_address1;
 	private ObservableList<InvoiceEntry> data = FXCollections.observableArrayList();
@@ -221,13 +222,14 @@ public class AddInvoiceController {
 							current = rs.getString("address");
 							current1 = rs.getString("address1");
 							current2 = rs.getString("party_id");
+							party_state = rs.getString("state");
 						}
 					}
 					System.out.println("---->" + current);
 					party_address.setText(current);
 					party_address1.setText(current1);
 					selectedParty_id = current2;
-					
+					party_state_slt.setText(party_state);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -321,7 +323,7 @@ public class AddInvoiceController {
 		int invoice_number=122321;
 		Connection c2;
 		c2 = DBConnectFlogger.connect();
-		String SQL = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,address1,party_id) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ invoice_number +",\"" + dispatch_invoice_date +"\",\""+ address+"\",\""+ address1+"\",\"" + party_id_db + "\")";
+		String SQL = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,address1,party_id,invoice_total) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ invoice_number +",\"" + dispatch_invoice_date +"\",\""+ address+"\",\""+ address1+"\",\"" + party_id_db + "\"," + invoice_total.getText() +")";
 		System.out.println("---> query" + SQL);
 		int rs = c2.createStatement().executeUpdate(SQL);
 		System.out.println("Has added party" + rs);
@@ -349,6 +351,8 @@ public class AddInvoiceController {
 			ItemJson.put("item_name", tableView.getItems().get(i).getTable_item_name());
 			ItemJson.put("item_quantity", tableView.getItems().get(i).getTable_quantity());
 			ItemJson.put("item_total_price", tableView.getItems().get(i).getTable_price());
+			ItemJson.put("item_gst", tableView.getItems().get(i).getTable_gst());
+			ItemJson.put("item_total", tableView.getItems().get(i).getTable_total());
 			ItemArray.put(ItemJson);
 		}
 		String JsonItem = ItemArray.toString().replace("\"", "\\\"");

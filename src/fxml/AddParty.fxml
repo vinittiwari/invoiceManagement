@@ -22,12 +22,10 @@
    	<Label text="Party Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
    	<TextField fx:id="party_name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    	<Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-   	<TextField fx:id="address" prefHeight="86.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-   	<Label text="State:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-   	<TextField fx:id="state" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-   	<Label text="GSTin:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-   	<TextField fx:id="gstin" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-   	<Label text="Tin Number:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+   	<TextField fx:id="address" prefHeight="49.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   	<Label text="State:" GridPane.rowIndex="3" />
+   	<Label text="GSTin:" GridPane.rowIndex="4" />
+   	<Label text="Tin Number:" GridPane.rowIndex="5" />
    	<TextField fx:id="tin_no" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    	<Label text="Transport:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
    	<TextField fx:id="transport" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />	
@@ -42,12 +40,16 @@
    	<Label text="Party ID:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
    	<TextField fx:id="party_id" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="11" />	
    		
-   	<HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+   	<HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
       <children>
       		<Button onAction="#handleAddParty" text="Add Party" />
       </children>
    	</HBox>
-      <Button onAction="#handleBackToHome"  mnemonicParsing="false" text="Back To Home" />
+      <Button mnemonicParsing="false" onAction="#handleBackToHome" text="Back To Home" />
+      <ComboBox fx:id="state" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="gstin" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label text="Address 2:" GridPane.rowIndex="12" />
+      <TextField fx:id="address2" prefHeight="46.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
    </children>
 	<padding>
 		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
@@ -58,6 +60,7 @@
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />

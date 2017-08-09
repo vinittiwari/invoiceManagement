@@ -37,10 +37,14 @@
    		
    	<HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
       <children>
-      		<Button onAction="#handleAddItem" text="Add Item" />
+      		<Button fx:id="addItemSubmit" onAction="#handleAddItem" text="Add Item" />
       </children>
    	</HBox>
       <Button mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="99.0" text="Back To Home" />
+      <Label text="Rate" GridPane.rowIndex="8" />
+      <Label text="Create Date" GridPane.rowIndex="9" />
+      <TextField fx:id="rate" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <DatePicker fx:id="created_date" GridPane.columnIndex="1" GridPane.rowIndex="9" />
    </children>
 	<padding>
 		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
@@ -51,6 +55,8 @@
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />

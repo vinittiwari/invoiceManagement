@@ -1,21 +1,26 @@
 package sample;
 
-import javafx.collections.FXCollections;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mtechproject.samples.DBConnectFlogger;
 import util.ShowAlert;
-import javafx.scene.control.TextField;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class AddItemController {
     private Parent parent;
@@ -23,10 +28,13 @@ public class AddItemController {
     private Stage stage;
     private HomeController homeController;
     @FXML
+	private DatePicker created_date;
+    @FXML
     private Text welcomeText;
     @FXML
-    private TextField item_name,item_id,price,status,gms,item_code,unit;
-    
+    private TextField item_name,item_id,price,status,gms,item_code,unit,rate;
+    @FXML
+    private Button addItemSubmit;
 
     public AddItemController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddItem.fxml"));
@@ -37,6 +45,26 @@ public class AddItemController {
         } catch (IOException e) { 
             e.printStackTrace();
         }
+        LocalDate currentDate = LocalDate.now();
+        created_date.setValue(currentDate);
+        
+        /*addItemSubmit.disableProperty().bind(
+        		item_name.textProperty().isEmpty()
+        		.or(item_id.textProperty().isEmpty())
+        		.or(price.textProperty().isEmpty())
+        		.or(status.textProperty().isEmpty())
+        		.or(gms.textProperty().isEmpty())
+        		.or(item_code.textProperty().isEmpty())
+        		.or(unit.textProperty().isEmpty())        		
+        	    .or(rate.textProperty().isEmpty()));*/
+        	    //[^\\s*$]
+        addItemSubmit.disableProperty().bind(item_name.textProperty().isEmpty());
+        
+        item_name.textProperty().addListener((observable, oldValue, newValue) -> {
+        	if(newValue != null){
+        		addItemSubmit.disableProperty().bind(ValidationCheck(newValue,"^[a-zA-Z\\s]{2,29}$"));
+        	}
+        });
     }
 
 
@@ -48,24 +76,27 @@ public class AddItemController {
         stage.hide();
         stage.show();
         //stage.setFullScreen(true);
+        
     }
     
     @FXML
     protected void handleAddItem(ActionEvent event) {
+    	LocalDate date_invoice = created_date.getValue();
     	Connection c;
-    	
         int rowcount = 0;
         int rs = 0;
         try{  
 	         c = DBConnectFlogger.connect();  
-	         String SQL = "INSERT INTO item (item_name,item_id,price,item_code,unit,status,gms) VALUES(\""
+	         String SQL = "INSERT INTO item (item_name,item_id,price,item_code,unit,status,gms,create_date,rate) VALUES(\""
 	          + item_name.getText() 
 	          + "\",\"" + item_id.getText() 
 	          + "\",\"" + price.getText() 
 	          + "\",\"" + item_code.getText() 
 	          + "\",\"" + unit.getText() 
 	          + "\",\"" + status.getText() 
-	          + "\",\"" + gms.getText() 
+	          + "\",\"" + gms.getText()
+	          + "\",\"" + date_invoice
+	          + "\",\"" + rate.getText()
 	          + "\")";
 	         System.out.println("Has added party SQL" + SQL);
 	         rs = c.createStatement().executeUpdate(SQL);
@@ -85,5 +116,24 @@ public class AddItemController {
 		homeController = new HomeController();
         homeController.redirectHome(stage, "");
 	}
+    
+    public BooleanBinding ValidationCheck(String Value, String pattern){
+    	        // Create a Pattern object
+        Pattern r = Pattern.compile(pattern);
+        // Now create matcher object.
+        Matcher m = r.matcher(Value);
+        BooleanBinding item_name_ck = new BooleanBinding() {
+    		@Override
+    		protected boolean computeValue() {
+    			// TODO Auto-generated method stub
+    			if (m.find( )) {
+    	        	return false;
+    	        }else {
+    	        	return true;
+    	        }
+    		}
+    	};
+    	return item_name_ck;
+    }
     
 }

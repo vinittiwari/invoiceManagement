@@ -50,7 +50,7 @@ public class ModifyInvoiceController {
    // @FXML
     //private Text welcomeText;
     @FXML
-    private TextField item_name,item_id,price,invoicenumber,party_name;
+    private TextField item_name,item_id,price,invoicenumber,party_name,gst,item_total;
     @FXML
 	private DatePicker invoice_date,dispatch_date;
 	@FXML
@@ -263,6 +263,24 @@ public class ModifyInvoiceController {
 		InvoiceEntry selectedItem = tableView.getSelectionModel().getSelectedItem();
 		tableView.getItems().remove(selectedItem);
 		tableView.getSelectionModel().clearSelection();
+	}
+	@FXML
+	protected void OnfreeItemClick(ActionEvent event) throws SQLException {
+		InvoiceEntry word = new InvoiceEntry();
+		word.setTable_item_id(item_id.getText());
+		word.setTable_item_name(itemListO.getItems().get(itemListO.getSelectionModel().getSelectedIndex()).toString());
+		word.setTable_quantity(quantity.getItems().get(quantity.getSelectionModel().getSelectedIndex()).toString());
+		word.setTable_price(String.valueOf(0));
+		word.setTable_gst(String.valueOf(0));
+		word.setTable_total(String.valueOf(0));
+		data.add(word);
+		tableView.setItems(data);
+		item_id.clear();
+		price.clear();
+		gst.clear();
+		item_total.clear();
+		itemListO.getSelectionModel().clearSelection();
+		quantity.getSelectionModel().clearSelection();
 	}
     
 }

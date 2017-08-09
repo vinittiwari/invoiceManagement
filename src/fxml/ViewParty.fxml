@@ -9,10 +9,10 @@
    <children>
       <BorderPane layoutX="-64.0" layoutY="-108.0" prefHeight="200.0" prefWidth="200.0" />
       <TableView fx:id="Viewtable" layoutX="31.0" layoutY="125.0" prefHeight="380.0" prefWidth="928.0" />
-      <Label fx:id="welcomeText" layoutX="146.0" layoutY="84.0" prefHeight="17.0" prefWidth="263.0" text="Label" />
-      <Button layoutX="136.0" layoutY="534.0" mnemonicParsing="false" onAction="#handleModifyParty" prefHeight="25.0" prefWidth="88.0" text="Modify Party" />
+      <Label fx:id="welcomeText" layoutX="184.0" layoutY="84.0" prefHeight="17.0" prefWidth="263.0" text="Label" />
+      <Button layoutX="136.0" layoutY="534.0" mnemonicParsing="false" onAction="#handleModifyParty" prefHeight="25.0" prefWidth="103.0" text="Modify Party" />
       <Button layoutX="288.0" layoutY="534.0" mnemonicParsing="false" onAction="#handleDeleteParty" prefHeight="25.0" prefWidth="103.0" text="Delete Party" />
-      <Button layoutX="28.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="94.0" text="Back To Home" />
+      <Button layoutX="28.0" layoutY="79.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="124.0" text="Back To Home" />
       <TextField fx:id="search" layoutX="484.0" layoutY="80.0" promptText="Search" />
       <ComboBox fx:id="searchby" layoutX="699.0" layoutY="80.0" prefWidth="150.0" promptText="Search by;" />
    </children>
