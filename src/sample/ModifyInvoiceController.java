@@ -110,6 +110,8 @@ public class ModifyInvoiceController {
 			word.setTable_item_name((String) perItem.get("item_name"));
 			word.setTable_quantity((String) perItem.get("item_quantity"));
 			word.setTable_price((String) perItem.get("item_total_price"));
+			word.setTable_gst((String) perItem.get("item_gst"));
+			word.setTable_total((String) perItem.get("item_total"));
 			data.add(word);
 		}
 		tableView.setItems(data);
