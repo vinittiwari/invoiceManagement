@@ -36,22 +36,44 @@
 						<PropertyValueFactory property="table_item_id" />
 					</cellValueFactory>
 				</TableColumn>
-				<TableColumn fx:id="table_quantity" prefWidth="200" text="Quantity">
+				<TableColumn fx:id="table_quantity" prefWidth="125" text="Quantity">
 					<cellValueFactory>
 						<PropertyValueFactory property="table_quantity" />
 					</cellValueFactory>
 				</TableColumn>
-				<TableColumn fx:id="table_price" prefWidth="200" text="Gross Price (Q*P)">
+				<TableColumn fx:id="table_price" prefWidth="125" text="Price (Q*P)">
 					<cellValueFactory>
 						<PropertyValueFactory property="table_price" />
 					</cellValueFactory>
 				</TableColumn>
-            <TableColumn fx:id="table_gst" prefWidth="113.0" text="GST (%age)">
+            <TableColumn fx:id="table_gst" prefWidth="113.0" text="CGST (%age)">
+	            <columns>
+	                <TableColumn prefWidth="75" text="Rate" />
+	                <TableColumn prefWidth="75" text="Amount" />
+	            </columns>
                <cellValueFactory>
                   <PropertyValueFactory property="table_gst" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="table_total" prefWidth="156.0" text="Total(GP+GST)">
+            <TableColumn fx:id="table_sgst" prefWidth="156.0" text="SGST (%age)">
+               <columns>
+	                <TableColumn prefWidth="75" text="Rate" />
+	                <TableColumn prefWidth="75" text="Amount" />
+	            </columns>
+               <cellValueFactory>
+                  <PropertyValueFactory property="table_total" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="table_cess" prefWidth="156.0" text="Cess (%age)">
+            <columns>
+	                <TableColumn prefWidth="75" text="Rate" />
+	                <TableColumn prefWidth="75" text="Amount" />
+	            </columns>
+               <cellValueFactory>
+                  <PropertyValueFactory property="table_total" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="table_total" prefWidth="156.0" text="Total(AP+GST)">
                <cellValueFactory>
                   <PropertyValueFactory property="table_total" />
                </cellValueFactory>
@@ -59,7 +81,6 @@
 			</columns>
 			<items>
 				<FXCollections fx:factory="observableArrayList">
-					
 				</FXCollections>
 			</items>
 		</TableView>
@@ -99,6 +120,15 @@
             <TextField fx:id="party_state_slt" layoutX="115.0" layoutY="116.0" promptText="" />
             <Label layoutX="659.0" layoutY="2.0" prefHeight="2.0" prefWidth="171.0" style="-fx-font: NORMAL 20 Tahoma;" text="Invoice Number" />
             <TextField fx:id="invoicenumber" layoutX="839.0" layoutY="3.0" promptText="" />
+            <ComboBox id="party_name" fx:id="party_name1" layoutX="44.0" layoutY="225.0" prefHeight="37.0" prefWidth="290.0" promptText="Transporter Name">
+               <items>
+                  <FXCollections fx:factory="observableArrayList" />
+               </items>
+            </ComboBox>
+            <TextField fx:id="party_state_slt1" layoutX="149.0" layoutY="287.0" promptText="" />
+            <Label layoutX="47.0" layoutY="287.0" prefHeight="25.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Vehical:" />
+            <Label layoutX="541.0" layoutY="247.0" prefHeight="25.0" prefWidth="115.0" style="-fx-font: NORMAL 20 Tahoma;" text="Mobile no.:" />
+            <TextField fx:id="party_state_slt11" layoutX="666.0" layoutY="248.0" prefHeight="25.0" prefWidth="185.0" promptText="" />
 				<!-- <TextField fx:id="welcomeText" text="home" layoutX="114.0"
 					layoutY="22.0" prefHeight="25.0" prefWidth="258.0" /> -->
 			</children>
