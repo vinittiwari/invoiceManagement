@@ -280,7 +280,7 @@ public class AddInvoiceController {
         long count = tableView.getColumns().stream().count();
         for (int i = 0; i < tableView.getItems().size(); i++) {
             //for (int j = 0; j < count; j++) {
-            	String entry = "" + getTableColumnByName(tableView,"Total(GP+GST)").getCellData(i);
+            	String entry = "" + getTableColumnByName(tableView,"Total(AP+GST)").getCellData(i);
             	System.out.println(entry);
             	item_priceTotal.add(Float.parseFloat(entry));
             	invoice_total.setText(String.valueOf(sum(item_priceTotal)));

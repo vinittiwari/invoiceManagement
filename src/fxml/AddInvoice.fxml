@@ -46,28 +46,49 @@
 						<PropertyValueFactory property="table_price" />
 					</cellValueFactory>
 				</TableColumn>
-            <TableColumn fx:id="table_gst" prefWidth="113.0" text="CGST (%age)">
+            <TableColumn  prefWidth="113.0" text="CGST (%age)">
 	            <columns>
-	                <TableColumn prefWidth="75" text="Rate" />
-	                <TableColumn prefWidth="75" text="Amount" />
+	                <TableColumn prefWidth="75" text="Rate">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_gst" />
+              		</cellValueFactory>
+	                </TableColumn>
+	                <TableColumn  prefWidth="75" text="Amount">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_gst_amount" />
+              		</cellValueFactory>
+	                </TableColumn>
 	            </columns>
-               <cellValueFactory>
-                  <PropertyValueFactory property="table_gst" />
-               </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="table_sgst" prefWidth="156.0" text="SGST (%age)">
+            <TableColumn prefWidth="156.0" text="SGST (%age)">
                <columns>
-	                <TableColumn prefWidth="75" text="Rate" />
-	                <TableColumn prefWidth="75" text="Amount" />
+	                <TableColumn prefWidth="75" text="Rate">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_sgst" />
+              		</cellValueFactory>
+	                </TableColumn>
+	                <TableColumn prefWidth="75" text="Amount">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_sgst_amount" />
+              		</cellValueFactory>
+	                </TableColumn>
 	            </columns>
                <cellValueFactory>
                   <PropertyValueFactory property="table_total" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="table_cess" prefWidth="156.0" text="Cess (%age)">
+            <TableColumn  prefWidth="156.0" text="Cess (%age)">
             <columns>
-	                <TableColumn prefWidth="75" text="Rate" />
-	                <TableColumn prefWidth="75" text="Amount" />
+	                <TableColumn prefWidth="75" text="Rate">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_cess" />
+              		</cellValueFactory>
+	                </TableColumn>
+	                <TableColumn prefWidth="75" text="Amount">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_cess_amount" />
+              		</cellValueFactory>
+	                </TableColumn>
 	            </columns>
                <cellValueFactory>
                   <PropertyValueFactory property="table_total" />

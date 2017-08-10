@@ -17,7 +17,8 @@ public class InvoiceEntry {
 	
 	private StringProperty table_total = new SimpleStringProperty();
 
-	
+	private StringProperty table_cgst = new SimpleStringProperty();
+
 
 	public void setTable_item_name(String table_item_name) {
 		table_item_nameProperty().set(table_item_name);
