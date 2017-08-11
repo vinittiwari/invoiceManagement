@@ -45,6 +45,7 @@ public class AddInvoiceController {
 	int isSelectedFreeItem = 0;
 	String singleItemPrice;
 	String party_state;
+	String userstate;
 	@FXML
 	private ComboBox itemListO, quantity, party_name;
 	String selectedParty_id;
@@ -81,6 +82,8 @@ public class AddInvoiceController {
 		item_id.setEditable(false);
 		item_total.setEditable(false);
 		invoice_total.setEditable(false); 
+		userstate = Constants.getState();
+		System.out.println("userstate " + userstate);
 		Connection c;
 		int rowcount = 0;
 		try {
