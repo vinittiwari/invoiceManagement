@@ -73,9 +73,20 @@
               		</cellValueFactory>
 	                </TableColumn>
 	            </columns>
-               <cellValueFactory>
-                  <PropertyValueFactory property="table_total" />
-               </cellValueFactory>
+            </TableColumn>
+             <TableColumn prefWidth="156.0" text="IGST (%age)">
+               <columns>
+	                <TableColumn prefWidth="75" text="Rate">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_igst" />
+              		</cellValueFactory>
+	                </TableColumn>
+	                <TableColumn prefWidth="75" text="Amount">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_igst_amount" />
+              		</cellValueFactory>
+	                </TableColumn>
+	            </columns>
             </TableColumn>
             <TableColumn  prefWidth="156.0" text="Cess (%age)">
             <columns>

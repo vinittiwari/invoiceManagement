@@ -41,7 +41,7 @@ public class HomeController {
     }
 
 
-    private void getStateCode() {
+    /*private void getStateCode() {
     	Connection c ;
         int rowcount = 0;  
         try{  
@@ -63,11 +63,11 @@ public class HomeController {
         }catch (Exception e) {
 			// TODO: handle exception
 		}
-	}
+	}*/
 
 
 	public void redirectHome(Stage stage, String name) {
-		 getStateCode();
+		//getStateCode();
     	this.stage = stage;
         stage.setTitle("Home");
         stage.setScene(scene);

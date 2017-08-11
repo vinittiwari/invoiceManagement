@@ -1,16 +1,16 @@
 package util;
 
 public class Constants {
-	Constants(String Username,String state){
+	Constants(String Username,int state){
 		this.Username = Username;
 		this.state= state;
 	}
 	 static String Username;
-	 static String state;
-	public static String getState() {
+	 static int state = 28;
+	public static int getState() {
 		return state;
 	}
-	public static void setState(String state) {
+	public static void setState(int state) {
 		Constants.state = state;
 	}
 	public static void setUsername(String username) {

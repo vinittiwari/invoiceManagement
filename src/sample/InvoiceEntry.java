@@ -17,7 +17,23 @@ public class InvoiceEntry {
 	
 	private StringProperty table_total = new SimpleStringProperty();
 
+	private StringProperty table_gst_amount = new SimpleStringProperty();
+	
 	private StringProperty table_cgst = new SimpleStringProperty();
+	
+	private StringProperty table_cgst_amount = new SimpleStringProperty();
+	
+	private StringProperty table_sgst = new SimpleStringProperty();
+	
+	private StringProperty table_sgst_amount = new SimpleStringProperty();
+	
+	private StringProperty table_igst = new SimpleStringProperty();
+	
+	private StringProperty table_igst_amount = new SimpleStringProperty();
+
+	private StringProperty table_cess = new SimpleStringProperty();
+	
+	private StringProperty table_cess_amount = new SimpleStringProperty();
 
 
 	public void setTable_item_name(String table_item_name) {
@@ -44,6 +60,45 @@ public class InvoiceEntry {
 	public void setTable_total(String table_total) {
 		table_totalProperty().set(table_total);
 	}
+	
+	public void setTable_gst_amount(String table_gst_amount) {
+		table_gstAmountProperty().set(table_gst_amount);
+	}
+	
+	public void setTable_cgst(String table_cgst) {
+		table_cgstProperty().set(table_cgst);
+	}
+	
+	public void setTable_cgst_amount(String table_cgst_amount) {
+		table_cgstProperty().set(table_cgst_amount);
+	}
+	
+	public void setTable_sgst(String table_sgst) {
+		table_sgstProperty().set(table_sgst);
+	}
+	
+	public void setTable_sgst_amount(String table_sgst_amount) {
+		table_sgstAmountProperty().set(table_sgst_amount);
+	}
+	
+	public void setTable_igst(String table_igst) {
+		table_igstProperty().set(table_igst);
+	}
+	
+	public void setTable_igst_amount(String table_igst_amount) {
+		table_igstAmountProperty().set(table_igst_amount);
+	}
+	
+
+	public void setTable_cess(String table_cess) {
+		table_cessProperty().set(table_cess);
+	}
+	
+	public void setTable_cess_amount(String table_cess_amount) {
+		table_cessAmountProperty().set(table_cess_amount);
+	}
+	
+	
 
 	
 	public final String getTable_item_id() {
@@ -66,9 +121,44 @@ public class InvoiceEntry {
         return table_gstProperty().get();
     }
 	
-
 	public final String getTable_total() {
         return table_totalProperty().get();
+    }
+	
+	public final String getTable_gst_amount() {
+        return table_gstAmountProperty().get();
+    }
+	
+	public final String getTable_cgst() {
+        return table_cgstProperty().get();
+    }
+	
+	public final String getTable_cgst_amount() {
+        return table_cgstAmountProperty().get();
+    }
+	
+	public final String getTable_sgst() {
+        return table_sgstProperty().get();
+    }
+	
+	public final String getTable_sgst_amount() {
+        return table_sgstAmountProperty().get();
+    }
+	
+	public final String getTable_igst() {
+        return table_igstProperty().get();
+    }
+	
+	public final String getTable_igst_amount() {
+        return table_igstAmountProperty().get();
+    }
+	
+	public final String getTable_cess() {
+        return table_cessProperty().get();
+    }
+	
+	public final String getTable_cess_amount() {
+        return table_cessAmountProperty().get();
     }
 	
 	public StringProperty table_priceProperty() {
@@ -93,6 +183,42 @@ public class InvoiceEntry {
 	
 	public StringProperty table_totalProperty() {
         return table_total ;
+    }
+	
+	public StringProperty table_gstAmountProperty() {
+        return table_gst_amount ;
+    }
+	
+	public StringProperty table_cgstProperty() {
+        return table_cgst ;
+    }
+	
+	public StringProperty table_cgstAmountProperty() {
+        return table_cgst_amount ;
+    }
+	
+	public StringProperty table_sgstProperty() {
+        return table_sgst ;
+    }
+	
+	public StringProperty table_sgstAmountProperty() {
+        return table_sgst_amount ;
+    }
+	
+	public StringProperty table_igstProperty() {
+        return table_igst ;
+    }
+	
+	public StringProperty table_igstAmountProperty() {
+        return table_igst_amount ;
+    }
+	
+	public StringProperty table_cessProperty() {
+        return table_cess ;
+    }
+	
+	public StringProperty table_cessAmountProperty() {
+        return table_cess_amount ;
     }
 
 
