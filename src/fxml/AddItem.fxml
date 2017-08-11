@@ -21,18 +21,14 @@
    	<Text fx:id="welcomeText" text="home" GridPane.columnIndex="1" GridPane.columnSpan="2" />
    	<Label text="Item Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
    	<TextField fx:id="item_name" prefHeight="25.0" prefWidth="274.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-   	<Label text="Item Id" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-   	<TextField fx:id="item_id" prefHeight="24.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-   	<Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-   	<TextField fx:id="price" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-   	<Label text="Item Code" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-   	<TextField fx:id="item_code" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-   	<Label text="Status" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-   	<TextField fx:id="status" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-   	<Label text="Unit" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-   	<TextField fx:id="unit" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-   	<Label text="GMS" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-   	<TextField fx:id="gms" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+   	<Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+   	<TextField fx:id="price" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   	<Label text="Item Code" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+   	<TextField fx:id="item_code" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+   	<Label text="Unit" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+   	<TextField fx:id="unit" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+   	<Label text="Cess" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+   	<TextField fx:id="Cess" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    	
    		
    	<HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
@@ -41,10 +37,9 @@
       </children>
    	</HBox>
       <Button mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="99.0" text="Back To Home" />
-      <Label text="Rate" GridPane.rowIndex="8" />
-      <Label text="Create Date" GridPane.rowIndex="9" />
-      <TextField fx:id="rate" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <DatePicker fx:id="created_date" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Label text="Rate" GridPane.rowIndex="6" />
+      <TextField fx:id="Rate" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      
    </children>
 	<padding>
 		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />

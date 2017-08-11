@@ -32,7 +32,7 @@ public class AddItemController {
     @FXML
     private Text welcomeText;
     @FXML
-    private TextField item_name,item_id,price,status,gms,item_code,unit,rate;
+    private TextField item_name,item_id,price,status,cess,item_code,unit,rate;
     @FXML
     private Button addItemSubmit;
 
@@ -53,7 +53,7 @@ public class AddItemController {
         		.or(item_id.textProperty().isEmpty())
         		.or(price.textProperty().isEmpty())
         		.or(status.textProperty().isEmpty())
-        		.or(gms.textProperty().isEmpty())
+        		.or(cess.textProperty().isEmpty())
         		.or(item_code.textProperty().isEmpty())
         		.or(unit.textProperty().isEmpty())        		
         	    .or(rate.textProperty().isEmpty()));*/
@@ -70,9 +70,9 @@ public class AddItemController {
 
     public void redirectaddItem(Stage stage, String name) {
     	this.stage = stage;
-        stage.setTitle("AddParty");
+        stage.setTitle("AddItem");
         stage.setScene(scene);
-        welcomeText.setText("Hey " + name + "! Enter your party details here");
+        welcomeText.setText("Hey " + name + "! Enter your Item details here");
         stage.hide();
         stage.show();
         //stage.setFullScreen(true);
@@ -85,27 +85,28 @@ public class AddItemController {
     	Connection c;
         int rowcount = 0;
         int rs = 0;
+	this.status = "Y";
         try{  
 	         c = DBConnectFlogger.connect();  
-	         String SQL = "INSERT INTO item (item_name,item_id,price,item_code,unit,status,gms,create_date,rate) VALUES(\""
+	         String SQL = "INSERT INTO item (item_name,item_id,price,item_code,unit,status,cess,create_date,rate) VALUES(\""
 	          + item_name.getText() 
 	          + "\",\"" + item_id.getText() 
 	          + "\",\"" + price.getText() 
 	          + "\",\"" + item_code.getText() 
 	          + "\",\"" + unit.getText() 
 	          + "\",\"" + status.getText() 
-	          + "\",\"" + gms.getText()
+	          + "\",\"" + cess.getText()
 	          + "\",\"" + date_invoice
 	          + "\",\"" + rate.getText()
 	          + "\")";
-	         System.out.println("Has added party SQL" + SQL);
+	         System.out.println("Has added item SQL" + SQL);
 	         rs = c.createStatement().executeUpdate(SQL);
-	         System.out.println("Has added party" + rs);
+	         System.out.println("Has added item" + rs);
         }catch (Exception e) {
 			 System.out.println(e);
 		}
 	        if(rs==1){
-	       	 ShowAlert.callAlert("Add Item","Item added Successfully");
+	       	 ShowAlert.callAlert("Add Item","Item has been added Successfully");
 	        }else{
 	       	 ShowAlert.callAlert("Error","Please check given Details again.");
 	        }
