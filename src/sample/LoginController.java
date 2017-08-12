@@ -86,15 +86,15 @@ public class LoginController {
 		/*viewInvoiceController = new ViewInvoiceController();
 		viewInvoiceController.redirectviewInvoice(stage,"vinit");*/
 		//this.stage = stage;
-		/*homeController = new HomeController();
+		homeController = new HomeController();
         Constants.setUsername(userName.getText().trim());
         homeController.redirectHome(stage, Constants.getUsername());
-		*/
+		/*
 		stage.setTitle("User Login");
 		stage.setScene(scene);
 		stage.setResizable(true);
 		stage.hide();
 		stage.show();
-		stage.setMaximized(true);
+		stage.setMaximized(true);*/
 	}
 }
