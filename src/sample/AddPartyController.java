@@ -29,6 +29,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 public class AddPartyController {
 	private Parent parent;
 	private Scene scene;
@@ -65,14 +67,7 @@ public class AddPartyController {
 		}
 	};
 	
-	BooleanBinding isValidEmail1 = new BooleanBinding() {
-		
-		@Override
-		protected boolean computeValue() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-	};
+	boolean isValidEmail1= false,isValidState=false;
 	
 
 	@FXML
@@ -121,13 +116,12 @@ public class AddPartyController {
 			
 		email1.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				isValidEmail1 = ValidationCheck(newValue, "[a-zA-Z0-9@.]{13}");
-				System.out.println("Valid Name------>"+isValidEmail1.get());
+				isValidEmail1 = EmailValidator.getInstance().isValid(newValue);
+				System.out.println("Valid Name------>"+isValidEmail1);
 			}
 		});
 		
-		
-		
+
 		
 		characterLimit(gstin, 15);
 		characterLimit(party_name, 25);
@@ -135,8 +129,8 @@ public class AddPartyController {
 		characterLimit(address2, 50);
 		characterLimit(phone1, 12);
 		characterLimit(phone2, 12);
-		characterLimit(email1, 20);
-		characterLimit(email2, 20);
+		characterLimit(email1, 25);
+		characterLimit(email2, 25);
 		/*gstin.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -167,9 +161,11 @@ public class AddPartyController {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				 if (textFeildname.getText().length() > 15) {
+					 try{
 		                String s = textFeildname.getText().substring(0, maxlimit);
 		                textFeildname.setText(s);
-		            }
+					 }catch (Exception e) {
+					}}
 			}
 		});
 	}
@@ -219,7 +215,7 @@ public class AddPartyController {
 	@FXML
 	protected void handleAddParty(ActionEvent event) {
 		if(ValidatePartyFields()){
-			String party_id_gen = party_name.getText().substring(0, 2).toUpperCase() + generateRandomChars("0123456789",2);
+			String party_id_gen = party_name.getText().substring(0, 3).toUpperCase() + generateRandomChars("0123456789",2);
 			Connection c;
 			int rowcount = 0;
 			try {
@@ -257,8 +253,11 @@ public class AddPartyController {
 	}
 
 	private boolean ValidatePartyFields() {
-		System.out.println(isValidName.get() +"  "+ isValidGST.get() +"  "+ isValidPhone1.get() +"  "+ isValidEmail1.get());
-		if(isValidName.get() && isValidGST.get() && isValidPhone1.get() && isValidEmail1.get()){
+		if(state.getSelectionModel().getSelectedIndex() != -1){
+			isValidState = true;
+		}
+		System.out.println(isValidName.get() +"  "+ isValidGST.get() +"  "+ isValidPhone1.get() +"  "+ isValidEmail1 +"  "+ isValidState);
+		if(isValidName.get() && isValidGST.get() && isValidPhone1.get() && isValidEmail1 && isValidState){
 			System.out.println("------------->");
 			return true;
 		}

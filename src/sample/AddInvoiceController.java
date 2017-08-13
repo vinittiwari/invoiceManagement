@@ -34,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import mtechproject.samples.DBConnectFlogger;
 import util.Constants;
+import util.ShowAlert;
 
 public class AddInvoiceController {
 
@@ -161,10 +162,11 @@ public class AddInvoiceController {
 				if(newValue != null){
 				int IntnewValue = Integer.parseInt(newValue);
 				int IntsingleItemPrice = Integer.parseInt(singleItemPrice);
-				price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
-				float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue);
-				gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
 				cess_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(cess)/100));
+				price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
+				float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
+				gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
+				
 				//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
 				item_total.setText(String.valueOf(quantity_item_picetotal));
 				}}
@@ -469,35 +471,52 @@ public class AddInvoiceController {
 
 	@FXML
 	protected void handleOnClickAddInvoice(ActionEvent event) throws SQLException {
-		System.out.println("*****handleOnClickAddInvoice**********");
-		String JsonItem = ConvertItemIntoJson();
-		String party_name_db = party_name.getItems().get(party_name.getSelectionModel().getSelectedIndex()).toString();
-		String party_id_db = selectedParty_id;
-		LocalDate date_invoice = invoice_date.getValue();
-		LocalDate dispatch_invoice_date = dispatch_date.getValue();
-		String address = party_address.getText();
-		//String address1 = party_address1.getText();
-		int invoice_number = oldInvoice + 1;
-		Connection c2;
-		c2 = DBConnectFlogger.connect();
-		String SQL = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,party_id,invoice_total) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ invoice_number +",\"" + dispatch_invoice_date +"\",\""+ address+"\",\"" + party_id_db + "\"," + invoice_total.getText() +")";
-		System.out.println("---> query" + SQL);
-		int rs = c2.createStatement().executeUpdate(SQL);
-		System.out.println("Has added party" + rs);
-		if (rs == 1) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Add Invoice");
-			alert.setHeaderText("Added Invoice");
-			alert.setContentText("Added invoice successfully");
-			
-			//alert.showAndWait();
-			//Optional<ButtonType> result = alert.showAndWait();
-			if (alert.showAndWait().get() == ButtonType.OK){
-				homeController = new HomeController();
-	            homeController.redirectHome(stage, Constants.getUsername());
-            }
+		if(validationCheck()){
+			System.out.println("*****handleOnClickAddInvoice**********");
+			String JsonItem = ConvertItemIntoJson();
+			String party_name_db = party_name.getItems().get(party_name.getSelectionModel().getSelectedIndex()).toString();
+			String party_id_db = selectedParty_id;
+			LocalDate date_invoice = invoice_date.getValue();
+			LocalDate dispatch_invoice_date = dispatch_date.getValue();
+			String address = party_address.getText();
+			//String address1 = party_address1.getText();
+			int invoice_number = oldInvoice + 1;
+			Connection c2;
+			c2 = DBConnectFlogger.connect();
+			String SQL = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,party_id,invoice_total) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ invoice_number +",\"" + dispatch_invoice_date +"\",\""+ address+"\",\"" + party_id_db + "\"," + invoice_total.getText() +")";
+			System.out.println("---> query" + SQL);
+			int rs = c2.createStatement().executeUpdate(SQL);
+			System.out.println("Has added party" + rs);
+			if (rs == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Add Invoice");
+				alert.setHeaderText("Added Invoice");
+				alert.setContentText("Added invoice successfully");
+				
+				//alert.showAndWait();
+				//Optional<ButtonType> result = alert.showAndWait();
+				if (alert.showAndWait().get() == ButtonType.OK){
+					homeController = new HomeController();
+		            homeController.redirectHome(stage, Constants.getUsername());
+	            }
+			}
+		}else{
+			ShowAlert.callAlert("Add Invoice", "Please enter Correct details.");
 		}
 	}
+
+	private boolean validationCheck() {
+		System.out.println("invoice_date-->"+invoice_date.getValue() +"dispatch_date--->"+ dispatch_date.getValue()
+							+"Party name"+ party_name.getSelectionModel().getSelectedIndex()
+							+"Item count" + tableView.getItems().size());
+		if(invoice_date.getValue()!=null && dispatch_date.getValue()!=null && party_name.getSelectionModel().getSelectedIndex() !=-1 
+			&& 	tableView.getItems().size()>0) {
+			return true;
+		}
+		return false;
+	}
+
+
 
 	private String ConvertItemIntoJson() {
 
@@ -509,6 +528,15 @@ public class AddInvoiceController {
 			ItemJson.put("item_quantity", tableView.getItems().get(i).getTable_quantity());
 			ItemJson.put("item_total_price", tableView.getItems().get(i).getTable_price());
 			ItemJson.put("item_gst", tableView.getItems().get(i).getTable_gst());
+			ItemJson.put("item_gst_amount", tableView.getItems().get(i).getTable_gst_amount());
+			ItemJson.put("item_cgst", tableView.getItems().get(i).getTable_cgst());
+			ItemJson.put("item_cgst_amount", tableView.getItems().get(i).getTable_cgst_amount());
+			ItemJson.put("item_igst", tableView.getItems().get(i).getTable_igst());
+			ItemJson.put("item_igst_amount", tableView.getItems().get(i).getTable_igst_amount());
+			ItemJson.put("item_sgst", tableView.getItems().get(i).getTable_sgst());
+			ItemJson.put("item_sgst_amount", tableView.getItems().get(i).getTable_sgst_amount());
+			ItemJson.put("item_cess", tableView.getItems().get(i).getTable_cess());
+			ItemJson.put("item_cess_amount", tableView.getItems().get(i).getTable_cess_amount());
 			ItemJson.put("item_total", tableView.getItems().get(i).getTable_total());
 			ItemArray.put(ItemJson);
 		}
