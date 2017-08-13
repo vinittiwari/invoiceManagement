@@ -24,9 +24,7 @@
    	<Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
    	<TextField fx:id="address" prefHeight="49.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    	<Label text="State:" GridPane.rowIndex="3" />
-   	<Label text="GSTin:" GridPane.rowIndex="4" />
-   	<Label text="Tin Number:" GridPane.rowIndex="5" />
-   	<TextField fx:id="tin_no" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+   	<Label text="GST Number:" GridPane.rowIndex="4" />
    	<Label text="Transport:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
    	<TextField fx:id="transport" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />	
    	<Label text="Phone 1:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
@@ -37,12 +35,10 @@
    	<TextField fx:id="email1" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="9" />
    	<Label text="Email 2:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
    	<TextField fx:id="email2" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="10" />	
-   	<Label text="Party ID:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
-   	<TextField fx:id="party_id" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="11" />	
    		
    	<HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
       <children>
-      		<Button onAction="#handleAddParty" text="Add Party" />
+      		<Button fx:id="addPartySubmit" onAction="#handleAddParty" text="Add Party" />
       </children>
    	</HBox>
       <Button mnemonicParsing="false" onAction="#handleBackToHome" text="Back To Home" />
