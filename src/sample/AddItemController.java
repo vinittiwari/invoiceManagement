@@ -16,12 +16,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mtechproject.samples.DBConnectFlogger;
+import util.Constants;
 import util.GenerateRandom;
 import util.ShowAlert;
 
@@ -33,7 +36,7 @@ public class AddItemController {
     @FXML
     private Text welcomeText;
     @FXML
-    private TextField item_name,price,status,cess,item_code,unit,rate;
+    private TextField item_name,price,cess,item_code,unit,rate;
     @FXML
     private Button addItemSubmit;
     BooleanBinding isValidName = new BooleanBinding() {
@@ -60,14 +63,7 @@ public class AddItemController {
 			return false;
 		}
 	};
-	BooleanBinding isValidItemCode = new BooleanBinding() {
-		
-		@Override
-		protected boolean computeValue() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-	};
+	
 
     public AddItemController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddItem.fxml"));
@@ -119,12 +115,7 @@ public class AddItemController {
 				System.out.println("Valid Gst------>"+isValidCess.get());
 			}
 		});
-        item_code.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null) {
-				isValidItemCode = ValidationCheck(newValue, "[a-zA-Z0-9]{2}");
-				System.out.println("Valid Gst------>"+isValidItemCode.get());
-			}
-		});
+        
     }
 
 
@@ -157,6 +148,7 @@ public class AddItemController {
     @FXML
     protected void handleAddItem(ActionEvent event) {
     	if(validateFields()){
+    		Boolean status = true;
 	    	LocalDate create_date = LocalDate.now();
 	    	String item_id = item_name.getText().substring(0, 3).toUpperCase() + GenerateRandom.generateRandomChars("0123456789",2);
 	    	Connection c;
@@ -170,7 +162,7 @@ public class AddItemController {
 		          + "\",\"" + price.getText() 
 		          + "\",\"" + item_code.getText() 
 		          + "\",\"" + unit.getText() 
-		          + "\",\"" + status.getText() 
+		          + "\",\"" + status 
 		          + "\",\"" + cess.getText()
 		          + "\",\"" + create_date
 		          + "\",\"" + rate.getText()
@@ -182,7 +174,11 @@ public class AddItemController {
 				 System.out.println(e);
 			}
 		        if(rs==1){
-		       	 ShowAlert.callAlert("Add Item","Item added Successfully");
+		       	 	Alert alert = ShowAlert.callAlert2("Add Item","Item added Successfully");
+			       	if (alert.showAndWait().get() == ButtonType.OK){
+						homeController = new HomeController();
+			            homeController.redirectHome(stage, Constants.getUsername());
+		            }
 		        }else{
 		       	 ShowAlert.callAlert("Error","Please check given Details again.");
 		        }
@@ -194,9 +190,8 @@ public class AddItemController {
     private boolean validateFields() {
     	System.out.println("Item Name Valid" + !isValidName.get()
     			+ "Valid Rate" + isValidRate.get()
-    			+ "Valid cess" + isValidCess.get()
-    			+ "Valid ItemCode" + isValidItemCode.get());
-    	if(!isValidName.get() && isValidCess.get() && isValidRate.get() && isValidItemCode.get()){
+    			+ "Valid cess" + isValidCess.get());
+    	if(!isValidName.get() && isValidCess.get() && isValidRate.get()){
     		return true;
     	}
 		return false;

@@ -25,8 +25,6 @@
    	<TextField fx:id="price" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    	<Label text="Item Code" GridPane.columnIndex="0" GridPane.rowIndex="4" />
    	<TextField fx:id="item_code" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-   	<Label text="Status" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-   	<TextField fx:id="status" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    	<Label text="Unit" GridPane.columnIndex="0" GridPane.rowIndex="6" />
    	<TextField fx:id="unit" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />
    	<Label text="Cess" GridPane.columnIndex="0" GridPane.rowIndex="7" />

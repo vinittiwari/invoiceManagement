@@ -11,12 +11,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mtechproject.samples.DBConnectFlogger;
+import util.Constants;
 import util.GenerateRandom;
 import util.ShowAlert;
 import javafx.scene.control.TextField;
@@ -230,7 +233,11 @@ public class AddPartyController {
 				int rs = c.createStatement().executeUpdate(SQL);
 				System.out.println("Has added party" + rs);
 				if (rs == 1) {
-					ShowAlert.callAlert("Add Party", "Party added Successfully");
+					Alert alert = ShowAlert.callAlert2("Add Party","Item added Successfully");
+			       	if (alert.showAndWait().get() == ButtonType.OK){
+						homeController = new HomeController();
+			            homeController.redirectHome(stage, Constants.getUsername());
+		            }
 				} else {
 					ShowAlert.callAlert("Error", "Please check given Details again.");
 				}
