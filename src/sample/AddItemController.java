@@ -8,7 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mtechproject.samples.DBConnectFlogger;
+import util.GenerateRandom;
 import util.ShowAlert;
 
 public class AddItemController {
@@ -28,13 +31,43 @@ public class AddItemController {
     private Stage stage;
     private HomeController homeController;
     @FXML
-	private DatePicker created_date;
-    @FXML
     private Text welcomeText;
     @FXML
-    private TextField item_name,item_id,price,status,gms,item_code,unit,rate;
+    private TextField item_name,price,status,cess,item_code,unit,rate;
     @FXML
     private Button addItemSubmit;
+    BooleanBinding isValidName = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
+	BooleanBinding isValidRate = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
+	BooleanBinding isValidCess = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
+	BooleanBinding isValidItemCode = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
 
     public AddItemController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddItem.fxml"));
@@ -45,9 +78,12 @@ public class AddItemController {
         } catch (IOException e) { 
             e.printStackTrace();
         }
-        LocalDate currentDate = LocalDate.now();
-        created_date.setValue(currentDate);
         
+        characterLimit(item_name, 20);
+        characterLimit(rate, 3);
+        characterLimit(cess, 4);
+        characterLimit(price,6);
+        characterLimit(item_code,7);
         /*addItemSubmit.disableProperty().bind(
         		item_name.textProperty().isEmpty()
         		.or(item_id.textProperty().isEmpty())
@@ -58,17 +94,56 @@ public class AddItemController {
         		.or(unit.textProperty().isEmpty())        		
         	    .or(rate.textProperty().isEmpty()));*/
         	    //[^\\s*$]
-        addItemSubmit.disableProperty().bind(item_name.textProperty().isEmpty());
+        /*addItemSubmit.disableProperty().bind(item_name.textProperty().isEmpty());
         
         item_name.textProperty().addListener((observable, oldValue, newValue) -> {
         	if(newValue != null){
         		addItemSubmit.disableProperty().bind(ValidationCheck(newValue,"^[a-zA-Z\\s]{2,29}$"));
         	}
-        });
+        });*/
+        item_name.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isValidName = ValidationCheck(newValue, "[a-zA-z0-9 ,]{4}");
+				System.out.println("Valid Name------>"+isValidName.get());
+			}
+		});
+        rate.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isValidRate = ValidationCheck(newValue, "[0-9]{3}");
+				System.out.println("Valid Gst------>"+isValidRate.get());
+			}
+		});
+        cess.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isValidCess = ValidationCheck(newValue, "[0-9]{3}");
+				System.out.println("Valid Gst------>"+isValidCess.get());
+			}
+		});
+        item_code.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isValidItemCode = ValidationCheck(newValue, "[a-zA-Z0-9]{2}");
+				System.out.println("Valid Gst------>"+isValidItemCode.get());
+			}
+		});
     }
 
 
-    public void redirectaddItem(Stage stage, String name) {
+    private void characterLimit(TextField textFeildname,int maxlimit) {
+		textFeildname.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				 if (textFeildname.getText().length() > 15) {
+					 try{
+		                String s = textFeildname.getText().substring(0, maxlimit);
+		                textFeildname.setText(s);
+					 }catch (Exception e) {
+					}}
+			}
+		});
+	}
+
+
+	public void redirectaddItem(Stage stage, String name) {
     	this.stage = stage;
         stage.setTitle("AddParty");
         stage.setScene(scene);
@@ -81,37 +156,54 @@ public class AddItemController {
     
     @FXML
     protected void handleAddItem(ActionEvent event) {
-    	LocalDate date_invoice = created_date.getValue();
-    	Connection c;
-        int rowcount = 0;
-        int rs = 0;
-        try{  
-	         c = DBConnectFlogger.connect();  
-	         String SQL = "INSERT INTO item (item_name,item_id,price,item_code,unit,status,gms,create_date,rate) VALUES(\""
-	          + item_name.getText() 
-	          + "\",\"" + item_id.getText() 
-	          + "\",\"" + price.getText() 
-	          + "\",\"" + item_code.getText() 
-	          + "\",\"" + unit.getText() 
-	          + "\",\"" + status.getText() 
-	          + "\",\"" + gms.getText()
-	          + "\",\"" + date_invoice
-	          + "\",\"" + rate.getText()
-	          + "\")";
-	         System.out.println("Has added party SQL" + SQL);
-	         rs = c.createStatement().executeUpdate(SQL);
-	         System.out.println("Has added party" + rs);
-        }catch (Exception e) {
-			 System.out.println(e);
-		}
-	        if(rs==1){
-	       	 ShowAlert.callAlert("Add Item","Item added Successfully");
-	        }else{
-	       	 ShowAlert.callAlert("Error","Please check given Details again.");
-	        }
+    	if(validateFields()){
+	    	LocalDate create_date = LocalDate.now();
+	    	String item_id = item_name.getText().substring(0, 3).toUpperCase() + GenerateRandom.generateRandomChars("0123456789",2);
+	    	Connection c;
+	        int rowcount = 0;
+	        int rs = 0;
+	        try{  
+		         c = DBConnectFlogger.connect();  
+		         String SQL = "INSERT INTO item (item_name,item_id,price,item_code,unit,status,cess,create_date,rate) VALUES(\""
+		          + item_name.getText() 
+		          + "\",\"" + item_id
+		          + "\",\"" + price.getText() 
+		          + "\",\"" + item_code.getText() 
+		          + "\",\"" + unit.getText() 
+		          + "\",\"" + status.getText() 
+		          + "\",\"" + cess.getText()
+		          + "\",\"" + create_date
+		          + "\",\"" + rate.getText()
+		          + "\")";
+		         System.out.println("Has added party SQL" + SQL);
+		         rs = c.createStatement().executeUpdate(SQL);
+		         System.out.println("Has added party" + rs);
+	        }catch (Exception e) {
+				 System.out.println(e);
+			}
+		        if(rs==1){
+		       	 ShowAlert.callAlert("Add Item","Item added Successfully");
+		        }else{
+		       	 ShowAlert.callAlert("Error","Please check given Details again.");
+		        }
+    	}else{
+    		ShowAlert.callAlert("Error","Please check given Details again.");
+    	}
     }
     
-    @FXML
+    private boolean validateFields() {
+    	System.out.println("Item Name Valid" + !isValidName.get()
+    			+ "Valid Rate" + isValidRate.get()
+    			+ "Valid cess" + isValidCess.get()
+    			+ "Valid ItemCode" + isValidItemCode.get());
+    	if(!isValidName.get() && isValidCess.get() && isValidRate.get() && isValidItemCode.get()){
+    		return true;
+    	}
+		return false;
+	}
+
+
+	@FXML
 	protected void handleBackToHome(ActionEvent event) throws SQLException {
 		homeController = new HomeController();
         homeController.redirectHome(stage, "");

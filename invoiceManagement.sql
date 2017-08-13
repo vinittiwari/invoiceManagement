@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   PRIMARY KEY (`invoice_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table billmanagement.invoice: ~4 rows (approximately)
+-- Dumping data for table billmanagement.invoice: ~6 rows (approximately)
 DELETE FROM `invoice`;
 /*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
 INSERT INTO `invoice` (`item`, `party_id`, `invoice_date`, `invoice_number`, `dispatch_date`, `address`, `party_name`, `invoice_total`) VALUES
@@ -38,7 +38,9 @@ INSERT INTO `invoice` (`item`, `party_id`, `invoice_date`, `invoice_number`, `di
 	('[{"item_total_price":"90","item_id":"JB12","item_gst":"0","item_name":"Jaledi","item_total":"106.2","item_quantity":"9"},{"item_total_price":"10","item_id":"JB12","item_gst":"0","item_name":"Jaledi","item_total":"11.8","item_quantity":"1"}]', 'FGL90', '2017-08-16', 21, '2017-08-23', '10 jsadf dsfjasfnd', 'Cocca Cola', 118),
 	('[{"item_total_price":"80","item_id":"JB12","item_gst":"9.0","item_name":"Jaledi","item_total":"94.4","item_quantity":"8"},{"item_total_price":"60","item_id":"JB12","item_gst":"9.0","item_name":"Jaledi","item_total":"70.8","item_quantity":"6"},{"item_total_price":"238","item_id":"saa33","item_gst":"7.5","item_name":"werw","item_total":"273.7","item_quantity":"7"}]', 'DFG78', '2017-08-22', 22, '2017-08-18', '9 kamla nehru ', 'vinit', 439),
 	('[{"item_sgst":"9.0","item_total_price":"90","item_id":"JB12","item_sgst_amount":"8.1","item_gst":"9.0","item_name":"Jaledi","item_total":"110.7","item_igst_amount":"0","item_igst":"0","item_gst_amount":"8.1","item_cess":"5","item_cess_amount":"4.5","item_quantity":"9"},{"item_sgst":"9.0","item_total_price":"90","item_id":"JB12","item_sgst_amount":"8.1","item_gst":"9.0","item_name":"Jaledi","item_total":"110.7","item_igst_amount":"0","item_igst":"0","item_gst_amount":"8.1","item_cess":"5","item_cess_amount":"4.5","item_quantity":"9"},{"item_sgst":"7.5","item_total_price":"340","item_id":"saa33","item_sgst_amount":"25.500002","item_gst":"7.5","item_name":"werw","item_total":"411.4","item_igst_amount":"0","item_igst":"0","item_gst_amount":"25.500002","item_cess":"6","item_cess_amount":"20.4","item_quantity":"10"}]', 'FIN75', '2017-08-22', 23, '2017-08-23', '15, New York Streat ', 'Finlander Corp.', 633),
-	('[{"item_sgst":"9.0","item_total_price":"90","item_id":"JB12","item_sgst_amount":"8.1","item_gst":"9.0","item_name":"Jaledi","item_total":"110.7","item_igst_amount":"0","item_igst":"0","item_gst_amount":"8.1","item_cess":"5","item_cess_amount":"4.5","item_quantity":"9"}]', 'FIN75', '2017-08-13', 24, '2017-08-21', '15, New York Streat ', 'Finlander Corp.', 111);
+	('[{"item_sgst":"9.0","item_total_price":"90","item_id":"JB12","item_sgst_amount":"8.1","item_gst":"9.0","item_name":"Jaledi","item_total":"110.7","item_igst_amount":"0","item_igst":"0","item_gst_amount":"8.1","item_cess":"5","item_cess_amount":"4.5","item_quantity":"9"}]', 'FIN75', '2017-08-13', 24, '2017-08-21', '15, New York Streat ', 'Finlander Corp.', 111),
+	('[{"item_sgst":"6.0","item_total_price":"1500","item_id":"FAN69","item_sgst_amount":"90.0","item_gst":"6.0","item_name":"Fanta ","item_total":"1755.0","item_igst_amount":"0","item_igst":"0","item_gst_amount":"90.0","item_cess":"5","item_cess_amount":"75.0","item_quantity":"10"}]', 'DFG78', '2017-08-20', 25, '2017-08-14', '9 kamla nehru ', 'vinit', 1755),
+	('[{"item_sgst":"6.0%","item_total_price":"80","item_id":"SM22","item_sgst_amount":"4.7999997","item_gst":"6.0%","item_name":"Samose","item_total":"92.799995","item_igst_amount":"0","item_igst":"0%","item_gst_amount":"4.7999997","item_cess":"4%","item_cess_amount":"3.1999998","item_quantity":"8"},{"item_sgst":"6.0%","item_total_price":"1500","item_id":"FAN69","item_sgst_amount":"90.0","item_gst":"6.0%","item_name":"Fanta ","item_total":"1755.0","item_igst_amount":"0","item_igst":"0%","item_gst_amount":"90.0","item_cess":"5%","item_cess_amount":"75.0","item_quantity":"10"}]', 'SDAF51465', '2017-08-13', 26, '2017-08-21', '10 lala nagar bihar', 'Tata Company', 1848);
 /*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
 
 -- Dumping structure for table billmanagement.item
@@ -61,7 +63,8 @@ INSERT INTO `item` (`item_name`, `item_id`, `price`, `item_code`, `rate`, `creat
 	('papias', 'ads32', 23, 'FED12', '12', '2017-03-15', 'T', '54', '5'),
 	('werw', 'saa33', 34, 'EDF22', '15', '2017-03-15', 'F', '60', '6'),
 	('Jaledi', 'JB12', 10, 'EDF55', '18', '2017-03-15', 'T', '100', '5'),
-	('Samose', 'SM22', 10, 'SD', '12', '2017-07-13', 'T', '15', '4');
+	('Samose', 'SM22', 10, 'SD', '12', '2017-07-13', 'T', '15', '4'),
+	('Fanta ', 'FAN69', 150, 'FD65', '12', '2017-08-13', '', '', '5');
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 
 -- Dumping structure for table billmanagement.party
@@ -81,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `party` (
   UNIQUE KEY `party_id` (`party_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table billmanagement.party: ~5 rows (approximately)
+-- Dumping data for table billmanagement.party: ~7 rows (approximately)
 DELETE FROM `party`;
 /*!40000 ALTER TABLE `party` DISABLE KEYS */;
 INSERT INTO `party` (`party_name`, `address`, `address1`, `state`, `gstin`, `transport`, `phone1`, `phone2`, `email1`, `email2`, `party_id`) VALUES

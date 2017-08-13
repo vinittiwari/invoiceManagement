@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import mtechproject.samples.DBConnectFlogger;
+import util.GenerateRandom;
 import util.ShowAlert;
 import javafx.scene.control.TextField;
 import java.io.IOException;
@@ -215,7 +216,7 @@ public class AddPartyController {
 	@FXML
 	protected void handleAddParty(ActionEvent event) {
 		if(ValidatePartyFields()){
-			String party_id_gen = party_name.getText().substring(0, 3).toUpperCase() + generateRandomChars("0123456789",2);
+			String party_id_gen = party_name.getText().substring(0, 3).toUpperCase() + GenerateRandom.generateRandomChars("0123456789",2);
 			Connection c;
 			int rowcount = 0;
 			try {
@@ -241,17 +242,6 @@ public class AddPartyController {
 		}
 	}
 	
-	public static String generateRandomChars(String candidateChars, int length) {
-	    StringBuilder sb = new StringBuilder();
-	    Random random = new Random();
-	    for (int i = 0; i < length; i++) {
-	        sb.append(candidateChars.charAt(random.nextInt(candidateChars
-	                .length())));
-	    }
-
-	    return sb.toString();
-	}
-
 	private boolean ValidatePartyFields() {
 		if(state.getSelectionModel().getSelectedIndex() != -1){
 			isValidState = true;
