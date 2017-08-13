@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   PRIMARY KEY (`invoice_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table billmanagement.invoice: ~4 rows (approximately)
+-- Dumping data for table billmanagement.invoice: ~3 rows (approximately)
 DELETE FROM `invoice`;
 /*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
 INSERT INTO `invoice` (`item`, `party_id`, `invoice_date`, `invoice_number`, `dispatch_date`, `address`, `party_name`, `invoice_total`) VALUES
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS `party` (
   `state` varchar(255) NOT NULL,
   `gstin` varchar(255) NOT NULL,
   `transport` varchar(255) NOT NULL,
-  `phone1` bigint(20) NOT NULL,
-  `phone2` bigint(20) NOT NULL,
+  `phone1` varchar(50) NOT NULL,
+  `phone2` varchar(50) NOT NULL,
   `email1` varchar(255) NOT NULL,
   `email2` varchar(255) NOT NULL,
   `party_id` varchar(255) NOT NULL,
@@ -79,14 +79,15 @@ CREATE TABLE IF NOT EXISTS `party` (
   UNIQUE KEY `party_id` (`party_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table billmanagement.party: ~3 rows (approximately)
+-- Dumping data for table billmanagement.party: ~4 rows (approximately)
 DELETE FROM `party`;
 /*!40000 ALTER TABLE `party` DISABLE KEYS */;
 INSERT INTO `party` (`party_name`, `address`, `address1`, `state`, `gstin`, `transport`, `phone1`, `phone2`, `email1`, `email2`, `party_id`) VALUES
-	('Cocca Cola', '10 jsadf dsfjasfnd', '74sgsdg', 'Andhra Pradesh', '28JDSK09', 'sdfgsdtg', 56165, 541514, 'sdtghdg', 'sfgsdg', 'FGL90'),
-	('Gopal', 'asdfe', 'sdfasfdas', 'Chandigarh', '04KJLK098', 'grfsgt', 846965, 65416, 'sdfsdgf', 'hfh', 'BNGH5'),
-	('Tata Company', '10 lala nagar bihar', '10 lala nagar bihar', 'Bihar', '05DSJBHN56465', 'bajrang transport', 986532215465, 875421326565, 'sdfg@gmail.com', 'sdfg@gmail.com', 'SDAF51465'),
-	('vinit', '9 kamla nehru ', 'sadfasf', 'Jammu and Kashmir', '01SDJ989', 'narmada', 9865321, 986532134, 'vinit@gmail.com', 'drfgdg', 'DFG78');
+	('Cocca Cola', '10 jsadf dsfjasfnd', '74sgsdg', 'Andhra Pradesh', '28JDSK09', 'sdfgsdtg', '56165', '541514', 'sdtghdg', 'sfgsdg', 'FGL90'),
+	('Damodar Sons', '10, KhTI WALATA KJASND JKFFI', 'asdfasdfasdfasdf', 'Andhra Pradesh', '26ASDAS2635D6F3', 'jAI GOPALA', '9658965896', '9632587415', 'asdfasdfas@sdf.com', 'asdfasdfas@sdf.com', 'DA96'),
+	('Gopal', 'asdfe', 'sdfasfdas', 'Chandigarh', '04KJLK098', 'grfsgt', '846965', '65416', 'sdfsdgf', 'hfh', 'BNGH5'),
+	('Tata Company', '10 lala nagar bihar', '10 lala nagar bihar', 'Bihar', '05DSJBHN56465', 'bajrang transport', '986532215465', '875421326565', 'sdfg@gmail.com', 'sdfg@gmail.com', 'SDAF51465'),
+	('vinit', '9 kamla nehru ', 'sadfasf', 'Jammu and Kashmir', '01SDJ989', 'narmada', '9865321', '986532134', 'vinit@gmail.com', 'drfgdg', 'DFG78');
 /*!40000 ALTER TABLE `party` ENABLE KEYS */;
 
 -- Dumping structure for table billmanagement.state
