@@ -4,16 +4,17 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import sample.ViewItemController?>
+
+<!-- <?import sample.ViewItemController?> -->
 
 <AnchorPane prefHeight="606.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane layoutX="-64.0" layoutY="-108.0" prefHeight="200.0" prefWidth="200.0" />
       <TableView fx:id="Viewtable" layoutX="31.0" layoutY="125.0" prefHeight="391.0" prefWidth="947.0" />
-      <Label fx:id="welcomeText" layoutX="148.0" layoutY="84.0" prefHeight="17.0" prefWidth="263.0" text="Label" />
-      <Button layoutX="212.0" layoutY="542.0" mnemonicParsing="false" onAction="#handleModifyItem" prefHeight="25.0" prefWidth="88.0" text="Modify Item" />
-      <Button layoutX="390.0" layoutY="542.0" mnemonicParsing="false" onAction="#handleDeleteItem" prefHeight="25.0" prefWidth="103.0" text="Delete Item" />
-      <Button layoutX="31.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="94.0" text="Back To Home" />
+      <Label fx:id="welcomeText" layoutX="173.0" layoutY="84.0" prefHeight="17.0" prefWidth="263.0" text="Label" />
+      <Button layoutX="212.0" layoutY="542.0" mnemonicParsing="false" onAction="#handleModifyItem" prefHeight="25.0" prefWidth="117.0" text="Modify Item" />
+      <Button layoutX="390.0" layoutY="542.0" mnemonicParsing="false" onAction="#handleDeleteItem" prefHeight="25.0" prefWidth="117.0" text="Delete Item" />
+      <Button layoutX="31.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="117.0" text="Back To Home" />
       <TextField fx:id="search" layoutX="526.0" layoutY="80.0" prefHeight="25.0" prefWidth="206.0" promptText="Search" />
       <ComboBox fx:id="searchby" layoutX="753.0" layoutY="80.0" prefHeight="25.0" prefWidth="156.0" promptText="Search By:" />
    </children>

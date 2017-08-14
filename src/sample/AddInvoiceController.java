@@ -90,7 +90,6 @@ public class AddInvoiceController {
 		item_total.setEditable(false);
 		price.setEditable(false);
 		item_id.setEditable(false);
-		item_total.setEditable(false);
 		invoice_total.setEditable(false);
 		party_address.setEditable(false);
 		invoicenumber.setEditable(false);
@@ -478,7 +477,7 @@ public class AddInvoiceController {
 			String party_id_db = selectedParty_id;
 			LocalDate date_invoice = invoice_date.getValue();
 			LocalDate dispatch_invoice_date = dispatch_date.getValue();
-			String address = party_address.getText();
+			String address = party_address.getText().replace(",", "~");
 			//String address1 = party_address1.getText();
 			int invoice_number = oldInvoice + 1;
 			Connection c2;

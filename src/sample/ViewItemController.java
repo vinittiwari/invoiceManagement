@@ -50,7 +50,7 @@ public class ViewItemController {
         }
         DisplayDatabase.buildData(Viewtable,"item"); 
         
-        String newList = "[item_name,item_id,price,item_code,status,unit,gms]";
+        String newList = "[item_name,item_id,price,item_code,status,unit,cess,rate]";
         String []splits = newList.replaceAll("^\\s*\\[|\\]\\s*$", "").split("\\s*,\\s*");
         List<String> listOfItemSearch = Arrays.asList(splits);
         ObservableList<String> observableListOfSearch = FXCollections.observableArrayList(listOfItemSearch);

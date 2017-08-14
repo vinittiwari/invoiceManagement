@@ -10,8 +10,8 @@
       <BorderPane layoutX="-64.0" layoutY="-108.0" prefHeight="200.0" prefWidth="200.0" />
       <TableView fx:id="Viewtable" layoutX="31.0" layoutY="125.0" prefHeight="366.0" prefWidth="958.0" />
       <Label fx:id="welcomeText" layoutX="169.0" layoutY="82.0" prefHeight="25.0" prefWidth="275.0" text="Label" />
-      <Button layoutX="171.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleModifyInvoice" prefHeight="25.0" prefWidth="88.0" text="Modify Invoice" />
-      <Button layoutX="340.0" layoutY="521.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Delete Invoice" />
+      <Button layoutX="171.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleModifyInvoice" prefHeight="25.0" prefWidth="117.0" text="Modify Invoice" />
+      <Button layoutX="340.0" layoutY="521.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Delete Invoice" />
       <Button layoutX="31.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="117.0" text="Back To Home" />
       <TextField fx:id="search" layoutX="501.0" layoutY="80.0" promptText="Search" />
       <ComboBox fx:id="searchby" layoutX="716.0" layoutY="80.0" prefWidth="150.0" promptText="Search by:" />

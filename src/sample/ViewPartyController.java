@@ -51,7 +51,7 @@ public class ViewPartyController {
             e.printStackTrace();
         }
         DisplayDatabase.buildData(Viewtable,"party"); 
-        String newList = "[party_name,address,address1,state,gstin,tin_no,transport,phone1,phone2,email1,email2,party_id]";
+        String newList = "[party_name,address,address1,state,gstin,transport,phone1,phone2,email1,email2,party_id]";
         String []splits = newList.replaceAll("^\\s*\\[|\\]\\s*$", "").split("\\s*,\\s*");
         List<String> listOfItemSearch = Arrays.asList(splits);
         ObservableList<String> observableListOfSearch = FXCollections.observableArrayList(listOfItemSearch);

@@ -27,8 +27,8 @@ public class ModifyItemController {
     @FXML
     private Text welcomeText;
     @FXML
-    private TextField item_name,item_id,price,status,gms,item_code,unit;
-    String item_name_slt,item_id_slt,price_slt,status_slt,gms_slt,item_code_slt,unit_slt;
+    private TextField item_name,price,cess,item_code,unit,rate;
+    String item_name_slt,item_id_slt,price_slt,status_slt,gms_slt,item_code_slt,unit_slt,rate_slt;
 
     public ModifyItemController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ModifyItem.fxml"));
@@ -55,32 +55,7 @@ public class ModifyItemController {
     
     @FXML
     protected void handleAddItem(ActionEvent event) {
-    	Connection c;
-    	
-        int rowcount = 0;
-        int rs = 0;
-        try{  
-	         c = DBConnectFlogger.connect();  
-	         String SQL = "INSERT INTO item (item_name,item_id,price,item_code,unit,status,gms) VALUES(\""
-	          + item_name.getText() 
-	          + "\",\"" + item_id.getText() 
-	          + "\",\"" + price.getText() 
-	          + "\",\"" + item_code.getText() 
-	          + "\",\"" + unit.getText() 
-	          + "\",\"" + status.getText() 
-	          + "\",\"" + gms.getText() 
-	          + "\")";
-	         System.out.println("Has added party SQL" + SQL);
-	         rs = c.createStatement().executeUpdate(SQL);
-	         System.out.println("Has added party" + rs);
-        }catch (Exception e) {
-			 System.out.println(e);
-		}
-	        if(rs==1){
-	       	 ShowAlert.callAlert("Add Item","Item added Successfully");
-	        }else{
-	       	 ShowAlert.callAlert("Error","Please check given Details again.");
-	        }
+    
     }
     
     @FXML
@@ -98,17 +73,17 @@ public class ModifyItemController {
 		String []splits = selectedRow.replaceAll("^\\s*\\[|\\]\\s*$", "").split("\\s*,\\s*");
 		List<String> wordList = Arrays.asList(splits); 
 		item_name_slt=wordList.get(0);
+		rate_slt = wordList.get(4);
 		item_id_slt=wordList.get(1);
 		price_slt=wordList.get(2);
 		status_slt=wordList.get(4);
-		gms_slt=wordList.get(6);
+		gms_slt=wordList.get(8);
 		item_code_slt=wordList.get(3);
-		unit_slt=wordList.get(5);
+		unit_slt=wordList.get(7);
 		item_name.setText(item_name_slt);
-		item_id.setText(item_id_slt);
+		rate.setText(rate_slt);
 		price.setText(price_slt);
-		status.setText(status_slt);
-		gms.setText(gms_slt);
+		cess.setText(gms_slt);
 		item_code.setText(item_code_slt);
 		unit.setText(unit_slt);
     }

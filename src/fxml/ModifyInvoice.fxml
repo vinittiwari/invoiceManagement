@@ -36,22 +36,73 @@
 						<PropertyValueFactory property="table_item_id" />
 					</cellValueFactory>
 				</TableColumn>
-				<TableColumn fx:id="table_quantity" prefWidth="200" text="Quantity">
+				<TableColumn fx:id="table_quantity" prefWidth="125" text="Quantity">
 					<cellValueFactory>
 						<PropertyValueFactory property="table_quantity" />
 					</cellValueFactory>
 				</TableColumn>
-				<TableColumn fx:id="table_price" prefWidth="200" text="Gross Price (Q*P)">
+				<TableColumn fx:id="table_price" prefWidth="125" text="Price (Q*P)">
 					<cellValueFactory>
 						<PropertyValueFactory property="table_price" />
 					</cellValueFactory>
 				</TableColumn>
-            <TableColumn fx:id="table_gst" prefWidth="113.0" text="GST (%age)">
-               <cellValueFactory>
-                  <PropertyValueFactory property="table_gst" />
-               </cellValueFactory>
+            <TableColumn prefWidth="113.0" text="CGST (%age)">
+	            <columns>
+	                <TableColumn prefWidth="75" text="Rate">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_gst" />
+              		</cellValueFactory>
+	                </TableColumn>
+	                <TableColumn fx:id="table_gst_amount" prefWidth="75" text="Amount">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_gst_amount" />
+              		</cellValueFactory>
+	                </TableColumn>
+	            </columns>
             </TableColumn>
-            <TableColumn fx:id="table_total" prefWidth="156.0" text="Total(GP+GST)">
+            <TableColumn prefWidth="156.0" text="SGST (%age)">
+               <columns>
+	                <TableColumn prefWidth="75" text="Rate">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_sgst" />
+              		</cellValueFactory>
+	                </TableColumn>
+	                <TableColumn prefWidth="75" text="Amount">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_sgst_amount" />
+              		</cellValueFactory>
+	                </TableColumn>
+	            </columns>
+            </TableColumn>
+             <TableColumn prefWidth="156.0" text="IGST (%age)">
+               <columns>
+	                <TableColumn prefWidth="75" text="Rate">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_igst" />
+              		</cellValueFactory>
+	                </TableColumn>
+	                <TableColumn prefWidth="75" text="Amount">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_igst_amount" />
+              		</cellValueFactory>
+	                </TableColumn>
+	            </columns>
+            </TableColumn>
+            <TableColumn prefWidth="156.0" text="Cess (%age)">
+            <columns>
+	                <TableColumn prefWidth="75" text="Rate">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_cess" />
+              		</cellValueFactory>
+	                </TableColumn>
+	                <TableColumn prefWidth="75" text="Amount">
+	                <cellValueFactory>
+                  			<PropertyValueFactory property="table_cess_amount" />
+              		</cellValueFactory>
+	                </TableColumn>
+	            </columns>
+		    </TableColumn>
+            <TableColumn fx:id="table_total" prefWidth="156.0" text="Total(AP+GST)">
                <cellValueFactory>
                   <PropertyValueFactory property="table_total" />
                </cellValueFactory>
@@ -88,26 +139,41 @@
 				</ComboBox> -->
 				<TextArea id="party_address" fx:id="party_address" layoutX="657.0" layoutY="31.0" prefHeight="54.0" prefWidth="508.0" />
       
-      		<Label layoutX="831.0" layoutY="163.0" style="-fx-font: NORMAL 20 Tahoma;" text="Invoice Date:" />
-            <TextArea id="party_address" fx:id="party_address1" layoutX="657.0" layoutY="97.0" prefHeight="54.0" prefWidth="508.0" />
-            <DatePicker id="invoice_date" fx:id="invoice_date" layoutX="964.0" layoutY="162.0" />
-            <Label layoutX="544.0" layoutY="42.0" prefHeight="44.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Address1:" />
-            <Label layoutX="544.0" layoutY="107.0" prefHeight="37.0" prefWidth="115.0" style="-fx-font: NORMAL 20 Tahoma;" text="Address2:" />
-            <Label layoutX="816.0" layoutY="197.0" style="-fx-font: NORMAL 20 Tahoma;" text="Dispatch Date:" />
-            <DatePicker id="dispatch_date" fx:id="dispatch_date" layoutX="965.0" layoutY="197.0" />
+      		<Label layoutX="820.0" layoutY="130.0" style="-fx-font: NORMAL 20 Tahoma;" text="Invoice Date:" />
+            
+            <DatePicker id="invoice_date" fx:id="invoice_date" layoutX="965.0" layoutY="129.0" />
+            <Label layoutX="544.0" layoutY="42.0" prefHeight="44.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Address:" />
+            
+            <Label layoutX="804.0" layoutY="165.0" style="-fx-font: NORMAL 20 Tahoma;" text="Dispatch Date:" />
+            <DatePicker id="dispatch_date" fx:id="dispatch_date" layoutX="965.0" layoutY="164.0" />
             <Button layoutX="41.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="115.0" text="Back To Home" />
             <Label layoutX="41.0" layoutY="116.0" prefHeight="25.0" prefWidth="74.0" style="-fx-font: NORMAL 20 Tahoma;" text="State:" />
             <TextField fx:id="party_state_slt" layoutX="115.0" layoutY="116.0" promptText="" />
             <Label layoutX="659.0" layoutY="2.0" prefHeight="2.0" prefWidth="171.0" style="-fx-font: NORMAL 20 Tahoma;" text="Invoice Number" />
             <TextField fx:id="invoicenumber" layoutX="839.0" layoutY="3.0" promptText="" />
+            <ComboBox id="party_name" fx:id="party_name1" layoutX="44.0" layoutY="225.0" prefHeight="37.0" prefWidth="290.0" promptText="Transporter Name">
+               <items>
+                  <FXCollections fx:factory="observableArrayList" />
+               </items>
+            </ComboBox>
+            <TextField fx:id="party_state_slt1" layoutX="149.0" layoutY="287.0" promptText="" />
+            <Label layoutX="47.0" layoutY="287.0" prefHeight="25.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Vehical:" />
+            <Label layoutX="541.0" layoutY="247.0" prefHeight="25.0" prefWidth="115.0" style="-fx-font: NORMAL 20 Tahoma;" text="Mobile no.:" />
+            <TextField fx:id="party_state_slt11" layoutX="666.0" layoutY="248.0" prefHeight="25.0" prefWidth="185.0" promptText="" />
+            <Label layoutX="41.0" layoutY="37.0" prefHeight="25.0" prefWidth="133.0" style="-fx-font: NORMAL 20 Tahoma;" text="Party Name:" />
 				<!-- <TextField fx:id="welcomeText" text="home" layoutX="114.0"
 					layoutY="22.0" prefHeight="25.0" prefWidth="258.0" /> -->
 			</children>
 		</AnchorPane>
       <AnchorPane prefHeight="41.0" prefWidth="1209.0" GridPane.rowIndex="3">
          <children>
-            <Label layoutX="907.0" layoutY="5.0" style="-fx-font: NORMAL 20 Tahoma;" text="Total :" />
-            <TextField fx:id="invoice_total" layoutX="978.0" layoutY="3.0" prefHeight="25.0" prefWidth="185.0" />
+            <Label layoutX="14.0" layoutY="2.0" style="-fx-font: NORMAL 20 Tahoma;" text="Total :" />
+            <TextField fx:id="invoice_total" layoutX="1060.0" layoutY="2.0" prefHeight="25.0" prefWidth="149.0" />
+            <TextField fx:id="cgst_totalAmount" layoutX="487.0" layoutY="2.0" prefHeight="25.0" prefWidth="116.0" promptText="CGST Amount" />
+            <TextField fx:id="sgst_totalAmount" layoutX="638.0" layoutY="2.0" prefHeight="25.0" prefWidth="116.0" promptText="SGST Amount" />
+            <TextField fx:id="igst_totalAmount" layoutX="778.0" layoutY="2.0" prefHeight="25.0" prefWidth="116.0" promptText="IGST Amount" />
+            <TextField fx:id="cess_totalAmount" layoutX="930.0" layoutY="2.0" prefHeight="25.0" prefWidth="116.0" promptText="Cess Amount" />
+            <TextField fx:id="itemPriceTotal" layoutX="331.0" layoutY="2.0" prefHeight="25.0" prefWidth="116.0" promptText="Price(Q*P)" />
          </children>
       </AnchorPane>
 	</children>
