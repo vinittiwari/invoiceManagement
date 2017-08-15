@@ -26,6 +26,7 @@ public class HomeController {
     private ViewInvoiceController viewInvoiceController;
 	private ViewItemController viewItemController;
 	private ViewPartyController viewPartyController;
+	private AddTransporterController addTransporterController;
 
     public HomeController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
@@ -83,6 +84,12 @@ public class HomeController {
     protected void handleaddParty(ActionEvent event) {
     	 addPartyController = new AddPartyController();
     	 addPartyController.redirectaddParty(stage, name);
+    }
+    
+    @FXML
+    protected void handleaddTransporter(ActionEvent event) {
+    	 addTransporterController = new AddTransporterController();
+    	 addTransporterController.redirectaddTransporter(stage, name);
     }
     
     @FXML
