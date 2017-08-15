@@ -163,11 +163,12 @@ CREATE TABLE IF NOT EXISTS `transporter` (
   PRIMARY KEY (`transport_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table billmanagement.transporter: ~0 rows (approximately)
+-- Dumping data for table billmanagement.transporter: ~1 rows (approximately)
 DELETE FROM `transporter`;
 /*!40000 ALTER TABLE `transporter` DISABLE KEYS */;
 INSERT INTO `transporter` (`transport_name`, `transport_id`, `status`, `gstin`, `phone1`, `phone2`, `email1`, `email2`, `address2`, `address1`, `create_date`) VALUES
-	('Jai Gopala', 'JAI38', 'true', '23ASDSD3265S2D3', 9865322154, 9865326532, 'asfjan@szfgz.com', 'asfjan@szfgz.com', 'fdgsdgfsdg', 'dfgsdgsdgfsd', '2017-08-15');
+	('Jai Gopala', 'JAI12', 'true', '23ASDSD3265S2D3', 9865322154, 9865326532, 'asfjan@szfgz.co', 'asfjan@szfgz.co', 'fdgsdgfsdg', 'dfgsdgsdgfsd', '2017-08-15'),
+	('Jai Gopala', 'JAI38', 'true', '23ASDSD3265S2D3', 9865322154, 98653754475, 'asfjan@szfgz.co', 'asfjan@szfgz.co', 'dfgsdgsdgfsd', 'fdgsdgfsdg', '2017-08-15');
 /*!40000 ALTER TABLE `transporter` ENABLE KEYS */;
 
 -- Dumping structure for table billmanagement.user

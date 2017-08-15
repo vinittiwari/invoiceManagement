@@ -26,6 +26,7 @@ public class HomeController {
     private ViewInvoiceController viewInvoiceController;
 	private ViewItemController viewItemController;
 	private ViewPartyController viewPartyController;
+	private ViewTransporterController viewTransporterController;
 	private AddTransporterController addTransporterController;
 
     public HomeController() {
@@ -114,7 +115,8 @@ public class HomeController {
     }
     @FXML
     protected void handleviewTransporter(ActionEvent event) {
-    	
+    	viewTransporterController = new ViewTransporterController();
+		viewTransporterController.redirectviewTransporter(stage,Constants.getUsername());
     }
     
     @FXML
