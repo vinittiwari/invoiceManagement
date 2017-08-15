@@ -164,7 +164,7 @@ public class AddPartyController {
 		textFeildname.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				 if (textFeildname.getText().length() > 15) {
+				 if (textFeildname.getText().length() > maxlimit) {
 					 try{
 		                String s = textFeildname.getText().substring(0, maxlimit);
 		                textFeildname.setText(s);
@@ -233,7 +233,7 @@ public class AddPartyController {
 				int rs = c.createStatement().executeUpdate(SQL);
 				System.out.println("Has added party" + rs);
 				if (rs == 1) {
-					Alert alert = ShowAlert.callAlert2("Add Party","Item added Successfully");
+					Alert alert = ShowAlert.callAlert2("Add Party","Party added Successfully");
 			       	if (alert.showAndWait().get() == ButtonType.OK){
 						homeController = new HomeController();
 			            homeController.redirectHome(stage, Constants.getUsername());

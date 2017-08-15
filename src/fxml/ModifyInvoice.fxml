@@ -124,7 +124,7 @@
             <TextField fx:id="item_total" prefHeight="25.0" prefWidth="116.0" promptText="Item Total" />
 				<Button onAction="#handleOnClickAddItem" text="Add Item" />
             <Button fx:id="free_item_check" onAction="#OnfreeItemClick" text="Free Item" />
-				<Button onAction="#handleOnClickDeleteInvoice" text="Delete Item" />
+				<Button onAction="#handleOnClickDeleteItem" text="Delete Item" />
 				<Button alignment="BOTTOM_RIGHT" onAction="#handleOnClickUpdateInvoice" text="Update Invoice" />
 			</children>
 		</HBox>

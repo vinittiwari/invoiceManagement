@@ -63,6 +63,22 @@ public class AddItemController {
 			return false;
 		}
 	};
+	BooleanBinding isVaidItemCode = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
+	BooleanBinding isVaidPrice = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
 	
 
     public AddItemController() {
@@ -77,7 +93,7 @@ public class AddItemController {
         
         characterLimit(item_name, 20);
         characterLimit(rate, 3);
-        characterLimit(cess, 4);
+        characterLimit(cess, 3);
         characterLimit(price,6);
         characterLimit(item_code,7);
         /*addItemSubmit.disableProperty().bind(
@@ -99,20 +115,32 @@ public class AddItemController {
         });*/
         item_name.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				isValidName = ValidationCheck(newValue, "[a-zA-z0-9 ,]{4}");
+				isValidName = ValidationCheck(newValue, "^.{3,20}$");
 				System.out.println("Valid Name------>"+isValidName.get());
 			}
 		});
         rate.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				isValidRate = ValidationCheck(newValue, "[0-9]{3}");
+				isValidRate = ValidationCheck(newValue, "^\\d{1,}$");
 				System.out.println("Valid Gst------>"+isValidRate.get());
 			}
 		});
         cess.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				isValidCess = ValidationCheck(newValue, "[0-9]{3}");
+				isValidCess = ValidationCheck(newValue, "^\\d{1,}$");
 				System.out.println("Valid Gst------>"+isValidCess.get());
+			}
+		});
+        item_code.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isVaidItemCode = ValidationCheck(newValue, "^.+$");
+				System.out.println("Valid ItemCode------>"+isVaidItemCode.get());
+			}
+		});
+        price.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isVaidPrice = ValidationCheck(newValue, "^\\d{1,}$");
+				System.out.println("Valid isVaidPrice------>"+isVaidPrice.get());
 			}
 		});
         
@@ -123,7 +151,7 @@ public class AddItemController {
 		textFeildname.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				 if (textFeildname.getText().length() > 15) {
+				 if (textFeildname.getText().length() > maxlimit) {
 					 try{
 		                String s = textFeildname.getText().substring(0, maxlimit);
 		                textFeildname.setText(s);
@@ -188,10 +216,12 @@ public class AddItemController {
     }
     
     private boolean validateFields() {
-    	System.out.println("Item Name Valid" + !isValidName.get()
-    			+ "Valid Rate" + isValidRate.get()
-    			+ "Valid cess" + isValidCess.get());
-    	if(!isValidName.get() && isValidCess.get() && isValidRate.get()){
+    	System.out.println("Item Name Valid" + isValidName.get()
+    			+ "Valid Rate " + isValidRate.get()
+    			+ "Valid cess " + isValidCess.get() 
+    			+"valid Code " + isVaidItemCode.get()
+    			+"Valid Price " + isVaidPrice.get());
+    	if(isValidName.get() && isValidCess.get() && isValidRate.get() && isVaidItemCode.get() && isVaidPrice.get()){
     		return true;
     	}
 		return false;
@@ -214,9 +244,9 @@ public class AddItemController {
     		protected boolean computeValue() {
     			// TODO Auto-generated method stub
     			if (m.find( )) {
-    	        	return false;
-    	        }else {
     	        	return true;
+    	        }else {
+    	        	return false;
     	        }
     		}
     	};

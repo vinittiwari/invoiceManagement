@@ -128,10 +128,10 @@ public class AddInvoiceController {
 		
 		Connection c1;
 		try{
-			c = DBConnectFlogger.connect();
+			c1 = DBConnectFlogger.connect();
 			String SQL = "SELECT invoice_number from invoice";
 			System.out.println("---> query" + SQL);
-			ResultSet rs = c.createStatement().executeQuery(SQL);
+			ResultSet rs = c1.createStatement().executeQuery(SQL);
 			String current = null;
 			int size=0;
 			while (rs.next()) {
@@ -292,7 +292,7 @@ public class AddInvoiceController {
 		});
 		new ComboBoxAutoComplete(party_name);
 		new ComboBoxAutoComplete(itemListO);
-		invoicenumber.setText("GST" + String.valueOf(oldInvoice+1));
+		invoicenumber.setText(Constants.getInvoicePrefix() + String.valueOf(oldInvoice+1));
 	}
 	
 	
@@ -526,15 +526,15 @@ public class AddInvoiceController {
 			ItemJson.put("item_name", tableView.getItems().get(i).getTable_item_name());
 			ItemJson.put("item_quantity", tableView.getItems().get(i).getTable_quantity());
 			ItemJson.put("item_total_price", tableView.getItems().get(i).getTable_price());
-			ItemJson.put("item_gst", tableView.getItems().get(i).getTable_gst());
+			ItemJson.put("item_gst", tableView.getItems().get(i).getTable_gst().replace("%",""));
 			ItemJson.put("item_gst_amount", tableView.getItems().get(i).getTable_gst_amount());
-			ItemJson.put("item_cgst", tableView.getItems().get(i).getTable_cgst());
+			ItemJson.put("item_cgst", tableView.getItems().get(i).getTable_cgst().replace("%",""));
 			ItemJson.put("item_cgst_amount", tableView.getItems().get(i).getTable_cgst_amount());
-			ItemJson.put("item_igst", tableView.getItems().get(i).getTable_igst());
+			ItemJson.put("item_igst", tableView.getItems().get(i).getTable_igst().replace("%",""));
 			ItemJson.put("item_igst_amount", tableView.getItems().get(i).getTable_igst_amount());
-			ItemJson.put("item_sgst", tableView.getItems().get(i).getTable_sgst());
+			ItemJson.put("item_sgst", tableView.getItems().get(i).getTable_sgst().replace("%",""));
 			ItemJson.put("item_sgst_amount", tableView.getItems().get(i).getTable_sgst_amount());
-			ItemJson.put("item_cess", tableView.getItems().get(i).getTable_cess());
+			ItemJson.put("item_cess", tableView.getItems().get(i).getTable_cess().replace("%",""));
 			ItemJson.put("item_cess_amount", tableView.getItems().get(i).getTable_cess_amount());
 			ItemJson.put("item_total", tableView.getItems().get(i).getTable_total());
 			ItemArray.put(ItemJson);

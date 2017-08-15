@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -43,10 +44,13 @@ public class ModifyInvoiceController {
     private Parent parent;
     private Scene scene;
     private Stage stage;
+    String party_state,gstNo;
     private HomeController homeController;
     String selectedItem;
     String currentgst = null, cess;
     Boolean isSameState = false, isFirstInvoice = false ;
+    private ViewInvoiceController viewInvoiceController;
+    String party_id_;
     @FXML
 	private ComboBox itemListO, quantity;
     @FXML
@@ -85,6 +89,8 @@ public class ModifyInvoiceController {
 		itemPriceTotal.setEditable(false);
 		item_total.setEditable(false);
 		invoice_total.setEditable(false);
+		price.setEditable(false);
+		item_id.setEditable(false);
     }
 
 
@@ -126,16 +132,16 @@ public class ModifyInvoiceController {
 			word.setTable_item_name((String) perItem.get("item_name"));
 			word.setTable_quantity((String) perItem.get("item_quantity"));
 			word.setTable_price((String) perItem.get("item_total_price"));
-			word.setTable_gst((String) perItem.get("item_gst"));
+			word.setTable_gst((String) perItem.get("item_gst")+"%");
 			word.setTable_gst_amount((String) perItem.get("item_gst_amount"));
 			word.setTable_total((String) perItem.get("item_total"));
-			word.setTable_cgst((String) perItem.get("item_gst"));
+			word.setTable_cgst((String) perItem.get("item_gst")+"%");
 			word.setTable_cgst_amount((String) perItem.get("item_gst_amount"));
-			word.setTable_sgst((String) perItem.get("item_sgst"));
+			word.setTable_sgst((String) perItem.get("item_sgst")+"%");
 			word.setTable_sgst_amount((String) perItem.get("item_sgst_amount"));
-			word.setTable_igst((String) perItem.get("item_igst"));
+			word.setTable_igst((String) perItem.get("item_igst")+"%");
 			word.setTable_igst_amount((String) perItem.get("item_igst_amount"));
-			word.setTable_cess((String) perItem.get("item_cess"));
+			word.setTable_cess((String) perItem.get("item_cess")+"%");
 			word.setTable_cess_amount((String) perItem.get("item_cess_amount"));
 			data.add(word);
 		}
@@ -157,7 +163,7 @@ public class ModifyInvoiceController {
 		//party_name.getSelectionModel().selectFirst();
 		party_name.setText(wordList.get(6));
 		invoice_total.setText(wordList.get(7));
-		invoicenumber.setText("GST"+invoice_number_selected);
+		invoicenumber.setText(Constants.getInvoicePrefix()+invoice_number_selected);
 		dispatch_date.setValue(localDateFormatter(dispatch_date_selected));
 	    invoice_date.setValue(localDateFormatter(invoice_date_selected));
 	    party_address.setText(party_address_selected);
@@ -221,7 +227,7 @@ public class ModifyInvoiceController {
 				if (rs.first()) {
 					current = rs.getString("address");
 					current1 = rs.getString("address1");
-					current2 = rs.getString("party_id");
+					party_id_ = rs.getString("party_id");
 					party_state_feild = rs.getString("state");
 					gstNo = rs.getString("gstin");
 				}
@@ -231,6 +237,29 @@ public class ModifyInvoiceController {
 			System.out.println(e);
 		}
 		
+		try {
+			Connection c1;
+			c1 = DBConnectFlogger.connect();
+			String SQL = "SELECT * from party WHERE party_name = \"" + party_name.getText() + "\"";
+			System.out.println("---> query" + SQL);
+			// ResultSet
+			ResultSet rs = c1.createStatement().executeQuery(SQL);
+			String current = null,current1=null,current2 = null;
+			while (rs.next()) {
+				if (rs.first()) {
+					party_state = rs.getString("state");
+					gstNo = rs.getString("gstin");
+				}
+			}
+			System.out.println("---->" + current+ "--->" + gstNo);
+			int partyStateCode = Integer.parseInt(gstNo.substring(0,2));
+			if(Constants.getState() == partyStateCode){
+				isSameState = true;
+				System.out.println("isSameState-------------->" + isSameState);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -290,12 +319,7 @@ public class ModifyInvoiceController {
 			}}
 		});
     }
-    
-	@FXML
-	protected void handleOnClickAddInvoice(ActionEvent event) throws SQLException {
-		
-		
-	}
+ 
 	LocalDate localDateFormatter(String date){
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	    LocalDate localDate = LocalDate.parse(date, formatter);
@@ -305,7 +329,7 @@ public class ModifyInvoiceController {
 	@FXML
 	protected void handleOnClickAddItem(ActionEvent event) {
 		System.out.println("----------->"+ isSameState);
-		if(true){
+		if(!party_name.getText().isEmpty()){
 			if(isSameState){
 				InvoiceEntry word = new InvoiceEntry();
 				word.setTable_item_id(item_id.getText());
@@ -437,17 +461,107 @@ public class ModifyInvoiceController {
 	
 
 	@FXML
-	protected void handleOnClickDeleteInvoice(ActionEvent event) {
+	protected void handleOnClickDeleteItem(ActionEvent event) {
 		InvoiceEntry selectedItem = tableView.getSelectionModel().getSelectedItem();
 		tableView.getItems().remove(selectedItem);
 		tableView.getSelectionModel().clearSelection();
+		totalItems("Total(AP+GST)",invoice_total);
+        totalItems("Price (Q*P)",itemPriceTotal);
+        subColumn_totalItems(4,"Amount",cgst_totalAmount);
+        subColumn_totalItems(5,"Amount",sgst_totalAmount);
+        subColumn_totalItems(6,"Amount",igst_totalAmount);
+        subColumn_totalItems(7,"Amount",cess_totalAmount);
 	}
 	
 	@FXML
 	protected void handleOnClickUpdateInvoice(ActionEvent event) {
-		InvoiceEntry selectedItem = tableView.getSelectionModel().getSelectedItem();
-		tableView.getItems().remove(selectedItem);
-		tableView.getSelectionModel().clearSelection();
+		if(validationCheck()){
+			System.out.println("*****handleOnClickAddInvoice**********");
+			String JsonItem = ConvertItemIntoJson();
+			String party_name_db = party_name.getText();
+			String party_id_db = party_id_;
+			LocalDate date_invoice = invoice_date.getValue();
+			LocalDate dispatch_invoice_date = dispatch_date.getValue();
+			String address = party_address.getText().replace(",", "~");
+			//String address1 = party_address1.getText();
+			//int invoice_number = oldInvoice + 1;
+			try{
+			Connection c;
+			c = DBConnectFlogger.connect();
+			String SQL = "DELETE FROM invoice WHERE invoice_number = \"" + invoicenumber.getText().replace(Constants.getInvoicePrefix(),"") + "\"" ;
+			System.out.println("---> query" + SQL);
+			int rs = c.createStatement().executeUpdate(SQL);
+			System.out.println("Has  party" + rs);
+			if (rs == 1) {
+				Connection c2;
+				c2 = DBConnectFlogger.connect();
+				String SQL1 = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,party_id,invoice_total) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ invoicenumber.getText().replace(Constants.getInvoicePrefix(),"") +",\"" + dispatch_invoice_date +"\",\""+ address+"\",\"" + party_id_db + "\"," + invoice_total.getText() +")";
+				System.out.println("---> query" + SQL1);
+				int rs1 = c2.createStatement().executeUpdate(SQL1);
+				System.out.println("Has added party" + rs1);
+				if (rs1 == 1) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Add Invoice");
+					alert.setHeaderText("Modified Invoice");
+					alert.setContentText("Modified invoice successfully");
+					
+					//alert.showAndWait();
+					//Optional<ButtonType> result = alert.showAndWait();
+					if (alert.showAndWait().get() == ButtonType.OK){
+						viewInvoiceController = new ViewInvoiceController();
+						viewInvoiceController.redirectviewInvoice(stage,Constants.getUsername());
+		            }
+				}else{
+					ShowAlert.callAlert("Modified Invoice", "Please enter Correct details.");
+				}
+			}
+			else{
+				ShowAlert.callAlert("Add Invoice", "Please enter Correct details.");
+			}
+			}catch (Exception e) {
+				
+			}
+		}else{
+			ShowAlert.callAlert("Add Invoice", "Please enter Correct details.");
+		}
+	}
+
+	private String ConvertItemIntoJson() {
+
+		JSONArray ItemArray = new JSONArray();
+		for (int i = 0; i < tableView.getItems().size(); i++) {
+			JSONObject ItemJson = new JSONObject();
+			ItemJson.put("item_id", tableView.getItems().get(i).getTable_item_id());
+			ItemJson.put("item_name", tableView.getItems().get(i).getTable_item_name());
+			ItemJson.put("item_quantity", tableView.getItems().get(i).getTable_quantity());
+			ItemJson.put("item_total_price", tableView.getItems().get(i).getTable_price());
+			ItemJson.put("item_gst", tableView.getItems().get(i).getTable_gst().replace("%",""));
+			ItemJson.put("item_gst_amount", tableView.getItems().get(i).getTable_gst_amount());
+			ItemJson.put("item_cgst", tableView.getItems().get(i).getTable_cgst().replace("%",""));
+			ItemJson.put("item_cgst_amount", tableView.getItems().get(i).getTable_cgst_amount());
+			ItemJson.put("item_igst", tableView.getItems().get(i).getTable_igst().replace("%",""));
+			ItemJson.put("item_igst_amount", tableView.getItems().get(i).getTable_igst_amount());
+			ItemJson.put("item_sgst", tableView.getItems().get(i).getTable_sgst().replace("%",""));
+			ItemJson.put("item_sgst_amount", tableView.getItems().get(i).getTable_sgst_amount());
+			ItemJson.put("item_cess", tableView.getItems().get(i).getTable_cess().replace("%",""));
+			ItemJson.put("item_cess_amount", tableView.getItems().get(i).getTable_cess_amount());
+			ItemJson.put("item_total", tableView.getItems().get(i).getTable_total());
+			ItemArray.put(ItemJson);
+		}
+		String JsonItem = ItemArray.toString().replace("\"", "\\\"");
+		System.out.println(JsonItem);
+		return JsonItem;
+	}
+
+	private boolean validationCheck() {
+		System.out.println("invoice_date-->"+invoice_date.getValue() +"dispatch_date--->"+ dispatch_date.getValue()
+							+"Party name"+ !party_name.getText().isEmpty()
+							+"Item count" + tableView.getItems().size());
+		if(invoice_date.getValue()!=null && dispatch_date.getValue()!=null && !party_name.getText().isEmpty() 
+			&& 	tableView.getItems().size()>0) {
+			return true;
+		}
+		return false;
 	}
 
 	public float sum(List<Float> list) {

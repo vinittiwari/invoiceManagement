@@ -9,7 +9,13 @@ public class Constants {
 	static String Username;
 	static int state = 28;
 	static String invoiceNo = "18";
-	
+	static String invoicePrefix = "GST";
+	public static String getInvoicePrefix() {
+		return invoicePrefix;
+	}
+	public static void setInvoicePrefix(String invoicePrefix) {
+		Constants.invoicePrefix = invoicePrefix;
+	}
 	public static String getInvoiceNo() {
 		return invoiceNo;
 	}
