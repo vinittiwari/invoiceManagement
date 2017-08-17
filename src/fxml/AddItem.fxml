@@ -29,7 +29,8 @@
    	<TextField fx:id="unit" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />
    	<Label text="Cess" GridPane.columnIndex="0" GridPane.rowIndex="7" />
    	<TextField fx:id="cess" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-   	
+   	<Label text="Rate" GridPane.rowIndex="8" />
+    <TextField fx:id="rate" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="8" />
    		
    	<HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
       <children>
@@ -37,9 +38,7 @@
       </children>
    	</HBox>
       <Button mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="99.0" text="Back To Home" />
-      <Label text="Rate" GridPane.rowIndex="8" />
-      <TextField fx:id="rate" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-   </children>
+    </children>
 	<padding>
 		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
 	</padding>
