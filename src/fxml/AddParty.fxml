@@ -46,11 +46,17 @@
       <TextField fx:id="gstin" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Label text="Address 2:" GridPane.rowIndex="12" />
       <TextField fx:id="address2" prefHeight="46.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+      <Label fx:id="party_name_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label fx:id="state_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label fx:id="gstno_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Label fx:id="phone1_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Label fx:id="email1_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="9" />
    </children>
 	<padding>
 		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
 	</padding>
    <columnConstraints>
+      <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />

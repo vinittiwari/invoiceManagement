@@ -39,11 +39,19 @@
       <Button mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="99.0" text="Back To Home" />
       <Label text="Rate" GridPane.rowIndex="8" />
       <TextField fx:id="rate" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Label fx:id="item_name_valid" prefHeight="17.0" prefWidth="55.0" text="*invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label fx:id="price_valid" prefHeight="17.0" prefWidth="55.0" text="*invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label fx:id="item_code_valid" prefHeight="17.0" prefWidth="55.0" text="*invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Label fx:id="unit_valid" prefHeight="17.0" prefWidth="55.0" text="*invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Label fx:id="cess_valid" prefHeight="17.0" prefWidth="55.0" text="*invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Label fx:id="rate_valid" prefHeight="17.0" prefWidth="55.0" text="*invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="8" />
    </children>
 	<padding>
 		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
 	</padding>
    <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />

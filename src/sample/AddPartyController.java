@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -39,6 +40,8 @@ public class AddPartyController {
 	private Parent parent;
 	private Scene scene;
 	private Stage stage;
+	@FXML
+	private Label gstno_valid,party_name_valid,phone1_valid,email1_valid,state_valid;
 	@FXML
 	private Text welcomeText;
 	private HomeController homeController;
@@ -73,6 +76,7 @@ public class AddPartyController {
 	
 	boolean isValidEmail1= false,isValidState=false;
 	
+	
 
 	@FXML
 	private Button addPartySubmit;
@@ -97,17 +101,35 @@ public class AddPartyController {
 				addPartySubmit.disableProperty().bind(ValidationCheck(newValue, "^[a-zA-Z\\s]{2,29}$"));
 			}
 		});*/
+		gstno_valid.setVisible(false);
+		party_name_valid.setVisible(false);
+		phone1_valid.setVisible(false);
+		email1_valid.setVisible(false);
+		state_valid.setVisible(false);
+		
 		gstin.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				isValidGST = ValidationCheck(newValue, "[0123]{1}[0-9]{1}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{1}");
 				System.out.println("Valid Gst------>"+isValidGST.get());
+				if(isValidGST.get() == false){
+					gstno_valid.setVisible(true);
+				}else{
+					gstno_valid.setVisible(false);
+				}
 			}
 		});
+		
+		
 		
 		party_name.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				isValidName = ValidationCheck(newValue, "[a-zA-z0-9 ,]{4}");
 				System.out.println("Valid Name------>"+isValidName.get());
+				if(isValidName.get() == false){
+					party_name_valid.setVisible(true);
+				}else{
+					party_name_valid.setVisible(false);
+				}
 			}
 		});
 		
@@ -115,6 +137,11 @@ public class AddPartyController {
 			if (newValue != null) {
 				isValidPhone1 = ValidationCheck(newValue, "[0-9]{10}");
 				System.out.println("Valid Name------>"+isValidPhone1.get());
+				if(isValidPhone1.get() == false){
+					phone1_valid.setVisible(true);
+				}else{
+					phone1_valid.setVisible(false);
+				}
 			}
 		});
 			
@@ -122,6 +149,11 @@ public class AddPartyController {
 			if (newValue != null) {
 				isValidEmail1 = EmailValidator.getInstance().isValid(newValue);
 				System.out.println("Valid Name------>"+isValidEmail1);
+				if(isValidEmail1 == false){
+					email1_valid.setVisible(true);
+				}else{
+					email1_valid.setVisible(false);
+				}
 			}
 		});
 		
@@ -154,6 +186,12 @@ public class AddPartyController {
 		            }
 			}
 		});*/
+		state.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				state_valid.setVisible(false);
+			}
+		});
 
 		fetchStateList();
 		System.out.println(getString(5) + getInt(4) + getString(1) + getInt(1) + getString(1) + getInt(1));
@@ -258,7 +296,19 @@ public class AddPartyController {
 			System.out.println("------------->");
 			return true;
 		}
-		return false;
+		else{
+			if(isValidName.get() == false) party_name_valid.setVisible(true);
+			else party_name_valid.setVisible(false);
+			if(isValidGST.get() == false) gstno_valid.setVisible(true);
+			else party_name_valid.setVisible(false);
+			if(isValidPhone1.get() == false) phone1_valid.setVisible(true);
+			else party_name_valid.setVisible(false);
+			if(isValidEmail1 == false) email1_valid.setVisible(true);
+			else party_name_valid.setVisible(false);
+			if(isValidState == false) state_valid.setVisible(true);
+			else party_name_valid.setVisible(false);
+			return false;
+		}
 	}
 
 	@FXML

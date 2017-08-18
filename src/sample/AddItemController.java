@@ -20,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -35,6 +36,8 @@ public class AddItemController {
     private HomeController homeController;
     @FXML
     private Text welcomeText;
+	@FXML 
+	private Label item_name_valid,item_code_valid,price_valid,cess_valid,rate_valid,unit_valid;
     @FXML
     private TextField item_name,price,cess,item_code,unit,rate;
     @FXML
@@ -91,6 +94,13 @@ public class AddItemController {
             e.printStackTrace();
         }
         
+        item_name_valid.setVisible(false);
+        item_code_valid.setVisible(false);
+        price_valid.setVisible(false);
+        cess_valid.setVisible(false);
+        rate_valid.setVisible(false);
+        unit_valid.setVisible(false);
+        
         characterLimit(item_name, 20);
         characterLimit(rate, 3);
         characterLimit(cess, 3);
@@ -117,30 +127,55 @@ public class AddItemController {
 			if (newValue != null) {
 				isValidName = ValidationCheck(newValue, "^.{3,20}$");
 				System.out.println("Valid Name------>"+isValidName.get());
+				if(isValidName.get() == false){
+					item_name_valid.setVisible(true);
+				}else{
+					item_name_valid.setVisible(false);
+				}
 			}
 		});
         rate.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				isValidRate = ValidationCheck(newValue, "^\\d{1,}$");
 				System.out.println("Valid Gst------>"+isValidRate.get());
+				if(isValidRate.get() == false){
+					rate_valid.setVisible(true);
+				}else{
+					rate_valid.setVisible(false);
+				}
 			}
 		});
         cess.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				isValidCess = ValidationCheck(newValue, "^\\d{1,}$");
 				System.out.println("Valid Gst------>"+isValidCess.get());
+				if(isValidCess.get() == false){
+					cess_valid.setVisible(true);
+				}else{
+					cess_valid.setVisible(false);
+				}
 			}
 		});
         item_code.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				isVaidItemCode = ValidationCheck(newValue, "^.+$");
 				System.out.println("Valid ItemCode------>"+isVaidItemCode.get());
+				if(isVaidItemCode.get() == false){
+					item_code_valid.setVisible(true);
+				}else{
+					item_code_valid.setVisible(false);
+				}
 			}
 		});
         price.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				isVaidPrice = ValidationCheck(newValue, "^\\d{1,}$");
 				System.out.println("Valid isVaidPrice------>"+isVaidPrice.get());
+				if(isVaidPrice.get() == false){
+					price_valid.setVisible(true);
+				}else{
+					price_valid.setVisible(false);
+				}
 			}
 		});
         
@@ -223,8 +258,19 @@ public class AddItemController {
     			+"Valid Price " + isVaidPrice.get());
     	if(isValidName.get() && isValidCess.get() && isValidRate.get() && isVaidItemCode.get() && isVaidPrice.get()){
     		return true;
+    	}else{
+    		if(isValidName.get() == false) item_name_valid.setVisible(true);
+    		else item_name_valid.setVisible(false);
+    		if(isValidCess.get() == false) cess_valid.setVisible(true);
+    		else cess_valid.setVisible(false);
+    		if(isValidRate.get() == false) rate_valid.setVisible(true);
+    		else rate_valid.setVisible(false);
+    		if(isVaidItemCode.get() == false) item_code_valid.setVisible(true);
+    		else item_code_valid.setVisible(false);
+    		if(isVaidPrice.get() == false) price_valid.setVisible(true);
+    		else price_valid.setVisible(false);
+    		return false;
     	}
-		return false;
 	}
 
 

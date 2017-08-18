@@ -8,10 +8,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,6 +30,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -50,13 +54,15 @@ public class AddInvoiceController {
 	int userstate;
 	Boolean isSameState = false, isFirstInvoice = false ;
 	int oldInvoice = 0;
+	@FXML 
+	private Label invoicedate_valid,dispatchdate_valid,party_valid,itemrequired_valid,tramspoter_valid,vehical_valid,mobile_valid;
 	@FXML
-	private ComboBox itemListO, quantity, party_name;
+	private ComboBox itemListO, quantity, party_name,transporter;
 	String selectedParty_id;
 	float gst_amount,gstrate,cess_amount;
 	private HomeController homeController;
 	@FXML
-	private javafx.scene.control.TextField item_id, price,gst,item_total,invoice_total,party_state_slt,invoicenumber,cgst_totalAmount,sgst_totalAmount,igst_totalAmount,cess_totalAmount,itemPriceTotal;	
+	private javafx.scene.control.TextField item_id, price,gst,item_total,invoice_total,party_state_slt,invoicenumber,cgst_totalAmount,sgst_totalAmount,igst_totalAmount,cess_totalAmount,itemPriceTotal,mobilenumTransporter,vehicalTransporter;	
 	@FXML
 	private TextArea party_address;
 	private ObservableList<InvoiceEntry> data = FXCollections.observableArrayList();
@@ -71,7 +77,32 @@ public class AddInvoiceController {
 	TableColumn<InvoiceEntry, String> table_item_id, table_price, table_item_name;
 	TableColumn<InvoiceEntry, String> col = new TableColumn<>();
 	private ObservableList<ObservableList<String>> data2;
+	BooleanBinding isValidPhone1 = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
+	BooleanBinding isValidTMobile = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
 
+	BooleanBinding isValidTVehical = new BooleanBinding() {
+		
+		@Override
+		protected boolean computeValue() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	};
+	
 	public AddInvoiceController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddInvoice.fxml"));
 		fxmlLoader.setController(this);
@@ -95,7 +126,30 @@ public class AddInvoiceController {
 		invoicenumber.setEditable(false);
 		party_state_slt.setEditable(false);
 		userstate = Constants.getState();
+		
+		itemrequired_valid.setVisible(false);
+		party_valid.setVisible(false);
+		invoicedate_valid.setVisible(false);
+		dispatchdate_valid.setVisible(false);
+		tramspoter_valid.setVisible(false);
+		vehical_valid.setVisible(false);
+		mobile_valid.setVisible(false);
+		
 		System.out.println("userstate " + userstate);
+		populateTranspoter();
+		
+		mobilenumTransporter.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isValidPhone1 = ValidationCheck(newValue, "[0-9]{10}");
+				System.out.println("Valid Name------>"+isValidPhone1.get());
+			}
+		});
+		
+		
+		
+		characterLimit(mobilenumTransporter, 12);
+		characterLimit(vehicalTransporter, 13);
+		
 		Connection c;
 		int rowcount = 0;
 		try {
@@ -159,19 +213,25 @@ public class AddInvoiceController {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if(newValue != null){
-				int IntnewValue = Integer.parseInt(newValue);
-				int IntsingleItemPrice = Integer.parseInt(singleItemPrice);
-				cess_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(cess)/100));
-				price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
-				float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
-				gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
-				
-				//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
-				item_total.setText(String.valueOf(quantity_item_picetotal));
-				}}
+					int IntnewValue = Integer.parseInt(newValue);
+					int IntsingleItemPrice = Integer.parseInt(singleItemPrice);
+					cess_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(cess)/100));
+					price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
+					float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
+					gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
+					
+					//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+					item_total.setText(String.valueOf(quantity_item_picetotal));
+					}
+				}
 		});
 		
-	
+		 invoice_date.valueProperty().addListener((ov, oldValue, newValue) -> {
+			 	invoicedate_valid.setVisible(false);
+	        });
+		 dispatch_date.valueProperty().addListener((ov, oldValue, newValue) -> {
+			 	dispatchdate_valid.setVisible(false);
+	        });
 
 		itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -250,10 +310,42 @@ public class AddInvoiceController {
 			System.out.println(e);
 		}
 
+		transporter.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				tramspoter_valid.setVisible(false);
+			}
+		});
+		
+		mobilenumTransporter.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isValidTMobile = ValidationCheck(newValue, "[0-9]{10}");
+				System.out.println("Valid Name------>"+isValidTMobile.get());
+				if(isValidTMobile.get() == false){
+					mobile_valid.setVisible(true);
+				}else{
+					mobile_valid.setVisible(false);
+				}
+			}
+		});
+		
+		vehicalTransporter.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[ -][0-9]{2}[ -][A-Z]{2}[ -][0-9]{4}");
+				System.out.println("Valid Name------>"+isValidTVehical.get());
+				if(isValidTVehical.get() == false){
+					vehical_valid.setVisible(true);
+				}else{
+					vehical_valid.setVisible(false);
+				}
+			}
+		});
+		
 		party_name.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				System.out.println("Value is: " + newValue);
+				party_valid.setVisible(false);
 				try {
 					Connection c1;
 					c1 = DBConnectFlogger.connect();
@@ -295,7 +387,40 @@ public class AddInvoiceController {
 		invoicenumber.setText(Constants.getInvoicePrefix() + String.valueOf(oldInvoice+1));
 	}
 	
-	
+	private void characterLimit(TextField textFeildname, int maxlimit) {
+		textFeildname.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				 if (textFeildname.getText().length() > maxlimit) {
+					 try{
+		                String s = textFeildname.getText().substring(0, maxlimit);
+		                textFeildname.setText(s);
+					 }catch (Exception e) {
+					}}
+			}
+		});
+	}
+
+	public BooleanBinding ValidationCheck(String Value, String pattern) {
+		// Create a Pattern object
+		Pattern r = Pattern.compile(pattern);
+		// Now create matcher object.
+		Matcher m = r.matcher(Value);
+		BooleanBinding item_name_ck = new BooleanBinding() {
+			@Override
+			protected boolean computeValue() {
+				// TODO Auto-generated method stub
+				if (m.find()) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		};
+		return item_name_ck;
+	}
+
+
 
 	public void redirectaddInvoice(Stage stage, String name) {
 		this.stage = stage;
@@ -390,6 +515,7 @@ public class AddInvoiceController {
 		        subColumn_totalItems(6,"Amount",igst_totalAmount);
 		        subColumn_totalItems(7,"Amount",cess_totalAmount);
 			}
+			itemrequired_valid.setVisible(false);
 		}else{
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Add Item");
@@ -472,6 +598,9 @@ public class AddInvoiceController {
 	protected void handleOnClickAddInvoice(ActionEvent event) throws SQLException {
 		if(validationCheck()){
 			System.out.println("*****handleOnClickAddInvoice**********");
+			String transporterMobile = mobilenumTransporter.getText();
+			String VehicalNo = vehicalTransporter.getText();
+			String transporterName = transporter.getItems().get(transporter.getSelectionModel().getSelectedIndex()).toString();
 			String JsonItem = ConvertItemIntoJson();
 			String party_name_db = party_name.getItems().get(party_name.getSelectionModel().getSelectedIndex()).toString();
 			String party_id_db = selectedParty_id;
@@ -482,7 +611,7 @@ public class AddInvoiceController {
 			int invoice_number = oldInvoice + 1;
 			Connection c2;
 			c2 = DBConnectFlogger.connect();
-			String SQL = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,party_id,invoice_total) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ invoice_number +",\"" + dispatch_invoice_date +"\",\""+ address+"\",\"" + party_id_db + "\"," + invoice_total.getText() +")";
+			String SQL = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,party_id,invoice_total,transporter_name,transporter_mobile,transporter_vehicalno) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ invoice_number +",\"" + dispatch_invoice_date +"\",\""+ address+"\",\"" + party_id_db + "\"," + invoice_total.getText() + ",\""+ transporterName +"\",\"" + transporterMobile + "\",\""+ VehicalNo + "\")";
 			System.out.println("---> query" + SQL);
 			int rs = c2.createStatement().executeUpdate(SQL);
 			System.out.println("Has added party" + rs);
@@ -507,12 +636,29 @@ public class AddInvoiceController {
 	private boolean validationCheck() {
 		System.out.println("invoice_date-->"+invoice_date.getValue() +"dispatch_date--->"+ dispatch_date.getValue()
 							+"Party name"+ party_name.getSelectionModel().getSelectedIndex()
-							+"Item count" + tableView.getItems().size());
+							+"Item count" + tableView.getItems().size()
+							+ " transporter "+  transporter.getSelectionModel().getSelectedIndex() 
+							+ "Transporter mobile " + isValidTMobile.get());
 		if(invoice_date.getValue()!=null && dispatch_date.getValue()!=null && party_name.getSelectionModel().getSelectedIndex() !=-1 
-			&& 	tableView.getItems().size()>0) {
+			&& 	tableView.getItems().size()>0 && transporter.getSelectionModel().getSelectedIndex() !=-1 && isValidTMobile.get()) {
 			return true;
+		}else{
+			if(invoice_date.getValue()!=null) invoicedate_valid.setVisible(false); 
+			else invoicedate_valid.setVisible(true);
+			if(dispatch_date.getValue()!=null) dispatchdate_valid.setVisible(false); 
+			else dispatchdate_valid.setVisible(true);
+			if(party_name.getSelectionModel().getSelectedIndex() !=-1) party_valid.setVisible(false); 
+			else party_valid.setVisible(true);
+			if(tableView.getItems().size()>0) itemrequired_valid.setVisible(false); 
+			else itemrequired_valid.setVisible(true);
+			if( transporter.getSelectionModel().getSelectedIndex() !=-1) tramspoter_valid.setVisible(false); 
+			else tramspoter_valid.setVisible(true);
+			if( isValidTMobile.get()) mobile_valid.setVisible(false); 
+			else mobile_valid.setVisible(true);
+			if( isValidTVehical.get()) vehical_valid.setVisible(false); 
+			else vehical_valid.setVisible(true);
+			return false;
 		}
-		return false;
 	}
 
 
@@ -528,8 +674,8 @@ public class AddInvoiceController {
 			ItemJson.put("item_total_price", tableView.getItems().get(i).getTable_price());
 			ItemJson.put("item_gst", tableView.getItems().get(i).getTable_gst().replace("%",""));
 			ItemJson.put("item_gst_amount", tableView.getItems().get(i).getTable_gst_amount());
-			ItemJson.put("item_cgst", tableView.getItems().get(i).getTable_cgst().replace("%",""));
-			ItemJson.put("item_cgst_amount", tableView.getItems().get(i).getTable_cgst_amount());
+			//ItemJson.put("item_cgst", tableView.getItems().get(i).getTable_cgst().replace("%",""));
+			//ItemJson.put("item_cgst_amount", tableView.getItems().get(i).getTable_cgst_amount());
 			ItemJson.put("item_igst", tableView.getItems().get(i).getTable_igst().replace("%",""));
 			ItemJson.put("item_igst_amount", tableView.getItems().get(i).getTable_igst_amount());
 			ItemJson.put("item_sgst", tableView.getItems().get(i).getTable_sgst().replace("%",""));
@@ -583,5 +729,35 @@ public class AddInvoiceController {
 			alert.showAndWait();
 		}
 	}
+	void populateTranspoter(){
+		Connection c;
+		int rowcount = 0;
+		try {
+			c = DBConnectFlogger.connect();
+			String SQL = "SELECT * from transporter";
+			// String SQL = "select * from user where username = \"" +
+			// userName.getText() + "\" and password = \"" +
+			// passwordField.getText() + "\";" ;
+			System.out.println("---> query" + SQL);
+			// ResultSet
+			rs = c.createStatement().executeQuery(SQL);
 
+			if (rs.last()) {
+				rowcount = rs.getRow();
+				rs.beforeFirst(); // not rs.first() because the rs.next() below
+									// will move on, missing the first element
+			}
+			System.out.println("RS size for party " + rowcount);
+			ObservableList<String> row = FXCollections.observableArrayList("CSE");
+			while (rs.next()) {
+				String current = rs.getString("transport_name");
+				listOfItem.add(current);
+			}
+			ObservableList<String> observableListOfParty = FXCollections.observableArrayList(listOfItem);
+			// partyList.getItems().clear();
+			transporter.getItems().addAll(observableListOfParty);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }
