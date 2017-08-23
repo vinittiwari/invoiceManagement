@@ -69,6 +69,7 @@ public class AddInvoiceController {
 	private ObservableList<InvoiceEntry> data = FXCollections.observableArrayList();
 	ResultSet rs;
 	List<String> listOfItem = new ArrayList<String>();
+	List<String> listOfTransport = new ArrayList<String>();
 	List<String> listOfParty = new ArrayList<String>();
 	List<String> listOfItemQuantity = new ArrayList<String>();
 	@FXML
@@ -750,30 +751,30 @@ public class AddInvoiceController {
 		}
 	}
 	void populateTranspoter(){
-		Connection c;
+		Connection c4;
 		int rowcount = 0;
 		try {
-			c = DBConnectFlogger.connect();
+			c4 = DBConnectFlogger.connect();
 			String SQL = "SELECT * from transporter";
 			// String SQL = "select * from user where username = \"" +
 			// userName.getText() + "\" and password = \"" +
 			// passwordField.getText() + "\";" ;
 			System.out.println("---> query" + SQL);
 			// ResultSet
-			rs = c.createStatement().executeQuery(SQL);
+			ResultSet rs1 = c4.createStatement().executeQuery(SQL);
 
-			if (rs.last()) {
-				rowcount = rs.getRow();
-				rs.beforeFirst(); // not rs.first() because the rs.next() below
+			if (rs1.last()) {
+				rowcount = rs1.getRow();
+				rs1.beforeFirst(); // not rs.first() because the rs.next() below
 									// will move on, missing the first element
 			}
 			System.out.println("RS size for party " + rowcount);
-			ObservableList<String> row = FXCollections.observableArrayList("CSE");
-			while (rs.next()) {
-				String current = rs.getString("transport_name");
-				listOfItem.add(current);
+			ObservableList<String> row1 = FXCollections.observableArrayList("CSE");
+			while (rs1.next()) {
+				String current = rs1.getString("transport_name");
+				listOfTransport.add(current);
 			}
-			ObservableList<String> observableListOfParty = FXCollections.observableArrayList(listOfItem);
+			ObservableList<String> observableListOfParty = FXCollections.observableArrayList(listOfTransport);
 			// partyList.getItems().clear();
 			transporter.getItems().addAll(observableListOfParty);
 		} catch (Exception e) {
