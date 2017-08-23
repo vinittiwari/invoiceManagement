@@ -35,6 +35,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import mtechproject.samples.DBConnectFlogger;
 import util.Constants;
@@ -694,6 +695,25 @@ public class AddInvoiceController {
 	protected void handleBackToHome(ActionEvent event) throws SQLException {
 		homeController = new HomeController();
         homeController.redirectHome(stage, "");
+	}
+	
+	@FXML
+	protected void handlechangePrice(ActionEvent event) throws SQLException {
+		TextInputDialog dialog = new TextInputDialog("10");
+		dialog.setTitle("Change Price");
+		dialog.setHeaderText("Change Item Price");
+		dialog.setContentText("Enter Price:");
+
+		// Traditional way to get the response value.
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+		    System.out.println("Entered Price: " + result.get());
+		    singleItemPrice = result.get();
+		    quantity.getSelectionModel().selectFirst();
+		}
+		
+		// The Java 8 way to get the response value (with lambda expression).
+		//result.ifPresent(name -> System.out.println("Entered price: " + name));
 	}
 	
 	@FXML
