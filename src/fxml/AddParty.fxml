@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
@@ -10,71 +9,67 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
-
 <!-- <?import sample.AddPartyController?> -->
-
-<GridPane alignment="TOP_LEFT" hgap="10.0" prefHeight="599.0" prefWidth="689.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-	<padding>
-		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
-	</padding>
-   <children>
-   	<Text fx:id="welcomeText" text="home" GridPane.columnIndex="1" GridPane.columnSpan="2" />
-   	<Label text="Party Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-   	<TextField fx:id="party_name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-   	<Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-   	<TextField fx:id="address" prefHeight="49.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-   	<Label text="State:" GridPane.rowIndex="3" />
-   	<Label text="GST Number:" GridPane.rowIndex="4" />
-   	<Label text="Transport:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-   	<TextField fx:id="transport" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="6" />	
-   	<Label text="Phone 1:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-   	<TextField fx:id="phone1" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-   	<Label text="Phone 2:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-   	<TextField fx:id="phone2" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-   	<Label text="Email 1:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-   	<TextField fx:id="email1" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-   	<Label text="Email 2:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-   	<TextField fx:id="email2" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="10" />	
-   		
-   	<HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
-      <children>
-      		<Button fx:id="addPartySubmit" onAction="#handleAddParty" text="Add Party" />
-      </children>
-   	</HBox>
-      <Button mnemonicParsing="false" onAction="#handleBackToHome" text="Back To Home" />
-      <ComboBox fx:id="state" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextField fx:id="gstin" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label text="Address 2:" GridPane.rowIndex="12" />
-      <TextField fx:id="address2" prefHeight="46.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-      <Label fx:id="party_name_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Label fx:id="state_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Label fx:id="gstno_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <Label fx:id="phone1_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-      <Label fx:id="email1_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-   </children>
-	<padding>
-		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
-	</padding>
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="599.0" prefWidth="689.0" vgap="10.0"
+    xmlns:fx="http://javafx.com/fxml/1"
+    xmlns="http://javafx.com/javafx/2.2">
+    <children>
+        <Text fx:id="welcomeText" text="home" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+        <Label text="Party Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="party_name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="address" prefHeight="49.0" prefWidth="359.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <ComboBox fx:id="state" prefHeight="23.0" prefWidth="147.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="State:" GridPane.rowIndex="3" />
+        <TextField fx:id="gstin" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label text="GST Number:" GridPane.rowIndex="4" />
+        <Label text="Transport Name:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <TextField fx:id="transport" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label text="Mobile Number:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <TextField fx:id="phone1" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <Label text="Sec. Number:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <TextField fx:id="phone2" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+        <Label text="Primary Email:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+        <TextField fx:id="email1" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+        <Label text="Sec. Email:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+        <TextField fx:id="email2" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+		<Label text="Secondary Address:" GridPane.rowIndex="11" />
+      <TextField fx:id="address2" prefWidth="150" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+		 <HBox alignment="BOTTOM_CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+            <children>
+                <Button fx:id="addPartySubmit" onAction="#handleAddParty" text="Add Party" textFill="#086600" textOverrun="ELLIPSIS" />
+            </children>
+        </HBox>
+        <Button mnemonicParsing="false" onAction="#handleBackToHome" text="Back To Home" />
+        <Label fx:id="party_name_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <Label fx:id="state_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Label fx:id="gstno_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+        <Label fx:id="phone1_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+        <Label fx:id="email1_valid" prefHeight="17.0" prefWidth="50.0" text="*Invalid" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <padding>
+        <Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+    </padding>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 </GridPane>
