@@ -1,14 +1,18 @@
 package sample;
 
+import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,6 +24,7 @@ import mtechproject.samples.DisplayDatabase;
 import util.Constants;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +33,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ViewInvoiceController {
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.database.PrintInvoice;
+import com.itextpdf.text.DocumentException;
+
+public class ViewInvoiceController extends Application{
     private Parent parent;
     private Scene scene;
     private Stage stage;
@@ -104,6 +115,13 @@ public class ViewInvoiceController {
 	}
 	
 	@FXML
+	protected void handlePrintInvoice(ActionEvent event) throws SQLException, MalformedURLException, DocumentException, IOException {
+		PrintInvoice.printInvoice(fetchDetails(Viewtable.getSelectionModel().getSelectedItem().toString()));
+		final Hyperlink link = new Hyperlink("F:\\printInvo.pdf");
+			getHostServices().showDocument(link.getText());
+	}
+	
+	@FXML
 	protected void handleModifyInvoice(ActionEvent event) throws SQLException {
 		System.out.println(Viewtable.getSelectionModel().getSelectedItem().toString());
 		modifyInvoiceController = new ModifyInvoiceController();
@@ -114,4 +132,31 @@ public class ViewInvoiceController {
 	            if (col.getText().equals(name)) return col ;
 	        return null;
 	}
+
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		 
+	}
+	
+	String fetchDetails(String selectedInvoice){
+		Pattern p = Pattern.compile("\\[(.*?)\\]");
+		Matcher m = p.matcher(selectedInvoice);
+		String ItemList = null;
+		while(m.find()) {
+			ItemList = m.group(1) + "]";
+		    System.out.println(ItemList);
+		}
+		JSONArray arrayListItem = new JSONArray(ItemList);
+		System.out.println(arrayListItem.get(0));
+		String newList = selectedInvoice.replace(ItemList,"");
+		System.out.println(newList);
+		String []splits = newList.replaceAll("^\\s*\\[|\\]\\s*$", "").split("\\s*,\\s*");
+		List<String> wordList = Arrays.asList(splits); 
+		String invoice_number_selected= wordList.get(3);
+		System.out.println(invoice_number_selected);
+		return invoice_number_selected;
+		
+	}
+
 }

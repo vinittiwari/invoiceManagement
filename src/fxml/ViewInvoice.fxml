@@ -15,5 +15,6 @@
       <Button layoutX="31.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="117.0" text="Back To Home" />
       <TextField fx:id="search" layoutX="501.0" layoutY="80.0" promptText="Search" />
       <ComboBox fx:id="searchby" layoutX="716.0" layoutY="80.0" prefWidth="150.0" promptText="Search by:" />
+      <Button layoutX="501.0" layoutY="521.0" mnemonicParsing="false" onAction="#handlePrintInvoice" prefHeight="25.0" prefWidth="117.0" text="Print Invoice" />
    </children>
 </AnchorPane>
