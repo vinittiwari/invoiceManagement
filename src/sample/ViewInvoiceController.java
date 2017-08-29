@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -66,8 +67,10 @@ public class ViewInvoiceController extends Application{
         } catch (IOException e) { 
             e.printStackTrace();
         }
+
+        
         DisplayDatabase.buildData(Viewtable,"invoice"); 
-        String newList = "[invoice_date,dispatch_date,invoice_number,party_id,party_name,address,address1]";
+        String newList = "[invoice_number,invoice_date,dispatch_date,party_id,party_name,address,address1]";
         String []splits = newList.replaceAll("^\\s*\\[|\\]\\s*$", "").split("\\s*,\\s*");
         List<String> listOfItemSearch = Arrays.asList(splits);
         ObservableList<String> observableListOfSearch = FXCollections.observableArrayList(listOfItemSearch);
@@ -94,6 +97,9 @@ public class ViewInvoiceController extends Application{
             }
             Viewtable.setItems(subentries);
         });
+        
+     
+  
     }
 
 

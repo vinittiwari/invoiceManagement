@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<!-- <?import sample.ViewItemController?> -->
+
+<AnchorPane prefHeight="606.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutX="-64.0" layoutY="-108.0" prefHeight="200.0" prefWidth="200.0" />
+      <TableView fx:id="Viewtable" layoutX="31.0" layoutY="125.0" prefHeight="391.0" prefWidth="947.0" />
+      <Label fx:id="welcomeText" layoutX="173.0" layoutY="84.0" prefHeight="17.0" prefWidth="40.0" text="Label" />
+      <Button layoutX="212.0" layoutY="542.0" mnemonicParsing="false" onAction="#handlePrint" prefHeight="25.0" prefWidth="77.0" text="Print " />
+      <Button layoutX="31.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="25.0" prefWidth="117.0" text="Back To Home" />
+      <DatePicker  fx:id="fromdate" layoutX="418.0" layoutY="80.0" />
+      <DatePicker  fx:id="todate" layoutX="623.0" layoutY="80.0" />
+      <Label layoutX="381.0" layoutY="84.0" prefHeight="17.0" prefWidth="40.0" text="FROM:" />
+      <Label layoutX="604.0" layoutY="84.0" prefHeight="17.0" prefWidth="26.0" text="TO:" />
+      <Button onAction="#handleOnClickGO" layoutX="807.0" layoutY="80.0" mnemonicParsing="false" text="GO" />
+      <TextField fx:id="partyname" layoutX="224.0" layoutY="80.0" promptText="Party Name" />
+   </children>
+</AnchorPane>

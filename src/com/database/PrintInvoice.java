@@ -194,7 +194,7 @@ public class PrintInvoice {
 		                    my_pdf_report.add(my_report_table5);
             }
             
-            table_cell=new PdfPCell(new Phrase(util.Constants.getCompanyDetails() ));
+            table_cell=new PdfPCell(new Phrase("Company Detail: "+util.Constants.getCompanyDetails()));
             table_cell.setFixedHeight(100);
             my_report_table6.addCell(table_cell);
             my_pdf_report.add(my_report_table6);
@@ -208,11 +208,16 @@ public class PrintInvoice {
             
             
             PdfContentByte canvas = writer.getDirectContentUnder();
-            Image image = Image.getInstance("bruno.jpg");
+            writer.setRgbTransparencyBlending(true);
+            Image image = Image.getInstance("F:\\bruno.jpg");
             image.scaleAbsolute(300,300);
+            
             image.setAlignment(Image.ALIGN_JUSTIFIED);
             //my_pdf_report.add(image);
             image.setAbsolutePosition(300,750);
+            PdfGState state = new PdfGState();
+            state.setFillOpacity(0.4f);
+            canvas.setGState(state);
             canvas.addImage(image);
             
             

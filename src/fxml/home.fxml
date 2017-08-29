@@ -36,6 +36,7 @@
             <Button layoutX="333.0" layoutY="303.0" onAction="#handleviewTransporter" text="View/Modify Transpotrer" />
             <Button layoutX="137.0" layoutY="303.0" onAction="#handleaddTransporter" text="Add Transporter" />
             <Text fx:id="welcomeText" layoutX="188.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="279.13671875" />
+            <Button onAction="#handlereport"  layoutX="162.0" layoutY="365.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Report" />
          </children>
       </AnchorPane>
    </children>
