@@ -95,6 +95,7 @@ public class PrintInvoice {
 
                             String dept_id3 = query_set.getString("dispatch_date");
                             cell.addElement(new Phrase("Dispatch Date: " + dept_id3, font));
+                          
                             
                             my_report_table2.addCell(cell);
                             
@@ -140,25 +141,25 @@ public class PrintInvoice {
 			                    item_priceTotal.add(Float.parseFloat((String) jobItem.get("item_total_price")));
 			                    my_report_table4.addCell(table_cell);
 
-			                    table_cell.addElement(new Phrase((String) jobItem.get("item_gst_amount"), font));
+			                    table_cell.addElement(new Phrase((String) jobItem.get("item_gst_amount")));
 			                    item_cgstTotal.add(Float.parseFloat((String) jobItem.get("item_gst_amount")));
 			                    table_cell.addElement(new Phrase((String) jobItem.get("item_gst")+ "%", font));
 			                    my_report_table4.addCell(table_cell);
 			                    
 			                    table_cell=new PdfPCell();
-			                    table_cell.addElement(new Phrase((String) jobItem.get("item_sgst_amount"), font));
+			                    table_cell.addElement(new Phrase((String) jobItem.get("item_sgst_amount")));
 			                    item_sgstTotal.add(Float.parseFloat((String) jobItem.get("item_sgst_amount")));
 			                    table_cell.addElement(new Phrase((String) jobItem.get("item_sgst")+ "%", font));
 			                    my_report_table4.addCell(table_cell);
 
 			                    table_cell=new PdfPCell();
-			                    table_cell.addElement(new Phrase((String) jobItem.get("item_igst_amount"), font));
+			                    table_cell.addElement(new Phrase((String) jobItem.get("item_igst_amount")));
 			                    item_igstTotal.add(Float.parseFloat((String) jobItem.get("item_igst_amount")));
 			                    table_cell.addElement(new Phrase((String) jobItem.get("item_igst")+ "%", font));
 			                    my_report_table4.addCell(table_cell);
 
 			                    table_cell=new PdfPCell();
-			                    table_cell.addElement(new Phrase((String) jobItem.get("item_cess_amount"), font));
+			                    table_cell.addElement(new Phrase((String) jobItem.get("item_cess_amount")));
 			                    item_cessTotal.add(Float.parseFloat((String) jobItem.get("item_cess_amount")));
 			                    table_cell.addElement(new Phrase((String) jobItem.get("item_cess")+ "%", font));
 			                    my_report_table4.addCell(table_cell);

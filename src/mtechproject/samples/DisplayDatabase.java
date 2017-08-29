@@ -10,7 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;  
 import javafx.scene.control.TableView;  
 import javafx.util.Callback;  
-import mtechproject.samples.*;  
+import mtechproject.samples.*;
+import util.Constants;  
 public class DisplayDatabase{  
   //Tableview and data  
   private static ObservableList<ObservableList> data;  
@@ -30,13 +31,23 @@ public class DisplayDatabase{
         //We are using non property style for making dynamic table  
         final int j = i;  
         if(!(rs.getMetaData().getColumnName(i+1).equals("item"))){
-	        TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));  
-	        col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){            
-	          public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {                                                 
-	            return new SimpleStringProperty(param.getValue().get(j).toString());              
-	          }            
-	        });  
-	        tableview.getColumns().addAll(col);
+        	if((rs.getMetaData().getColumnName(i+1).equals("invoice_number"))){
+		        TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));  
+		        col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){            
+		          public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {                                                 
+		            return new SimpleStringProperty(Constants.getInvoicePrefix()+param.getValue().get(j).toString());              
+		          }            
+		        });  
+		        tableview.getColumns().addAll(col);
+        	}else{
+        		TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));  
+		        col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){            
+		          public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {                                                 
+		            return new SimpleStringProperty(param.getValue().get(j).toString());              
+		          }            
+		        });  
+		        tableview.getColumns().addAll(col);
+        	}
 	   }
       }  
       /********************************  

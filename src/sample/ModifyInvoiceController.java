@@ -66,7 +66,7 @@ public class ModifyInvoiceController {
    // @FXML
     //private Text welcomeText;
     @FXML
-    private javafx.scene.control.TextField party_state_slt,item_name,item_id,price,invoicenumber,party_name,gst,item_total,cgst_totalAmount,sgst_totalAmount,igst_totalAmount,cess_totalAmount,itemPriceTotal,invoice_total,mobilenumTransporter,vehicalTransporter;
+    private javafx.scene.control.TextField mobilenumber,vehicalnumber,party_state_slt,item_name,item_id,price,invoicenumber,party_name,gst,item_total,cgst_totalAmount,sgst_totalAmount,igst_totalAmount,cess_totalAmount,itemPriceTotal,invoice_total;
     @FXML
 	private DatePicker invoice_date,dispatch_date;
 	@FXML
@@ -80,7 +80,7 @@ public class ModifyInvoiceController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return true;
+			return false;
 		}
 	};
 
@@ -89,7 +89,7 @@ public class ModifyInvoiceController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return true;
+			return false;
 		}
 	};
 	
@@ -123,7 +123,7 @@ public class ModifyInvoiceController {
 		vehical_valid.setVisible(false);
 		mobile_valid.setVisible(false);
 		
-
+		
 		
 		//populateTranspoter();
     }
@@ -330,11 +330,37 @@ public class ModifyInvoiceController {
 		});
 		
 		 invoice_date.valueProperty().addListener((ov, oldValue, newValue) -> {
+			 	System.out.println("newval" + newValue);
 			 	invoicedate_valid.setVisible(false);
 	        });
 		 dispatch_date.valueProperty().addListener((ov, oldValue, newValue) -> {
 			 	dispatchdate_valid.setVisible(false);
 	        });
+		 
+		 vehicalnumber.textProperty().addListener((ov, oldValue, newValue) -> {
+			 if (newValue != null) {
+					isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[ -][0-9]{2}[ -][A-Z]{2}[ -][0-9]{4}");
+					System.out.println("Valid Name------>"+isValidTVehical.get());
+					if(isValidTVehical.get() == false){
+						vehical_valid.setVisible(true);
+					}else{
+						vehical_valid.setVisible(false);
+					}
+				}
+	        });
+		 
+		 vehicalnumber.textProperty().addListener((ov, oldValue, newValue) -> {
+			 if (newValue != null) {
+					isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[ -][0-9]{2}[ -][A-Z]{2}[ -][0-9]{4}");
+					System.out.println("Valid Name------>"+isValidTVehical.get());
+					if(isValidTVehical.get() == false){
+						vehical_valid.setVisible(true);
+					}else{
+						vehical_valid.setVisible(false);
+					}
+				}
+	        });
+		 
 		 
 		 transporter.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 				@Override
@@ -343,7 +369,7 @@ public class ModifyInvoiceController {
 				}
 			});
 			
-			mobilenumTransporter.textProperty().addListener((observable, oldValue, newValue) -> {
+			mobilenumber.textProperty().addListener((observable, oldValue, newValue) -> {
 				if (newValue != null) {
 					isValidTMobile = ValidationCheck(newValue, "[0-9]{10}");
 					System.out.println("Valid Mobile------>"+isValidTMobile.get());
@@ -355,7 +381,7 @@ public class ModifyInvoiceController {
 				}
 			});
 			
-			vehicalTransporter.textProperty().addListener((observable, oldValue, newValue) -> {
+			/*vehicalTransporter.textProperty().addListener((observable, oldValue, newValue) -> {
 				if (newValue != null) {
 					isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[ -][0-9]{2}[ -][A-Z]{2}[ -][0-9]{4}");
 					System.out.println("Valid Name------>"+isValidTVehical.get());
@@ -365,7 +391,7 @@ public class ModifyInvoiceController {
 						vehical_valid.setVisible(false);
 					}
 				}
-			});
+			});*/
 
 		itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -410,8 +436,8 @@ public class ModifyInvoiceController {
 			}}
 		});
 		
-		//characterLimit(mobilenumTransporter, 12);
-		//characterLimit(vehicalTransporter, 13);
+		characterLimit(mobilenumber, 12);
+		characterLimit(vehicalnumber, 13);
 		
 		
 		
@@ -612,8 +638,8 @@ public class ModifyInvoiceController {
 			if (rs == 1) {
 				Connection c2;
 				c2 = DBConnectFlogger.connect();
-				String transporterMobile = mobilenumTransporter.getText();
-				String VehicalNo = vehicalTransporter.getText();
+				String transporterMobile = mobilenumber.getText();
+				String VehicalNo = vehicalnumber.getText();
 				String transporterName = transporter.getItems().get(transporter.getSelectionModel().getSelectedIndex()).toString();
 				String SQL1 = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,party_id,invoice_total,transporter_name,transporter_mobile,transporter_vehicalno) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ "\""+ invoicenumber.getText().replace(Constants.getInvoicePrefix(),"") +"\"" + ",\"" + dispatch_invoice_date +"\",\""+ address+"\",\"" + party_id_db + "\"," + invoice_total.getText() + ",\""+ transporterName +"\",\"" + transporterMobile + "\",\""+ VehicalNo + "\")";
 				System.out.println("---> query" + SQL1);
