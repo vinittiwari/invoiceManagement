@@ -12,6 +12,7 @@ import java.sql.*;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.*;
+import com.mysql.jdbc.Constants;
 
 import mtechproject.samples.DBConnectFlogger;
 public class PrintInvoice {  
@@ -72,8 +73,11 @@ public class PrintInvoice {
             PdfPCell cell = new PdfPCell();
            
             while (query_set.next()) {   
-		                	String dept_id = "Customer Name";
+		                	String dept_id = util.Constants.getCompanyName();
 		                    table_cell=new PdfPCell(new Phrase(dept_id));
+		                    table_cell.addElement(new Phrase(dept_id));
+		                    table_cell.addElement(new Phrase("Phone Number: " + util.Constants.getCompanyPhone(), font));
+		                    table_cell.addElement(new Phrase("Address: " + util.Constants.getCompanyAdd(), font));
 		                    table_cell.setFixedHeight(100);
 		                    my_report_table.addCell(table_cell);
 		                    
@@ -188,15 +192,15 @@ public class PrintInvoice {
 		                    my_pdf_report.add(my_report_table5);
             }
             
-            table_cell=new PdfPCell(new Phrase("Customer Details" ));
+            table_cell=new PdfPCell(new Phrase(util.Constants.getCompanyDetails() ));
             table_cell.setFixedHeight(100);
             my_report_table6.addCell(table_cell);
             my_pdf_report.add(my_report_table6);
             /* Attach report table to PDF */
-            Image img = Image.getInstance("F:\\abc.jpg");
-            img.setAbsolutePosition(0, 0);
-            img.setTransparency(new int[]{ 0xF0 , 0xFF});
-            my_pdf_report.add(img);
+            //Image img = Image.getInstance("F:\\abc.jpg");
+            //img.setAbsolutePosition(0, 0);
+           // img.setTransparency(new int[]{ 0xF0 , 0xFF});
+            //my_pdf_report.add(img);
            
             my_pdf_report.close();
             

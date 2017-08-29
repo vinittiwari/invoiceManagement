@@ -10,6 +10,34 @@ public class Constants {
 	static int state = 28;
 	static String invoiceNo = "18";
 	static String invoicePrefix = "GST";
+	static String companyName = "ABC Corp.";
+	public static String getCompanyName() {
+		return companyName;
+	}
+	public static void setCompanyName(String companyName) {
+		Constants.companyName = companyName;
+	}
+	public static String getCompanyAdd() {
+		return companyAdd;
+	}
+	public static void setCompanyAdd(String companyAdd) {
+		Constants.companyAdd = companyAdd;
+	}
+	public static String getCompanyPhone() {
+		return companyPhone;
+	}
+	public static void setCompanyPhone(String companyPhone) {
+		Constants.companyPhone = companyPhone;
+	}
+	public static String getCompanyDetails() {
+		return companyDetails;
+	}
+	public static void setCompanyDetails(String companyDetails) {
+		Constants.companyDetails = companyDetails;
+	}
+	static String companyAdd = "15 easfasf rgfag gdfgfg";
+	static String companyPhone = "+3254841 +464646546";
+	static String companyDetails = "safgsdfg dfgadgfsdg dfgsdfgsdgf";
 	public static String getInvoicePrefix() {
 		return invoicePrefix;
 	}
