@@ -17,7 +17,7 @@ import com.mysql.jdbc.Constants;
 import mtechproject.samples.DBConnectFlogger;
 public class PrintInvoice {  
 		static Font font = new Font(FontFamily.HELVETICA, 10);
-        
+		static PdfWriter writer;
         
         public static PdfPCell createCell(String content, int colspan, int rowspan, int border) {
             PdfPCell cell = new PdfPCell(new Phrase(content, font));
@@ -48,7 +48,7 @@ public class PrintInvoice {
             /* Step-2: Initialize PDF documents - logical objects */
             //Document my_pdf_report = new Document();
             Document my_pdf_report = new Document(PageSize.A3, 60, 60, 120, 80);
-            PdfWriter.getInstance(my_pdf_report, new FileOutputStream("F:\\printInvo.pdf"));
+            writer = PdfWriter.getInstance(my_pdf_report, new FileOutputStream("F:\\printInvo.pdf"));
             my_pdf_report.open();            
             //we have four columns in our table
             PdfPTable my_report_table = new PdfPTable(1);
@@ -95,7 +95,8 @@ public class PrintInvoice {
 
                             String dept_id3 = query_set.getString("dispatch_date");
                             cell.addElement(new Phrase("Dispatch Date: " + dept_id3, font));
-                          
+                            
+                           
                             
                             my_report_table2.addCell(cell);
                             
@@ -203,9 +204,19 @@ public class PrintInvoice {
            // img.setTransparency(new int[]{ 0xF0 , 0xFF});
             //my_pdf_report.add(img);
            
+            //my_pdf_report.close();
+            
+            
+            PdfContentByte canvas = writer.getDirectContentUnder();
+            Image image = Image.getInstance("bruno.jpg");
+            image.scaleAbsolute(300,300);
+            image.setAlignment(Image.ALIGN_JUSTIFIED);
+            //my_pdf_report.add(image);
+            image.setAbsolutePosition(300,750);
+            canvas.addImage(image);
+            
+            
             my_pdf_report.close();
-            
-            
             
             /* Close all DB related objects */
             query_set.close();
