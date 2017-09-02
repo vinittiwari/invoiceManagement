@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.*; 
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.*;
@@ -48,7 +49,8 @@ public class PrintInvoice {
             /* Step-2: Initialize PDF documents - logical objects */
             //Document my_pdf_report = new Document();
             Document my_pdf_report = new Document(PageSize.A3, 60, 60, 120, 80);
-            writer = PdfWriter.getInstance(my_pdf_report, new FileOutputStream("F:\\printInvo.pdf"));
+            writer = PdfWriter.getInstance(my_pdf_report, new FileOutputStream("D:\\Ocean Transact\\"+ invoice_number + ".pdf"));
+            util.Constants.setSelectedInvoiceNumber(invoice_number);
             my_pdf_report.open();            
             //we have four columns in our table
             PdfPTable my_report_table = new PdfPTable(1);
@@ -209,7 +211,7 @@ public class PrintInvoice {
             
             PdfContentByte canvas = writer.getDirectContentUnder();
             writer.setRgbTransparencyBlending(true);
-            Image image = Image.getInstance("F:\\bruno.jpg");
+            Image image = Image.getInstance("D:\\Ocean Transact\\Logo1.jpg");
             image.scaleAbsolute(300,300);
             
             image.setAlignment(Image.ALIGN_JUSTIFIED);
