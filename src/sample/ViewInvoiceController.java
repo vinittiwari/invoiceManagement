@@ -126,7 +126,7 @@ public class ViewInvoiceController extends Application{
 	@FXML
 	protected void handlePrintInvoice(ActionEvent event) throws SQLException, MalformedURLException, DocumentException, IOException {
 		PrintInvoice.printInvoice(fetchDetails(Viewtable.getSelectionModel().getSelectedItem().toString()));
-		final Hyperlink link = new Hyperlink("D:\\Ocean Transact\\"+ Constants.getSelectedInvoiceNumber() + ".pdf");//
+		final Hyperlink link = new Hyperlink("E:\\Ocean Transact\\"+ Constants.getSelectedInvoiceNumber() + ".pdf");//
 		//            writer = PdfWriter.getInstance(my_pdf_report, new FileOutputStream("D:\\Ocean Transact\\"+ invoice_number + System.currentTimeMillis() +".pdf"));
 
 			getHostServices().showDocument(link.getText());
