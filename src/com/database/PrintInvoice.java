@@ -79,7 +79,7 @@ public class PrintInvoice {
 		                    table_cell=new PdfPCell(new Phrase(dept_id));
 		                    table_cell.addElement(new Phrase(dept_id));
 		                    table_cell.addElement(new Phrase("Phone Number: 0734-2555551 " ));
-		    		    table_cell.addElement(new Phrase("Email: mahavirtraders@gmail.com" ));
+		    		    table_cell.addElement(new Phrase("Email: mahavirtraders255@gmail.com" ));
 		                    table_cell.addElement(new Phrase("Address: " + util.Constants.getCompanyAdd(), font));
 		                    table_cell.addElement(new Phrase("GSTIN: " + util.Constants.getCompany_gstin(), font));
 		                    table_cell.addElement(new Phrase("Place of Supply: "+util.Constants.getCompanyDetails()));
