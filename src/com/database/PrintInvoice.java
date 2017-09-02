@@ -80,11 +80,14 @@ public class PrintInvoice {
 		                    table_cell.addElement(new Phrase(dept_id));
 		                    table_cell.addElement(new Phrase("Phone Number: " + util.Constants.getCompanyPhone(), font));
 		                    table_cell.addElement(new Phrase("Address: " + util.Constants.getCompanyAdd(), font));
+		                    table_cell.addElement(new Phrase("GSTIN: " + util.Constants.getCompany_gstin(), font));
+		                    table_cell.addElement(new Phrase("Place of Supply: "+util.Constants.getCompanyDetails()));
+
 		                    table_cell.setFixedHeight(100);
 		                    my_report_table.addCell(table_cell);
 		                    
                             String dept_id1 = query_set.getString("party_name");
-                            table_cell=new PdfPCell(new Phrase(dept_id1));
+                            table_cell=new PdfPCell(new Phrase("Customer Name: "+dept_id1));
                             table_cell.setFixedHeight(100);
 		                    my_report_table2.addCell(table_cell);
 
@@ -196,7 +199,12 @@ public class PrintInvoice {
 		                    my_pdf_report.add(my_report_table5);
             }
             
-            table_cell=new PdfPCell(new Phrase("Company Detail: "+util.Constants.getCompanyDetails()));
+            table_cell=new PdfPCell(new Phrase("Terms"));
+            table_cell.addElement(new Phrase("Terms and Conditions"));
+            table_cell.addElement(new Phrase("Subjected to "+util.Constants.getCompanyDetails()+" Jurisdiction "));
+            table_cell.addElement(new Phrase(" "));
+            table_cell.addElement(new Phrase(" "));
+            table_cell.addElement(new Phrase("This is Printed Invoice"));
             table_cell.setFixedHeight(100);
             my_report_table6.addCell(table_cell);
             my_pdf_report.add(my_report_table6);
