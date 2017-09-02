@@ -8,10 +8,17 @@ public class Constants {
 	}
 	static String Username;
 	static int state = 23;
-	static String invoiceNo = "18";
+	static String invoiceNo = "1";
 	static String invoicePrefix = "MT";
 	static String companyName = "Mahavir Traders";
 	static String selectedInvoiceNumber = "";
+	static String company_gstin="23ADEPK828K1Z8";
+	public static String getCompany_gstin() {
+		return company_gstin;
+	}
+	public static void setCompany_gstin(String company_gstin) {
+		Constants.company_gstin = company_gstin;
+	}
 	public static String getSelectedInvoiceNumber() {
 		return selectedInvoiceNumber;
 	}
