@@ -49,7 +49,7 @@ public class PrintInvoice {
             /* Step-2: Initialize PDF documents - logical objects */
             //Document my_pdf_report = new Document();
             Document my_pdf_report = new Document(PageSize.A3, 60, 60, 120, 80);
-            writer = PdfWriter.getInstance(my_pdf_report, new FileOutputStream("D:\\Ocean Transact\\"+ invoice_number + ".pdf"));
+            writer = PdfWriter.getInstance(my_pdf_report, new FileOutputStream("E:\\Ocean Transact\\"+ invoice_number + ".pdf"));
             util.Constants.setSelectedInvoiceNumber(invoice_number);
             my_pdf_report.open();            
             //we have four columns in our table
@@ -78,7 +78,7 @@ public class PrintInvoice {
 		                	String dept_id = util.Constants.getCompanyName();
 		                    table_cell=new PdfPCell(new Phrase(dept_id));
 		                    table_cell.addElement(new Phrase(dept_id));
-		                    table_cell.addElement(new Phrase("Phone Number: " + util.Constants.getCompanyPhone(), font));
+		                    table_cell.addElement(new Phrase("Phone Number: 0734-2555551 " ));
 		                    table_cell.addElement(new Phrase("Address: " + util.Constants.getCompanyAdd(), font));
 		                    table_cell.addElement(new Phrase("GSTIN: " + util.Constants.getCompany_gstin(), font));
 		                    table_cell.addElement(new Phrase("Place of Supply: "+util.Constants.getCompanyDetails()));
@@ -99,7 +99,7 @@ public class PrintInvoice {
                             cell.addElement(new Phrase("Invoice Date: " + dept_id2, font));
 
                             String dept_id3 = query_set.getString("dispatch_date");
-                            cell.addElement(new Phrase("Dispatch Date: " + dept_id3, font));
+                           // cell.addElement(new Phrase("Dispatch Date: " + dept_id3, font));
                             
                            
                             
@@ -204,7 +204,7 @@ public class PrintInvoice {
             table_cell.addElement(new Phrase("Subjected to "+util.Constants.getCompanyDetails()+" Jurisdiction "));
             table_cell.addElement(new Phrase(" "));
             table_cell.addElement(new Phrase(" "));
-            table_cell.addElement(new Phrase("This is Printed Invoice"));
+            table_cell.addElement(new Phrase("Thank You , Please Visit Again"));
             table_cell.setFixedHeight(100);
             my_report_table6.addCell(table_cell);
             my_pdf_report.add(my_report_table6);
@@ -219,7 +219,7 @@ public class PrintInvoice {
             
             PdfContentByte canvas = writer.getDirectContentUnder();
             writer.setRgbTransparencyBlending(true);
-            Image image = Image.getInstance("D:\\Ocean Transact\\Logo1.jpg");
+            Image image = Image.getInstance("E:\\Ocean Transact\\Logo1.jpg");
             image.scaleAbsolute(300,300);
             
             image.setAlignment(Image.ALIGN_JUSTIFIED);
