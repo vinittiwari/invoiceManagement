@@ -52,14 +52,14 @@ public class ModifyTransporterController {
 			return false;
 		}
 	};
-	boolean isValidEmail2 = false;
-	boolean isValidEmail1 = false;
+	boolean isValidEmail2 = true;
+	boolean isValidEmail1 = true;
 	BooleanBinding isVaidPhone1 = new BooleanBinding() {
 		
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	BooleanBinding isVaidPhone2 = new BooleanBinding() {
@@ -67,7 +67,7 @@ public class ModifyTransporterController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	BooleanBinding isVaidGSTNo = new BooleanBinding() {
@@ -75,7 +75,7 @@ public class ModifyTransporterController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	

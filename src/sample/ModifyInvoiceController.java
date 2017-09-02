@@ -80,7 +80,7 @@ public class ModifyInvoiceController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 
@@ -89,7 +89,7 @@ public class ModifyInvoiceController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	
@@ -339,7 +339,7 @@ public class ModifyInvoiceController {
 		 
 		 vehicalnumber.textProperty().addListener((ov, oldValue, newValue) -> {
 			 if (newValue != null) {
-					isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[ -][0-9]{2}[ -][A-Z]{2}[ -][0-9]{4}");
+					isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}");
 					System.out.println("Valid Name------>"+isValidTVehical.get());
 					if(isValidTVehical.get() == false){
 						vehical_valid.setVisible(true);
@@ -349,17 +349,7 @@ public class ModifyInvoiceController {
 				}
 	        });
 		 
-		 vehicalnumber.textProperty().addListener((ov, oldValue, newValue) -> {
-			 if (newValue != null) {
-					isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[ -][0-9]{2}[ -][A-Z]{2}[ -][0-9]{4}");
-					System.out.println("Valid Name------>"+isValidTVehical.get());
-					if(isValidTVehical.get() == false){
-						vehical_valid.setVisible(true);
-					}else{
-						vehical_valid.setVisible(false);
-					}
-				}
-	        });
+		
 		 
 		 
 		 transporter.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -454,7 +444,7 @@ public class ModifyInvoiceController {
 	protected void handleOnClickAddItem(ActionEvent event) {
 		System.out.println("----------->"+ isSameState);
 		if(!party_name.getText().isEmpty()){
-			if(isSameState){
+			if(!isSameState){
 				InvoiceEntry word = new InvoiceEntry();
 				word.setTable_item_id(item_id.getText());
 				word.setTable_item_name(itemListO.getItems().get(itemListO.getSelectionModel().getSelectedIndex()).toString());
@@ -568,6 +558,7 @@ public class ModifyInvoiceController {
 		    System.out.println("Entered Price: " + result.get());
 		    singleItemPrice = result.get();
 		    quantity.getSelectionModel().selectFirst();
+		    price.setText(result.get());
 		}
 		
 		// The Java 8 way to get the response value (with lambda expression).

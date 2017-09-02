@@ -155,20 +155,24 @@ INSERT INTO `state` (`state_id`, `state_name`, `state_initials`, `state_code`, `
 /*!40000 ALTER TABLE `state` ENABLE KEYS */;
 
 -- Dumping structure for table billmanagement.transporter
-CREATE TABLE IF NOT EXISTS `transporter` (
-  `transport_name` varchar(50) NOT NULL,
-  `transport_id` varchar(50) NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `gstin` varchar(50) NOT NULL,
-  `phone1` bigint(20) NOT NULL,
-  `phone2` bigint(20) NOT NULL,
-  `email1` varchar(255) NOT NULL,
-  `email2` varchar(255) NOT NULL,
-  `address2` varchar(255) NOT NULL,
-  `address1` varchar(255) NOT NULL,
-  `create_date` date NOT NULL,
-  PRIMARY KEY (`transport_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `transporter` (
+	`transport_name` VARCHAR(50) NOT NULL,
+	`transport_id` VARCHAR(50) NOT NULL,
+	`status` VARCHAR(50) NOT NULL,
+	`gstin` VARCHAR(50) NOT NULL,
+	`phone1` VARCHAR(50) NOT NULL,
+	`phone2` VARCHAR(50) NOT NULL,
+	`email1` VARCHAR(255) NOT NULL,
+	`email2` VARCHAR(255) NOT NULL,
+	`address2` VARCHAR(255) NOT NULL,
+	`address1` VARCHAR(255) NOT NULL,
+	`create_date` DATE NOT NULL,
+	PRIMARY KEY (`transport_id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
 
 -- Dumping data for table billmanagement.transporter: ~2 rows (approximately)
 DELETE FROM `transporter`;

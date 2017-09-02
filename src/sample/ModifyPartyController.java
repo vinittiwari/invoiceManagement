@@ -53,7 +53,7 @@ public class ModifyPartyController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	BooleanBinding isValidName = new BooleanBinding() {
@@ -69,11 +69,11 @@ public class ModifyPartyController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 
-	boolean isValidEmail1 = false, isValidState = false;
+	boolean isValidEmail1 = true, isValidState = false;
 
 	public ModifyPartyController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ModifyParty.fxml"));
@@ -88,7 +88,7 @@ public class ModifyPartyController {
 		gstin.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				isValidGST = ValidationCheck(newValue,
-						"[0123]{1}[0-9]{1}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{1}");
+						"[0123]{1}[0-9]{1}[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}[0-9]{1}[A-Za-z]{1}[0-9A-Za-z]{1}");
 				System.out.println("Valid Gst------>" + isValidGST.get());
 			}
 		});
@@ -225,7 +225,8 @@ public class ModifyPartyController {
 							ShowAlert.callAlert("Error", "Please check given Details again.");
 						}
 					} catch (Exception e) {
-						System.out.println(e);
+							ShowAlert.callAlert("Error", e.getMessage()");
+							System.out.println(e);
 					}
 				}else{
 					ShowAlert.callAlert("Error", "Please check given Details again.");

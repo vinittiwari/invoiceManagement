@@ -24,6 +24,8 @@ import mtechproject.samples.DBConnectFlogger;
 import mtechproject.samples.DisplayDatabase;
 import util.Constants;
 import javafx.scene.control.TextField;
+
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.Connection;
@@ -39,6 +41,7 @@ import org.json.JSONObject;
 
 import com.database.PrintInvoice;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class ViewInvoiceController extends Application{
     private Parent parent;
@@ -123,7 +126,9 @@ public class ViewInvoiceController extends Application{
 	@FXML
 	protected void handlePrintInvoice(ActionEvent event) throws SQLException, MalformedURLException, DocumentException, IOException {
 		PrintInvoice.printInvoice(fetchDetails(Viewtable.getSelectionModel().getSelectedItem().toString()));
-		final Hyperlink link = new Hyperlink("F:\\printInvo.pdf");
+		final Hyperlink link = new Hyperlink("D:\\Ocean Transact\\"+ Constants.getSelectedInvoiceNumber() + ".pdf");//
+		//            writer = PdfWriter.getInstance(my_pdf_report, new FileOutputStream("D:\\Ocean Transact\\"+ invoice_number + System.currentTimeMillis() +".pdf"));
+
 			getHostServices().showDocument(link.getText());
 	}
 	

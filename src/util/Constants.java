@@ -7,10 +7,17 @@ public class Constants {
 		this.invoiceNo = invoiceNo;
 	}
 	static String Username;
-	static int state = 28;
+	static int state = 23;
 	static String invoiceNo = "18";
-	static String invoicePrefix = "GST";
-	static String companyName = "ABC Corp.";
+	static String invoicePrefix = "MT";
+	static String companyName = "Mahavir Traders";
+	static String selectedInvoiceNumber = "";
+	public static String getSelectedInvoiceNumber() {
+		return selectedInvoiceNumber;
+	}
+	public static void setSelectedInvoiceNumber(String selectedInvoiceNumber) {
+		Constants.selectedInvoiceNumber = selectedInvoiceNumber;
+	}
 	public static String getCompanyName() {
 		return companyName;
 	}
@@ -35,9 +42,9 @@ public class Constants {
 	public static void setCompanyDetails(String companyDetails) {
 		Constants.companyDetails = companyDetails;
 	}
-	static String companyAdd = "15 easfasf rgfag gdfgfg";
-	static String companyPhone = "+3254841 +464646546";
-	static String companyDetails = "safgsdfg dfgadgfsdg dfgsdfgsdgf";
+	static String companyAdd = "Mahavir Traders";
+	static String companyPhone = "9827086122";
+	static String companyDetails = "Ujjain";
 	public static String getInvoicePrefix() {
 		return invoicePrefix;
 	}

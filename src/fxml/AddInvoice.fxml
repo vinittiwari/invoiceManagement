@@ -135,12 +135,13 @@
 						</FXCollections>
 					</items>
 				</ComboBox>
+				<Label layoutX="544.0" layoutY="42.0" prefHeight="44.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Address:" />
 				<TextArea id="party_address" fx:id="party_address" layoutX="657.0" layoutY="31.0" prefHeight="54.0" prefWidth="508.0" />
       
       		<Label layoutX="820.0" layoutY="130.0" style="-fx-font: NORMAL 20 Tahoma;" text="Invoice Date:" />
             
             <DatePicker id="invoice_date" fx:id="invoice_date" layoutX="965.0" layoutY="129.0" />
-            <Label layoutX="544.0" layoutY="42.0" prefHeight="44.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Address:" />
+            
             
             <Label layoutX="804.0" layoutY="165.0" style="-fx-font: NORMAL 20 Tahoma;" text="Dispatch Date:" />
             <DatePicker id="dispatch_date" fx:id="dispatch_date" layoutX="965.0" layoutY="164.0" />
@@ -149,22 +150,22 @@
             <TextField fx:id="party_state_slt" layoutX="115.0" layoutY="116.0" promptText="" />
             <Label layoutX="659.0" layoutY="2.0" prefHeight="2.0" prefWidth="171.0" style="-fx-font: NORMAL 20 Tahoma;" text="Invoice Number" />
             <TextField fx:id="invoicenumber" layoutX="839.0" layoutY="3.0" promptText="" />
-            <ComboBox id="transporter" fx:id="transporter" layoutX="44.0" layoutY="225.0" prefHeight="37.0" prefWidth="290.0" promptText="Transporter Name">
+            <ComboBox id="transporter" fx:id="transporter" layoutX="35.0" layoutY="191.0" prefHeight="37.0" prefWidth="290.0" promptText="Transporter Name">
                <items>
                   <FXCollections fx:factory="observableArrayList" />
                </items>
             </ComboBox>
-            <TextField fx:id="vehicalTransporter" layoutX="149.0" layoutY="287.0" promptText="" />
-            <Label layoutX="47.0" layoutY="287.0" prefHeight="25.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Vehical:" />
-            <Label layoutX="541.0" layoutY="247.0" prefHeight="25.0" prefWidth="115.0" style="-fx-font: NORMAL 20 Tahoma;" text="Mobile no.:" />
-            <TextField fx:id="mobilenumTransporter" layoutX="666.0" layoutY="248.0" prefHeight="25.0" prefWidth="185.0" promptText="" />
+            <TextField fx:id="vehicalTransporter" layoutX="169.0" layoutY="247.0" promptText="" />
+            <Label layoutX="35.0" layoutY="247.0" prefHeight="25.0" prefWidth="104.0" style="-fx-font: NORMAL 20 Tahoma;" text="Vehicle:" />
+            <Label layoutX="35.0" layoutY="287.0" prefHeight="25.0" prefWidth="115.0" style="-fx-font: NORMAL 20 Tahoma;" text="Mobile no.:" />
+            <TextField fx:id="mobilenumTransporter" layoutX="169.0" layoutY="287.0" prefHeight="25.0" prefWidth="185.0" promptText="" />
             <Label fx:id="invoicedate_valid" layoutX="1168.0" layoutY="133.0" prefHeight="18.0" prefWidth="64.0" text="*Invalid" textFill="RED" />
             <Label fx:id="dispatchdate_valid" layoutX="1168.0" layoutY="169.0" prefHeight="18.0" prefWidth="64.0" text="*Invalid" textFill="RED" />
             <Label fx:id="party_valid" layoutX="334.0" layoutY="41.0" prefHeight="18.0" prefWidth="95.0" text="*Please Select" textFill="RED" />
             <Label fx:id="itemrequired_valid" layoutX="1040.0" layoutY="330.0" prefHeight="18.0" prefWidth="185.0" text="*Atleast one item required" textFill="RED" />
-            <Label fx:id="tramspoter_valid" layoutX="334.0" layoutY="235.0" prefHeight="18.0" prefWidth="95.0" text="*Please Select" textFill="RED" />
-            <Label fx:id="vehical_valid" layoutX="329.0" layoutY="293.0" prefHeight="18.0" prefWidth="64.0" text="*Invalid" textFill="RED" />
-            <Label fx:id="mobile_valid" layoutX="851.0" layoutY="253.0" prefHeight="18.0" prefWidth="64.0" text="*Invalid" textFill="RED" />
+            <Label fx:id="tramspoter_valid" layoutX="334.0" layoutY="200.0" prefHeight="18.0" prefWidth="95.0" text="*Please Select" textFill="RED" />
+            <Label fx:id="vehical_valid" layoutX="325.0" layoutY="252.0" prefHeight="18.0" prefWidth="64.0" text="*Invalid" textFill="RED" />
+            <Label fx:id="mobile_valid" layoutX="357.0" layoutY="291.0" prefHeight="18.0" prefWidth="64.0" text="*Invalid" textFill="RED" />
 				<!-- <TextField fx:id="welcomeText" text="home" layoutX="114.0"
 					layoutY="22.0" prefHeight="25.0" prefWidth="258.0" /> -->
 			</children>

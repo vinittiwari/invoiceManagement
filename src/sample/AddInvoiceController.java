@@ -92,7 +92,7 @@ public class AddInvoiceController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 
@@ -101,7 +101,7 @@ public class AddInvoiceController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	
@@ -124,8 +124,8 @@ public class AddInvoiceController {
 		price.setEditable(false);
 		item_id.setEditable(false);
 		invoice_total.setEditable(false);
-		party_address.setEditable(false);
-		invoicenumber.setEditable(false);
+		//party_address.setEditable(false);
+		//invoicenumber.setEditable(false);
 		party_state_slt.setEditable(false);
 		userstate = Constants.getState();
 		
@@ -136,6 +136,8 @@ public class AddInvoiceController {
 		tramspoter_valid.setVisible(false);
 		vehical_valid.setVisible(false);
 		mobile_valid.setVisible(false);
+		
+		
 		
 		System.out.println("userstate " + userstate);
 		populateTranspoter();
@@ -386,7 +388,7 @@ public class AddInvoiceController {
 		});
 		new ComboBoxAutoComplete(party_name);
 		new ComboBoxAutoComplete(itemListO);
-		invoicenumber.setText(Constants.getInvoicePrefix() + String.valueOf(oldInvoice+1));
+		invoicenumber.setText(String.valueOf(oldInvoice+1));
 	}
 	
 	private void characterLimit(TextField textFeildname, int maxlimit) {
@@ -444,7 +446,7 @@ public class AddInvoiceController {
 	protected void handleOnClickAddItem(ActionEvent event) {
 		System.out.println("----------->"+ isSameState);
 		if( party_name.getSelectionModel().getSelectedIndex() != -1){
-			if(isSameState){
+			if(!isSameState){
 				InvoiceEntry word = new InvoiceEntry();
 				word.setTable_item_id(item_id.getText());
 				word.setTable_item_name(itemListO.getItems().get(itemListO.getSelectionModel().getSelectedIndex()).toString());
@@ -610,10 +612,11 @@ public class AddInvoiceController {
 			LocalDate dispatch_invoice_date = dispatch_date.getValue();
 			String address = party_address.getText().replace(",", "~");
 			//String address1 = party_address1.getText();
-			int invoice_number = oldInvoice + 1;
+			//int invoice_number = oldInvoice + 1;
+			String invoice_number = invoicenumber.getText();
 			Connection c2;
 			c2 = DBConnectFlogger.connect();
-			String SQL = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,party_id,invoice_total,transporter_name,transporter_mobile,transporter_vehicalno) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\","+ invoice_number +",\"" + dispatch_invoice_date +"\",\""+ address+"\",\"" + party_id_db + "\"," + invoice_total.getText() + ",\""+ transporterName +"\",\"" + transporterMobile + "\",\""+ VehicalNo + "\")";
+			String SQL = "INSERT INTO invoice (item,party_name,invoice_date,invoice_number,dispatch_date,address,party_id,invoice_total,transporter_name,transporter_mobile,transporter_vehicalno) VALUES( \"" + JsonItem + "\",\"" + party_name_db + "\",\""+ date_invoice + "\",\""+ invoice_number +"\",\"" + dispatch_invoice_date +"\",\""+ address+"\",\"" + party_id_db + "\"," + invoice_total.getText() + ",\""+ transporterName +"\",\"" + transporterMobile + "\",\""+ VehicalNo + "\")";
 			System.out.println("---> query" + SQL);
 			int rs = c2.createStatement().executeUpdate(SQL);
 			System.out.println("Has added party" + rs);
@@ -711,6 +714,7 @@ public class AddInvoiceController {
 		    System.out.println("Entered Price: " + result.get());
 		    singleItemPrice = result.get();
 		    quantity.getSelectionModel().selectFirst();
+		    price.setText(result.get());
 		}
 		
 		// The Java 8 way to get the response value (with lambda expression).
@@ -781,4 +785,5 @@ public class AddInvoiceController {
 			System.out.println(e);
 		}
 	}
+	
 }
