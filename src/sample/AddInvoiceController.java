@@ -60,7 +60,7 @@ public class AddInvoiceController {
 	@FXML
 	private ComboBox itemListO, quantity, party_name,transporter;
 	String selectedParty_id;
-	float gst_amount,gstrate,cess_amount;
+	float gst_amount,gstrate,cess_amount,reduceAfterGST;
 	private HomeController homeController;
 	@FXML
 	private javafx.scene.control.TextField item_id, price,gst,item_total,invoice_total,party_state_slt,invoicenumber,cgst_totalAmount,sgst_totalAmount,igst_totalAmount,cess_totalAmount,itemPriceTotal,mobilenumTransporter,vehicalTransporter;	
@@ -220,12 +220,15 @@ public class AddInvoiceController {
 					int IntnewValue = Integer.parseInt(newValue);
 					int IntsingleItemPrice = Integer.parseInt(singleItemPrice);
 					cess_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(cess)/100));
-					price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
-					float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
-					gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
 					
+					float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
+					//gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
+					reduceAfterGST = (IntsingleItemPrice * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
 					//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
-					item_total.setText(String.valueOf(quantity_item_picetotal));
+					//item_total.setText(String.valueOf(quantity_item_picetotal));
+					price.setText(String.valueOf(reduceAfterGST));
+					gst_amount = ((IntsingleItemPrice * IntnewValue)-(reduceAfterGST));
+					item_total.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
 					}
 				}
 		});
@@ -274,7 +277,8 @@ public class AddInvoiceController {
 					quantity.getSelectionModel().selectFirst();
 					float item_picetotal =(Integer.parseInt(currentprice) * (Float.parseFloat(currentgst)/100)) + Integer.parseInt(currentprice);
 					System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
-					item_total.setText(String.valueOf(item_picetotal));
+					//item_total.setText(String.valueOf(item_picetotal));
+					item_total.setText(String.valueOf(currentprice));
  					gst.setText(currentgst + "%");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -714,7 +718,14 @@ public class AddInvoiceController {
 		    System.out.println("Entered Price: " + result.get());
 		    singleItemPrice = result.get();
 		    quantity.getSelectionModel().selectFirst();
-		    price.setText(result.get());
+		    //float rate = Float.parseFloat(currentgst)/100;
+		    //float rate_1 = 1 + rate;
+		   // float pr = Float.parseFloat(result.get()) / rate_1;
+		    float pricechanged = (Float.parseFloat(result.get()))/((1+(Float.parseFloat(currentgst)/100))*Float.parseFloat(result.get()));
+		    System.out.println("-------->"+pricechanged+"--------->"+currentgst);
+		    price.setText(String.valueOf(pricechanged));
+		    item_total.setText(singleItemPrice);
+		    
 		}
 		
 		// The Java 8 way to get the response value (with lambda expression).
