@@ -92,7 +92,7 @@ public class AddInvoiceController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 
@@ -101,7 +101,7 @@ public class AddInvoiceController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	
@@ -124,8 +124,8 @@ public class AddInvoiceController {
 		price.setEditable(false);
 		item_id.setEditable(false);
 		invoice_total.setEditable(false);
-		party_address.setEditable(false);
-		invoicenumber.setEditable(false);
+		//party_address.setEditable(false);
+		//invoicenumber.setEditable(false);
 		party_state_slt.setEditable(false);
 		userstate = Constants.getState();
 		
@@ -333,7 +333,7 @@ public class AddInvoiceController {
 		
 		vehicalTransporter.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[ -][0-9]{2}[ -][A-Z]{2}[ -][0-9]{4}");
+				isValidTVehical = ValidationCheck(newValue, "[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}");
 				System.out.println("Valid Name------>"+isValidTVehical.get());
 				if(isValidTVehical.get() == false){
 					vehical_valid.setVisible(true);
@@ -347,41 +347,44 @@ public class AddInvoiceController {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				System.out.println("Value is: " + newValue);
-				party_valid.setVisible(false);
-				try {
-					Connection c1;
-					c1 = DBConnectFlogger.connect();
-					String SQL = "SELECT * from party WHERE party_name = \"" + newValue + "\"";
-					// String SQL = "select * from user where username = \"" +
-					// userName.getText() + "\" and password = \"" +
-					// passwordField.getText() + "\";" ;
-					System.out.println("---> query" + SQL);
-					// ResultSet
-					ResultSet rs = c1.createStatement().executeQuery(SQL);
-					String current = null,current1=null,current2 = null;
-					while (rs.next()) {
-						if (rs.first()) {
-							current = rs.getString("address");
-							current1 = rs.getString("address1");
-							current2 = rs.getString("party_id");
-							party_state = rs.getString("state");
-							gstNo = rs.getString("gstin");
+					if(newValue != null && oldValue != newValue){
+						party_valid.setVisible(false);
+						try {
+							Connection c1;
+							c1 = DBConnectFlogger.connect();
+							String SQL = "SELECT * from party WHERE party_name = \"" + newValue + "\"";
+							// String SQL = "select * from user where username = \"" +
+							// userName.getText() + "\" and password = \"" +
+							// passwordField.getText() + "\";" ;
+							System.out.println("---> query" + SQL);
+							// ResultSet
+							ResultSet rs = c1.createStatement().executeQuery(SQL);
+							String current = null,current1=null,current2 = null;
+							while (rs.next()) {
+								if (rs.first()) {
+									current = rs.getString("address");
+									current1 = rs.getString("address1");
+									current2 = rs.getString("party_id");
+									party_state = rs.getString("state");
+									gstNo = rs.getString("gstin");
+								}
+							}
+							System.out.println("---->" + current+ "--->" + gstNo);
+							int partyStateCode = Integer.parseInt(gstNo.substring(0,2));
+							if(userstate == partyStateCode){
+								isSameState = true;
+								System.out.println("-------------->" + isSameState);
+							}
+							party_address.setText(current);
+							//party_address1.setText(current1);
+							selectedParty_id = current2;
+							party_state_slt.setText(party_state);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
-					System.out.println("---->" + current+ "--->" + gstNo);
-					int partyStateCode = Integer.parseInt(gstNo.substring(0,2));
-					if(userstate == partyStateCode){
-						isSameState = true;
-						System.out.println("-------------->" + isSameState);
-					}
-					party_address.setText(current);
-					//party_address1.setText(current1);
-					selectedParty_id = current2;
-					party_state_slt.setText(party_state);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}
 		});
 		new ComboBoxAutoComplete(party_name);
@@ -444,7 +447,7 @@ public class AddInvoiceController {
 	protected void handleOnClickAddItem(ActionEvent event) {
 		System.out.println("----------->"+ isSameState);
 		if( party_name.getSelectionModel().getSelectedIndex() != -1){
-			if(isSameState){
+			if(!isSameState){
 				InvoiceEntry word = new InvoiceEntry();
 				word.setTable_item_id(item_id.getText());
 				word.setTable_item_name(itemListO.getItems().get(itemListO.getSelectionModel().getSelectedIndex()).toString());
@@ -602,7 +605,8 @@ public class AddInvoiceController {
 			System.out.println("*****handleOnClickAddInvoice**********");
 			String transporterMobile = mobilenumTransporter.getText();
 			String VehicalNo = vehicalTransporter.getText();
-			String transporterName = transporter.getItems().get(transporter.getSelectionModel().getSelectedIndex()).toString();
+			String transporterName = "NA";
+			if(transporter.getSelectionModel().getSelectedIndex() != null) transporterName = transporter.getItems().get(transporter.getSelectionModel().getSelectedIndex()).toString();
 			String JsonItem = ConvertItemIntoJson();
 			String party_name_db = party_name.getItems().get(party_name.getSelectionModel().getSelectedIndex()).toString();
 			String party_id_db = selectedParty_id;
@@ -642,7 +646,7 @@ public class AddInvoiceController {
 							+ " transporter "+  transporter.getSelectionModel().getSelectedIndex() 
 							+ "Transporter mobile " + isValidTMobile.get());
 		if(invoice_date.getValue()!=null && dispatch_date.getValue()!=null && party_name.getSelectionModel().getSelectedIndex() !=-1 
-			&& 	tableView.getItems().size()>0 && transporter.getSelectionModel().getSelectedIndex() !=-1 && isValidTMobile.get()) {
+			&& 	tableView.getItems().size()>0  && isValidTMobile.get()) {
 			return true;
 		}else{
 			if(invoice_date.getValue()!=null) invoicedate_valid.setVisible(false); 
@@ -653,8 +657,7 @@ public class AddInvoiceController {
 			else party_valid.setVisible(true);
 			if(tableView.getItems().size()>0) itemrequired_valid.setVisible(false); 
 			else itemrequired_valid.setVisible(true);
-			if( transporter.getSelectionModel().getSelectedIndex() !=-1) tramspoter_valid.setVisible(false); 
-			else tramspoter_valid.setVisible(true);
+			
 			if( isValidTMobile.get()) mobile_valid.setVisible(false); 
 			else mobile_valid.setVisible(true);
 			if( isValidTVehical.get()) vehical_valid.setVisible(false); 
