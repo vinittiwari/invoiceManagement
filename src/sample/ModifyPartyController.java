@@ -225,7 +225,7 @@ public class ModifyPartyController {
 							ShowAlert.callAlert("Error", "Please check given Details again.");
 						}
 					} catch (Exception e) {
-							ShowAlert.callAlert("Error", e.getMessage()");
+							ShowAlert.callAlert("Error", e.getMessage());
 							System.out.println(e);
 					}
 				}else{
