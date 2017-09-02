@@ -54,7 +54,7 @@ public class AddPartyController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	BooleanBinding isValidName = new BooleanBinding() {
@@ -70,11 +70,11 @@ public class AddPartyController {
 		@Override
 		protected boolean computeValue() {
 			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 	};
 	
-	boolean isValidEmail1= false,isValidState=false;
+	boolean isValidEmail1= true,isValidState=false;
 	
 	
 
@@ -109,7 +109,7 @@ public class AddPartyController {
 		
 		gstin.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				isValidGST = ValidationCheck(newValue, "[0123]{1}[0-9]{1}[A-Z]{5}[0-9]{4}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{1}");
+				isValidGST = ValidationCheck(newValue, "[0123]{1}[0-9]{1}[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}[0-9]{1}[A-Za-z]{1}[0-9A-Za-z]{1}");
 				System.out.println("Valid Gst------>"+isValidGST.get());
 				if(isValidGST.get() == false){
 					gstno_valid.setVisible(true);
@@ -280,6 +280,7 @@ public class AddPartyController {
 					ShowAlert.callAlert("Error", "Please check given Details again.");
 				}
 			} catch (Exception e) {
+				ShowAlert.callAlert("Error", e.getMessage());
 				System.out.println(e);
 			}
 		}else{
