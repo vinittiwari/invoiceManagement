@@ -49,7 +49,7 @@ public class Constants {
 	public static void setCompanyDetails(String companyDetails) {
 		Constants.companyDetails = companyDetails;
 	}
-	static String companyAdd = "Mahavir Traders";
+	static String companyAdd = "17-18 Kshram Shivir Koyla Phatak Square";
 	static String companyPhone = "9827086122";
 	static String companyDetails = "Ujjain";
 	public static String getInvoicePrefix() {
