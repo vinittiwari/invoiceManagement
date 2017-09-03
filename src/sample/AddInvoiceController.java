@@ -51,7 +51,7 @@ public class AddInvoiceController {
 	// private Text welcomeText;
 	int isSelectedFreeItem = 0;
 	String singleItemPrice;
-	String party_state,gstNo;
+	String party_state,gstNo=null;
 	int userstate;
 	Boolean isSameState = false, isFirstInvoice = false ;
 	int oldInvoice = 0;
@@ -382,11 +382,12 @@ public class AddInvoiceController {
 							current1 = rs.getString("address1");
 							current2 = rs.getString("party_id");
 							party_state = rs.getString("state");
-							gstNo = rs.getString("gstin");
+							if(!rs.getString("gstin").isEmpty()) gstNo = rs.getString("gstin");
 						}
 					}
-					System.out.println("---->" + current+ "--->" + gstNo);
-					int partyStateCode = Integer.parseInt(gstNo.substring(0,2));
+					if(gstNo != null) System.out.println("---->" + current+ "--->" + gstNo);
+					int partyStateCode = Constants.getState();
+					if(gstNo != null) partyStateCode = Integer.parseInt(gstNo.substring(0,2));
 					System.out.println("partyStateCode---->" + partyStateCode +"->Userstate---->"+ userstate);
 					if(userstate == partyStateCode){
 						isSameState = true;
