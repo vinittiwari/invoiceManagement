@@ -224,10 +224,13 @@ public class AddInvoiceController {
 					
 					float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
 					//gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
-					reduceAfterGST = (IntsingleItemPrice * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
+					reduceAfterGST = (IntsingleItemPrice * 1)/(1+(Float.parseFloat(currentgst)/100)*1) * IntnewValue;
 					//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
 					//item_total.setText(String.valueOf(quantity_item_picetotal));
 					price.setText(String.valueOf(reduceAfterGST));
+					
+					
+					
 					System.out.println("reducedGST--->"+reduceAfterGST);
 					gst_amount = ((IntsingleItemPrice * IntnewValue)-(reduceAfterGST));
 					item_total.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
