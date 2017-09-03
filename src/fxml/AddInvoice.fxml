@@ -115,7 +115,7 @@
 		</TableView>
 		<HBox alignment="BOTTOM_LEFT" spacing="10" GridPane.rowIndex="4">
 			<children>
-            <ComboBox id="itemListO" fx:id="itemListO" prefWidth="150.0" promptText="Item Name" />
+            <ComboBox fx:id="itemListO" prefWidth="150.0" promptText="Item Name" />
 				<TextField fx:id="item_id" prefWidth="90" promptText="Item Id" />
 				<ComboBox id="quantity" fx:id="quantity" prefWidth="150" promptText="Quantity" />
 				<TextField fx:id="price" prefWidth="150" promptText="Price" />

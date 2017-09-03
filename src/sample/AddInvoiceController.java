@@ -216,6 +216,7 @@ public class AddInvoiceController {
 		quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				System.out.println("onChangeItem Quantity"+newValue);
 				if(newValue != null){
 					int IntnewValue = Integer.parseInt(newValue);
 					int IntsingleItemPrice = Integer.parseInt(singleItemPrice);
@@ -227,6 +228,7 @@ public class AddInvoiceController {
 					//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
 					//item_total.setText(String.valueOf(quantity_item_picetotal));
 					price.setText(String.valueOf(reduceAfterGST));
+					System.out.println("reducedGST--->"+reduceAfterGST);
 					gst_amount = ((IntsingleItemPrice * IntnewValue)-(reduceAfterGST));
 					item_total.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
 					}
@@ -243,18 +245,18 @@ public class AddInvoiceController {
 		itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println("Value is: " + newValue);
-				if(newValue != null){
+				System.out.println("onChangeItem itemList"+newValue + "---->oldValue--->" + oldValue);
+				if(newValue != null && oldValue != newValue){
 				try {
-					Connection c1;
-					c1 = DBConnectFlogger.connect();
+					Connection c5;
+					c5 = DBConnectFlogger.connect();
 					String SQL = "SELECT * from item WHERE item_name = \"" + newValue + "\"";
 					// String SQL = "select * from user where username = \"" +
 					// userName.getText() + "\" and password = \"" +
 					// passwordField.getText() + "\";" ;
 					System.out.println("---> query" + SQL);
 					// ResultSet
-					ResultSet rs = c1.createStatement().executeQuery(SQL);
+					ResultSet rs = c5.createStatement().executeQuery(SQL);
 					String current = null, currentprice = null;
 					while (rs.next()) {
 						if (rs.first()) {
@@ -272,7 +274,13 @@ public class AddInvoiceController {
 					System.out.println("---->" + current);
 					item_id.setText(current);
 					singleItemPrice = currentprice;
-					price.setText(currentprice);
+					
+					 	int IntnewValue = 1;
+					    float changedPricePer = (Float.parseFloat(currentprice) * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
+						price.setText(String.valueOf(changedPricePer));
+						
+						gst_amount = ((Float.parseFloat(currentprice) * IntnewValue)-(changedPricePer));
+						
 					quantity.getItems().addAll(observableListOfQuantity);
 					quantity.getSelectionModel().selectFirst();
 					float item_picetotal =(Integer.parseInt(currentprice) * (Float.parseFloat(currentgst)/100)) + Integer.parseInt(currentprice);
@@ -280,12 +288,15 @@ public class AddInvoiceController {
 					//item_total.setText(String.valueOf(item_picetotal));
 					item_total.setText(String.valueOf(currentprice));
  					gst.setText(currentgst + "%");
+ 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				}}
 		});
+		 
+		 
 
 		Connection c3;
 		int rowcount3 = 0;
@@ -352,7 +363,7 @@ public class AddInvoiceController {
 		party_name.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println("Value is: " + newValue);
+				System.out.println("onChangeItem Party"+newValue);
 				party_valid.setVisible(false);
 				try {
 					Connection c1;
@@ -376,6 +387,7 @@ public class AddInvoiceController {
 					}
 					System.out.println("---->" + current+ "--->" + gstNo);
 					int partyStateCode = Integer.parseInt(gstNo.substring(0,2));
+					System.out.println("partyStateCode---->" + partyStateCode +"->Userstate---->"+ userstate);
 					if(userstate == partyStateCode){
 						isSameState = true;
 						System.out.println("-------------->" + isSameState);
@@ -469,6 +481,7 @@ public class AddInvoiceController {
 				word.setTable_cess_amount(String.valueOf(cess_amount));
 				data.add(word);
 				tableView.setItems(data);
+				
 				item_id.clear();
 				price.clear();
 				gst.clear();
@@ -508,6 +521,7 @@ public class AddInvoiceController {
 				word.setTable_cess_amount(String.valueOf(cess_amount));
 				data.add(word);
 				tableView.setItems(data);
+				
 				item_id.clear();
 				price.clear();
 				gst.clear();
@@ -721,10 +735,17 @@ public class AddInvoiceController {
 		    //float rate = Float.parseFloat(currentgst)/100;
 		    //float rate_1 = 1 + rate;
 		   // float pr = Float.parseFloat(result.get()) / rate_1;
-		    float pricechanged = (Float.parseFloat(result.get()))/((1+(Float.parseFloat(currentgst)/100))*Float.parseFloat(result.get()));
+		    /*float pricechanged = (Float.parseFloat(result.get()))/((1+(Float.parseFloat(currentgst)/100))*Float.parseFloat(result.get()));
 		    System.out.println("-------->"+pricechanged+"--------->"+currentgst);
-		    price.setText(String.valueOf(pricechanged));
+		    price.setText(String.valueOf(pricechanged));*/
+		    int IntnewValue = 1;
+		    float changedPricePer = (Float.parseFloat(result.get()) * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
+			//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+			//item_total.setText(String.valueOf(quantity_item_picetotal));
+			price.setText(String.valueOf(changedPricePer));
+			System.out.println("changedPricePer--->"+changedPricePer);
 		    item_total.setText(singleItemPrice);
+		    gst_amount = ((Float.parseFloat(result.get()) * IntnewValue)-(changedPricePer));
 		    
 		}
 		
