@@ -245,14 +245,19 @@ public class AddInvoiceController {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if(newValue != null){
 				int IntnewValue = Integer.parseInt(newValue);
-				int IntsingleItemPrice = Integer.parseInt(singleItemPrice);
-				cess_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(cess)/100));
-				price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
-				float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
-				gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
+				float IntsingleItemPrice = Float.parseFloat(singleItemPrice);
+				float changedPricePer = (IntsingleItemPrice * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*1);
+				gst_amount = ((IntsingleItemPrice * IntnewValue)-(changedPricePer));
+				System.out.println("price-->changedPricePer--->"+changedPricePer + "--->" + IntsingleItemPrice + "--->" + Float.parseFloat(currentgst)/100);
+				price.setText(String.valueOf(changedPricePer));
+				item_total.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
+				//cess_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(cess)/100));
+				//price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
+				//float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
+				//gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
 				
 				//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
-				item_total.setText(String.valueOf(quantity_item_picetotal));
+				//item_total.setText(String.valueOf(quantity_item_picetotal));
 				}}
 		});
 		
@@ -290,23 +295,22 @@ public class AddInvoiceController {
 					for (int i = 1; i <= 100; i++) {
 						listOfItemQuantity.add(String.valueOf(i));
 					}
-					ObservableList<String> observableListOfQuantity = FXCollections
-							.observableArrayList(listOfItemQuantity);
-					System.out.println("---->" + current);
-					item_id.setText(current);
+					ObservableList<String> observableListOfQuantity = FXCollections.observableArrayList(listOfItemQuantity);
+										
 					singleItemPrice = currentprice;
 					
-					 	int IntnewValue = 1;
-					    float changedPricePer = (Float.parseFloat(currentprice) * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
-						price.setText(String.valueOf(changedPricePer));
-						
-						gst_amount = ((Float.parseFloat(currentprice) * IntnewValue)-(changedPricePer));
-						
+					int IntnewValue = 1;
+					float changedPricePer = (Float.parseFloat(currentprice) * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
+					
+					gst_amount = ((Float.parseFloat(currentprice) * IntnewValue)-(changedPricePer));
+					
+					System.out.println("price-->changedPricePer--->"+changedPricePer + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+					
+					
+					price.setText(String.valueOf(changedPricePer));
 					quantity.getItems().addAll(observableListOfQuantity);
 					quantity.getSelectionModel().selectFirst();
-					float item_picetotal =(Integer.parseInt(currentprice) * (Float.parseFloat(currentgst)/100)) + Integer.parseInt(currentprice);
-					System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
-					//item_total.setText(String.valueOf(item_picetotal));
+					item_id.setText(current);
 					item_total.setText(String.valueOf(currentprice));
  					gst.setText(currentgst + "%");
  					

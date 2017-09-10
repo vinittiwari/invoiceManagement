@@ -313,7 +313,7 @@ public class ModifyInvoiceController {
 		
 
 	
-		quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+/*		quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if(newValue != null){
@@ -326,6 +326,27 @@ public class ModifyInvoiceController {
 				
 				//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
 				item_total.setText(String.valueOf(quantity_item_picetotal));
+				}}
+		});*/
+		
+		quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if(newValue != null){
+				int IntnewValue = Integer.parseInt(newValue);
+				float IntsingleItemPrice = Float.parseFloat(singleItemPrice);
+				float changedPricePer = (IntsingleItemPrice * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*1);
+				gst_amount = ((IntsingleItemPrice * IntnewValue)-(changedPricePer));
+				System.out.println("price-->changedPricePer--->"+changedPricePer + "--->" + IntsingleItemPrice + "--->" + Float.parseFloat(currentgst)/100);
+				price.setText(String.valueOf(changedPricePer));
+				item_total.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
+				//cess_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(cess)/100));
+				//price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
+				//float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
+				//gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
+				
+				//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+				//item_total.setText(String.valueOf(quantity_item_picetotal));
 				}}
 		});
 		
@@ -383,49 +404,59 @@ public class ModifyInvoiceController {
 				}
 			});*/
 
-		/*itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println("Value is: " + newValue);
-				if(newValue != null){
-				try {
-					Connection c1;
-					c1 = DBConnectFlogger.connect();
-					String SQL = "SELECT * from item WHERE item_name = \"" + newValue + "\"";
-					// String SQL = "select * from user where username = \"" +
-					// userName.getText() + "\" and password = \"" +
-					// passwordField.getText() + "\";" ;
-					System.out.println("---> query" + SQL);
-					// ResultSet
-					ResultSet rs = c1.createStatement().executeQuery(SQL);
-					String current = null, currentprice = null;
-					while (rs.next()) {
-						if (rs.first()) {
-							current = rs.getString("item_id");
-							currentprice = rs.getString("price");
-							currentgst = rs.getString("rate");
-							cess = rs.getString("cess");
-						}
-					}
-					for (int i = 1; i <= 100; i++) {
-						listOfItemQuantity.add(String.valueOf(i));
-					}
-					ObservableList<String> observableListOfQuantity = FXCollections
-							.observableArrayList(listOfItemQuantity);
-					System.out.println("---->" + current);
-					item_id.setText(current);
-					singleItemPrice = currentprice;
-					price.setText(currentprice);
-					quantity.getItems().addAll(observableListOfQuantity);
-					quantity.getSelectionModel().selectFirst();
-					gst.setText(currentgst + "%");
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}}
-		});*/
 			itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					System.out.println("onChangeItem itemList"+newValue + "---->oldValue--->" + oldValue);
+					if(newValue != null && oldValue != newValue){
+					try {
+						Connection c5;
+						c5 = DBConnectFlogger.connect();
+						String SQL = "SELECT * from item WHERE item_name = \"" + newValue + "\"";
+						// String SQL = "select * from user where username = \"" +
+						// userName.getText() + "\" and password = \"" +
+						// passwordField.getText() + "\";" ;
+						System.out.println("---> query" + SQL);
+						// ResultSet
+						ResultSet rs = c5.createStatement().executeQuery(SQL);
+						String current = null, currentprice = null;
+						while (rs.next()) {
+							if (rs.first()) {
+								current = rs.getString("item_id");
+								currentprice = rs.getString("price");
+								currentgst = rs.getString("rate");
+								cess = rs.getString("cess");
+							}
+						}
+						for (int i = 1; i <= 100; i++) {
+							listOfItemQuantity.add(String.valueOf(i));
+						}
+						ObservableList<String> observableListOfQuantity = FXCollections.observableArrayList(listOfItemQuantity);
+											
+						singleItemPrice = currentprice;
+						
+						int IntnewValue = 1;
+						float changedPricePer = (Float.parseFloat(currentprice) * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
+						
+						gst_amount = ((Float.parseFloat(currentprice) * IntnewValue)-(changedPricePer));
+						
+						System.out.println("price-->changedPricePer--->"+changedPricePer + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+						
+						
+						price.setText(String.valueOf(changedPricePer));
+						quantity.getItems().addAll(observableListOfQuantity);
+						quantity.getSelectionModel().selectFirst();
+						item_id.setText(current);
+						item_total.setText(String.valueOf(currentprice));
+	 					gst.setText(currentgst + "%");
+	 					
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					}}
+			});
+			/*itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 				@Override
 				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 					System.out.println("onChangeItem itemList"+newValue + "---->oldValue--->" + oldValue);
@@ -477,7 +508,7 @@ public class ModifyInvoiceController {
 						e.printStackTrace();
 					}
 					}}
-			});
+			});*/
 		
 		characterLimit(mobilenumber, 12);
 		characterLimit(vehicalnumber, 13);
