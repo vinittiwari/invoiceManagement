@@ -383,7 +383,7 @@ public class ModifyInvoiceController {
 				}
 			});*/
 
-		itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		/*itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				System.out.println("Value is: " + newValue);
@@ -424,7 +424,60 @@ public class ModifyInvoiceController {
 					e.printStackTrace();
 				}
 			}}
-		});
+		});*/
+			itemListO.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					System.out.println("onChangeItem itemList"+newValue + "---->oldValue--->" + oldValue);
+					if(newValue != null && oldValue != newValue){
+					try {
+						Connection c5;
+						c5 = DBConnectFlogger.connect();
+						String SQL = "SELECT * from item WHERE item_name = \"" + newValue + "\"";
+						// String SQL = "select * from user where username = \"" +
+						// userName.getText() + "\" and password = \"" +
+						// passwordField.getText() + "\";" ;
+						System.out.println("---> query" + SQL);
+						// ResultSet
+						ResultSet rs = c5.createStatement().executeQuery(SQL);
+						String current = null, currentprice = null;
+						while (rs.next()) {
+							if (rs.first()) {
+								current = rs.getString("item_id");
+								currentprice = rs.getString("price");
+								currentgst = rs.getString("rate");
+								cess = rs.getString("cess");
+							}
+						}
+						for (int i = 1; i <= 100; i++) {
+							listOfItemQuantity.add(String.valueOf(i));
+						}
+						ObservableList<String> observableListOfQuantity = FXCollections
+								.observableArrayList(listOfItemQuantity);
+						System.out.println("---->" + current);
+						item_id.setText(current);
+						singleItemPrice = currentprice;
+						
+						 	int IntnewValue = 1;
+						    float changedPricePer = (Float.parseFloat(currentprice) * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
+							price.setText(String.valueOf(changedPricePer));
+							
+							gst_amount = ((Float.parseFloat(currentprice) * IntnewValue)-(changedPricePer));
+							
+						quantity.getItems().addAll(observableListOfQuantity);
+						quantity.getSelectionModel().selectFirst();
+						float item_picetotal =(Integer.parseInt(currentprice) * (Float.parseFloat(currentgst)/100)) + Integer.parseInt(currentprice);
+						System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+						//item_total.setText(String.valueOf(item_picetotal));
+						item_total.setText(String.valueOf(currentprice));
+	 					gst.setText(currentgst + "%");
+	 					
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					}}
+			});
 		
 		characterLimit(mobilenumber, 12);
 		characterLimit(vehicalnumber, 13);
@@ -440,7 +493,7 @@ public class ModifyInvoiceController {
 	    return localDate;
 	}
 	
-	@FXML
+	/*@FXML
 	protected void handleOnClickAddItem(ActionEvent event) {
 		System.out.println("----------->"+ isSameState);
 		if(!party_name.getText().isEmpty()){
@@ -531,6 +584,101 @@ public class ModifyInvoiceController {
 			quantity.getSelectionModel().clearSelection();
 		}
 		
+	}*/
+	
+	@FXML
+	protected void handleOnClickAddItem(ActionEvent event) {
+		System.out.println("----------->"+ isSameState);
+		if( !party_name.getText().isEmpty()){
+			if(!isSameState){
+				InvoiceEntry word = new InvoiceEntry();
+				word.setTable_item_id(item_id.getText());
+				word.setTable_item_name(itemListO.getItems().get(itemListO.getSelectionModel().getSelectedIndex()).toString());
+				word.setTable_quantity(quantity.getItems().get(quantity.getSelectionModel().getSelectedIndex()).toString());
+				word.setTable_price(price.getText());
+				word.setTable_gst("0" +"%");
+				word.setTable_gst_amount("0");
+				word.setTable_total(item_total.getText());
+				word.setTable_igst(gst.getText()+ "%");
+				word.setTable_igst_amount(String.valueOf((gst_amount)));
+				word.setTable_cgst("0"+ "%");
+				word.setTable_cgst_amount("0");
+				word.setTable_sgst("0"+ "%");
+				word.setTable_sgst_amount("0");
+				word.setTable_cess(String.valueOf(cess)+ "%");
+				word.setTable_cess_amount(String.valueOf(cess_amount));
+				data.add(word);
+				tableView.setItems(data);
+				
+				item_id.clear();
+				price.clear();
+				gst.clear();
+				item_total.clear();
+				itemListO.getSelectionModel().clearSelection();
+				quantity.getSelectionModel().clearSelection();
+				
+				
+				//ObservableList subentries = FXCollections.observableArrayList();
+				
+		        
+		        totalItems("Total(AP+GST)",invoice_total);
+		        totalItems("Price (Q*P)",itemPriceTotal);
+		        subColumn_totalItems(4,"Amount",cgst_totalAmount);
+		        subColumn_totalItems(5,"Amount",sgst_totalAmount);
+		        subColumn_totalItems(6,"Amount",igst_totalAmount);
+		        subColumn_totalItems(7,"Amount",cess_totalAmount);
+		       
+			}else{
+				InvoiceEntry word = new InvoiceEntry();
+				word.setTable_item_id(item_id.getText());
+				word.setTable_item_name(itemListO.getItems().get(itemListO.getSelectionModel().getSelectedIndex()).toString());
+				word.setTable_quantity(quantity.getItems().get(quantity.getSelectionModel().getSelectedIndex()).toString());
+				word.setTable_price(price.getText());
+				float gst_amount_set = gst_amount/2;
+				float currentgstRate = Integer.parseInt(currentgst); 
+				word.setTable_gst(String.valueOf(currentgstRate/2) + "%");
+				word.setTable_gst_amount(String.valueOf(gst_amount_set));
+				//word.setTable_cgst(String.valueOf(currentgstRate/2));
+				//word.setTable_cgst_amount(String.valueOf(gst_amount_set));
+				word.setTable_sgst(String.valueOf(currentgstRate/2) + "%");
+				word.setTable_sgst_amount(String.valueOf(gst_amount_set));
+				word.setTable_igst("0" + "%");
+				word.setTable_igst_amount("0");
+				word.setTable_total(item_total.getText());
+				word.setTable_cess(String.valueOf(cess)+ "%");
+				word.setTable_cess_amount(String.valueOf(cess_amount));
+				data.add(word);
+				tableView.setItems(data);
+				
+				item_id.clear();
+				price.clear();
+				gst.clear();
+				item_total.clear();
+				itemListO.getSelectionModel().clearSelection();
+				quantity.getSelectionModel().clearSelection();
+				
+				
+				totalItems("Total(AP+GST)",invoice_total);
+		        totalItems("Price (Q*P)",itemPriceTotal);
+		        subColumn_totalItems(4,"Amount",cgst_totalAmount);
+		        subColumn_totalItems(5,"Amount",sgst_totalAmount);
+		        subColumn_totalItems(6,"Amount",igst_totalAmount);
+		        subColumn_totalItems(7,"Amount",cess_totalAmount);
+			}
+			itemrequired_valid.setVisible(false);
+		}else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Add Item");
+			alert.setHeaderText("Please Select Party first");
+			//alert.setContentText("Added invoice successfully");
+			alert.showAndWait();
+			item_id.clear();
+			price.clear();
+			gst.clear();
+			item_total.clear();
+			itemListO.getSelectionModel().clearSelection();
+			quantity.getSelectionModel().clearSelection();
+		}
 	}
 	private void totalItems(String columnName, TextField columnField) {
 		List<Float> item_priceTotal = new ArrayList<>();

@@ -213,7 +213,7 @@ public class AddInvoiceController {
 			// TODO: handle exception
 		}
 		
-		quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		/*quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				System.out.println("onChangeItem Quantity"+newValue);
@@ -236,6 +236,24 @@ public class AddInvoiceController {
 					item_total.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
 					}
 				}
+		});*/
+		
+
+		
+		quantity.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if(newValue != null){
+				int IntnewValue = Integer.parseInt(newValue);
+				int IntsingleItemPrice = Integer.parseInt(singleItemPrice);
+				cess_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(cess)/100));
+				price.setText(String.valueOf(IntsingleItemPrice * IntnewValue));
+				float quantity_item_picetotal =((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100)) + (IntsingleItemPrice * IntnewValue) + cess_amount;
+				gst_amount = ((IntsingleItemPrice * IntnewValue) * (Float.parseFloat(currentgst)/100));
+				
+				//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+				item_total.setText(String.valueOf(quantity_item_picetotal));
+				}}
 		});
 		
 		 invoice_date.valueProperty().addListener((ov, oldValue, newValue) -> {
