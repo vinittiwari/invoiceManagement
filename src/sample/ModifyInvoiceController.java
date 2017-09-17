@@ -737,7 +737,21 @@ public class ModifyInvoiceController {
 		    System.out.println("Entered Price: " + result.get());
 		    singleItemPrice = result.get();
 		    quantity.getSelectionModel().selectFirst();
-		    price.setText(result.get());
+		    //float rate = Float.parseFloat(currentgst)/100;
+		    //float rate_1 = 1 + rate;
+		   // float pr = Float.parseFloat(result.get()) / rate_1;
+		    /*float pricechanged = (Float.parseFloat(result.get()))/((1+(Float.parseFloat(currentgst)/100))*Float.parseFloat(result.get()));
+		    System.out.println("-------->"+pricechanged+"--------->"+currentgst);
+		    price.setText(String.valueOf(pricechanged));*/
+		    int IntnewValue = 1;
+		    float changedPricePer = (Float.parseFloat(result.get()) * IntnewValue)/(1+(Float.parseFloat(currentgst)/100)*IntnewValue);
+			//System.out.println("--->"+item_picetotal + "--->" + Integer.parseInt(currentprice) + "--->" + Float.parseFloat(currentgst)/100);
+			//item_total.setText(String.valueOf(quantity_item_picetotal));
+			price.setText(String.valueOf(changedPricePer));
+			System.out.println("changedPricePer--->"+changedPricePer);
+		    item_total.setText(singleItemPrice);
+		    gst_amount = ((Float.parseFloat(result.get()) * IntnewValue)-(changedPricePer));
+		    
 		}
 		
 		// The Java 8 way to get the response value (with lambda expression).
