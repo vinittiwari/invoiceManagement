@@ -7,12 +7,12 @@ public class Constants {
 		this.invoiceNo = invoiceNo;
 	}
 	static String Username;
-	static int state = 28;
+	static int state = 23;
 	static String invoiceNo = "1";
 	static String invoicePrefix = "MT";
 	static String companyName = "Mahavir Traders";
 	static String selectedInvoiceNumber = "";
-	static String company_gstin="23ADEPK828K1Z8";
+	static String company_gstin="23ADEPK8929K1Z8";
 	public static String getCompany_gstin() {
 		return company_gstin;
 	}
